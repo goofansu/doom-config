@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 brew 'fontconfig' # detect font
 brew 'pandoc' # markdown compiler
 brew 'shellcheck' # sh linter
@@ -10,3 +12,7 @@ cask 'font-jetbrains-mono'
 cask 'font-overpass'
 cask 'font-juliamono'
 cask 'font-ibm-plex-mono'
+
+# Emacs
+tap 'jimeh/emacs-builds'
+cask 'emacs-app'

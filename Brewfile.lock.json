@@ -240,6 +240,9 @@
     "tap": {
       "homebrew/cask-fonts": {
         "revision": "ea84fe986f222730527278fb6afa84c4809be411"
+      },
+      "jimeh/emacs-builds": {
+        "revision": "6cb6b5242bff03e22cab77cee3a307d936f6069f"
       }
     },
     "cask": {
@@ -265,6 +268,12 @@
         "version": "latest",
         "options": {
           "full_name": "font-ibm-plex-mono"
+        }
+      },
+      "emacs-app": {
+        "version": "28.2",
+        "options": {
+          "full_name": "emacs-app"
         }
       }
     }

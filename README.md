@@ -1,13 +1,6 @@
 # .doom.d
 😈 Doom Emacs configuration
 
-### Prerequisite
-
-``` shell
-brew tap jimeh/emacs-builds
-brew install --cask emacs-app
-```
-
 ### Install
 
 ```shell
