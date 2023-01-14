@@ -50,7 +50,7 @@
 ;; Buffer defaults
 (setq-default major-mode 'org-mode)
 (setq-default doom-scratch-initial-major-mode 'org-mode)
-(setq org-directory "~/src/org-notes"             ; let's put files here
+(setq org-directory "~/.org"                      ; let's put files here
       org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
@@ -150,8 +150,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 (map! :leader
-      :desc "Switch to last buffer" "<tab>" #'evil-switch-to-windows-last-buffer
-
       ;;; <leader> c g --- create private gist
       :desc "Create private Gist for region or buffer" "c g" #'gist-region-or-buffer-private
 
@@ -168,7 +166,7 @@
   (setq org-re-reveal-root "./reveal.js"))
 
 (after! rfc-mode
-  (setq rfc-mode-directory (expand-file-name "~/src/rfc/")))
+  (setq rfc-mode-directory "~/.rfc"))
 
 (after! ruby-mode
   :config
