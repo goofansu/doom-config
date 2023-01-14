@@ -1,7 +1,7 @@
 # .doom.d
 😈 Doom Emacs configuration
 
-### Install
+## Install
 
 ```shell
 gh repo clone goofansu/.doom.d ~/.doom.d
