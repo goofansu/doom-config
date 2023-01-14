@@ -2,7 +2,11 @@
 😈 Doom Emacs configuration
 
 ### Install
+
 ```shell
-cd $HOME
-gh repo clone goofansu/.doom.d
+gh repo clone goofansu/.doom.d ~/.doom.d
+cd ~/.doom.d && brew bundle
+
+gh repo clone doomemacs/doomemacs ~/.emacs.d -- --depth 1
+~/.emacs.d/bin/doom install
 ```

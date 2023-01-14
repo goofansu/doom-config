@@ -1,0 +1,12 @@
+brew 'fontconfig' # detect font
+brew 'pandoc' # markdown compiler
+brew 'shellcheck' # sh linter
+brew 'ripgrep'
+brew 'fd'
+
+# fonts
+tap 'homebrew/cask-fonts'
+cask 'font-jetbrains-mono'
+cask 'font-overpass'
+cask 'font-juliamono'
+cask 'font-ibm-plex-mono'
