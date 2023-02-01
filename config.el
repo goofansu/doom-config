@@ -24,9 +24,6 @@
 
 (display-time-mode 1)                             ; Enable time in the mode-line
 
-(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
-  (display-battery-mode 1))                       ; it's nice to know how much power you have
-
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 (menu-bar-mode -1)                                ; Hide menu bar
 
