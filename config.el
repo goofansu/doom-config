@@ -32,7 +32,7 @@
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; Auto-customisations
-(setq-default custom-file (expand-file-name ".custom.el" doom-user-dir))
+(setq-default custom-file (expand-file-name ".custom.el" doom-emacs-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
 
