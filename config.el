@@ -156,6 +156,10 @@
        "b" #'rfc-mode-browse
        "g" #'rfc-mode-goto-section))
 
+(use-package! exercism-mode
+  :after projectile
+  :config (exercism-mode +1))
+
 (after! magit
   (setq magit-repository-directories '(("~/src" . 2))))
 
