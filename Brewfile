@@ -5,6 +5,7 @@ brew 'pandoc' # markdown compiler
 brew 'shellcheck' # sh linter
 brew 'ripgrep'
 brew 'fd'
+brew 'deno' # format JSON
 
 # fonts
 tap 'homebrew/cask-fonts'
