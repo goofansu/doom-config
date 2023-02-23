@@ -177,6 +177,7 @@
 
 (after! ruby-mode
   :config
+  (setq ruby-indent-level 2)
   (add-hook 'ruby-mode-hook 'ruby-electric-mode))
 
 (after! web-mode
