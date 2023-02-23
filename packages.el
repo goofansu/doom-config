@@ -53,7 +53,6 @@
 (package! alchemist-company :disable t)
 (package! coffee-mode)
 (package! company-shell)
-(package! exercism-mode :recipe (:host github :repo "timotheosh/exercism-mode"))
 (package! format-all)
 (package! protobuf-mode)
 (package! rfc-mode)

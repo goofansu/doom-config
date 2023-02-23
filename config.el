@@ -156,9 +156,15 @@
        "b" #'rfc-mode-browse
        "g" #'rfc-mode-goto-section))
 
-(use-package! exercism-mode
-  :after projectile
-  :config (exercism-mode +1))
+(defun gh-pr-create ()
+  "Create pull request on GitHub"
+  (interactive)
+  (shell-command "gh pr create -w"))
+
+(defun gh-pr-view ()
+  "View pull request on GitHub"
+  (interactive)
+  (shell-command "gh pr view -w"))
 
 (after! magit
   (setq magit-repository-directories '(("~/src" . 2))))
