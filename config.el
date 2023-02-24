@@ -44,15 +44,6 @@
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
-;; Buffer defaults
-(setq-default major-mode 'org-mode)
-(setq-default doom-scratch-initial-major-mode 'org-mode)
-(setq org-directory "~/.org"                      ; let's put files here
-      org-use-property-inheritance t              ; it's convenient to have properties inherited
-      org-log-done 'time                          ; having the time a item is done sounds convenient
-      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-      org-catch-invisible-edits 'smart)           ; try not to accidently do weird stuff in invisible regions
-
 ;; Visual Settings
 (setq display-line-numbers-type t)
 
@@ -168,9 +159,6 @@
 
 (after! magit
   (setq magit-repository-directories '(("~/src" . 2))))
-
-(after! org-re-reveal
-  (setq org-re-reveal-root "./reveal.js"))
 
 (after! rfc-mode
   (setq rfc-mode-directory "~/.rfc"))
