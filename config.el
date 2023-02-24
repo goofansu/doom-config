@@ -157,8 +157,20 @@
   (interactive)
   (shell-command "gh pr view -w"))
 
+(defun elixir-format-before-save ()
+  (when (derived-mode-p 'elixir-mode)
+    (elixir-format)))
+
+(after! elixir-mode
+  :config
+  (add-hook 'before-save-hook #'elixir-format-before-save))
+
 (after! magit
   (setq magit-repository-directories '(("~/src" . 2))))
+
+(after! nix-mode
+  :config
+  (add-hook 'before-save-hook #'nix-format-before-save))
 
 (after! rfc-mode
   (setq rfc-mode-directory "~/.rfc"))
