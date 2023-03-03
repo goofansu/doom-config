@@ -21,7 +21,8 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company             ; the ultimate code completion backend
+       (company            ; the ultimate code completion backend
+        +childframe)       ; Display completion candidates in a child frame rather than an overlay or tooltip.
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
@@ -152,7 +153,9 @@
        ;;nim               ; python + lisp at the speed of c
        nix                 ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       ;; (org +present)   ; organize your plain life in plain text
+       (org                ; organize your plain life in plain text
+        +pandoc            ; enable pandoc integration with org-mode export
+        +roam2)            ; enable integration with org-roam v2
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
