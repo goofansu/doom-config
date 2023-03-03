@@ -44,6 +44,15 @@
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
+;; Buffer defaults
+(setq-default major-mode 'org-mode)
+(setq-default doom-scratch-initial-major-mode 'org-mode)
+(setq org-directory "~/.org"                      ; let's put files here
+      org-use-property-inheritance t              ; it's convenient to have properties inherited
+      org-log-done 'time                          ; having the time a item is done sounds convenient
+      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
+      org-catch-invisible-edits 'smart)           ; try not to accidently do weird stuff in invisible regions
+
 ;; Visual Settings
 (setq display-line-numbers-type t)
 
@@ -176,13 +185,6 @@
   :config
   (add-hook 'before-save-hook #'nix-format-before-save))
 
-(defun org-roam-node-insert-immediate (arg &rest args)
-  (interactive "P")
-  (let ((args (cons arg args))
-        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                  '(:immediate-finish t)))))
-    (apply #'org-roam-node-insert args)))
-
 (use-package org-roam
   :init
   (setq org-roam-v2-ack t)
@@ -192,7 +194,6 @@
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
-         ("C-c n I" . org-roam-node-insert-immediate)
          :map org-mode-map
          ("C-M-i" . completion-at-point)
          :map org-roam-dailies-map
