@@ -184,11 +184,10 @@
     (apply #'org-roam-node-insert args)))
 
 (use-package org-roam
-  :ensure t
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "~/org/roam")
+  (org-roam-directory "~/.org/roam")
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
