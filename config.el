@@ -166,9 +166,33 @@
   (interactive)
   (shell-command "gh pr view -w"))
 
-(defun elixir-format-before-save ()
-  (when (derived-mode-p 'elixir-mode)
-    (elixir-format)))
+;; :emacs
+(after! magit
+  (setq magit-repository-directories '(("~/src" . 2))))
+
+;; :lang
+(after! elixir-mode
+  :config
+  (add-hook 'before-save-hook #'lsp-format-buffer))
+
+(after! nix-mode
+  :config
+  (add-hook 'before-save-hook #'nix-format-before-save))
+
+(after! ruby-mode
+  :config
+  (setq ruby-indent-level 2)
+  (add-hook 'ruby-mode-hook 'ruby-electric-mode))
+
+(after! web-mode
+  (setq web-mode-markup-indent-offset 2
+        web-mode-attr-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2))
+
+;; installed in packages.el
+(after! rfc-mode
+  (setq rfc-mode-directory "~/.rfc"))
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -177,13 +201,6 @@
          :map copilot-completion-map
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
-
-(after! magit
-  (setq magit-repository-directories '(("~/src" . 2))))
-
-(after! nix-mode
-  :config
-  (add-hook 'before-save-hook #'nix-format-before-save))
 
 (use-package org-roam
   :init
@@ -204,17 +221,3 @@
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
-
-(after! rfc-mode
-  (setq rfc-mode-directory "~/.rfc"))
-
-(after! ruby-mode
-  :config
-  (setq ruby-indent-level 2)
-  (add-hook 'ruby-mode-hook 'ruby-electric-mode))
-
-(after! web-mode
-  (setq web-mode-markup-indent-offset 2
-        web-mode-attr-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2))
