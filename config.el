@@ -161,21 +161,23 @@
   (setq magit-repository-directories '(("~/src" . 2))))
 
 ;; :lang
-(after! elixir-mode
+(use-package! elixir-mode
+  :hook (before-save . elixir-format-before-save)
   :config
-  (add-hook 'before-save-hook #'lsp-format-buffer))
+  (defun elixir-format-before-save ()
+    (when (derived-mode-p 'elixir-mode)
+      (lsp-format-buffer))))
 
-(after! nix-mode
-  :config
-  (add-hook 'before-save-hook #'nix-format-before-save))
+(use-package! nix-mode
+  :hook (before-save . nix-format-before-save))
 
-(after! ruby-mode
+(use-package! ruby-mode
   :init
   (setq ruby-indent-level 2)
-  :config
-  (add-hook 'ruby-mode-hook 'ruby-electric-mode))
+  :hook (ruby-mode . ruby-electric-mode))
 
-(after! web-mode
+(use-package! web-mode
+  :init
   (setq web-mode-markup-indent-offset 2
         web-mode-attr-indent-offset 2
         web-mode-css-indent-offset 2
