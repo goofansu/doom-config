@@ -19,7 +19,7 @@
       auto-save-default t                         ; Nobody likes to loose work, I certainly don't
       truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
       password-cache-expiry nil                   ; I can trust my computers ... can't I?
-      ;; scroll-preserve-screen-position 'always     ; Don't have `point' jump around
+      scroll-preserve-screen-position 'always     ; Don't have `point' jump around
       scroll-margin 2)                            ; It's nice to maintain a little margin
 
 (display-time-mode 1)                             ; Enable time in the mode-line
@@ -146,16 +146,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(map! :leader
-      ;;; <leader> c g --- create private gist
-      :desc "Create private Gist for region or buffer" "c g" #'gist-region-or-buffer-private
-
-      ;;; <leader> r --- rfc
-      (:prefix-map ("r" . "rfc")
-       "r" #'rfc-mode-read
-       "b" #'rfc-mode-browse
-       "g" #'rfc-mode-goto-section))
-
 (defun gh-pr-create ()
   "Create pull request on GitHub"
   (interactive)
@@ -180,8 +170,9 @@
   (add-hook 'before-save-hook #'nix-format-before-save))
 
 (after! ruby-mode
-  :config
+  :init
   (setq ruby-indent-level 2)
+  :config
   (add-hook 'ruby-mode-hook 'ruby-electric-mode))
 
 (after! web-mode
@@ -190,10 +181,7 @@
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2))
 
-;; installed in packages.el
-(after! rfc-mode
-  (setq rfc-mode-directory "~/.rfc"))
-
+;; Configure packages installed in packages.el
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (("C-TAB" . 'copilot-accept-completion-by-word)
@@ -202,22 +190,35 @@
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
 
-(use-package org-roam
+(use-package! org-roam
   :init
-  (setq org-roam-v2-ack t)
-  :custom
-  (org-roam-directory "~/.org/roam")
-  (org-roam-completion-everywhere t)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         :map org-mode-map
-         ("C-M-i" . completion-at-point)
-         :map org-roam-dailies-map
-         ("Y" . org-roam-dailies-capture-yesterday)
-         ("T" . org-roam-dailies-capture-tomorrow))
-  :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
+  (setq org-roam-directory "~/.org/roam")
+  (setq org-roam-completion-everywhere t)
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
+
+;; Key bindings
+(map! :leader
+      (:prefix-map ("c" . "code")
+       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
+
+      (:prefix-map ("g" . "git")
+                   (:prefix ("p" . "Pull request")
+                    :desc "Create pull request" "p c" #'gh-pr-create
+                    :desc "View pull request" "p o" #'gh-pr-view))
+
+      (:prefix-map ("n" . "notes")
+                   "d" #'org-roam-dailies-map)
+
+      (:prefix-map ("r" . "roam")
+                   "r" #'org-roam-node-find
+                   "i" #'org-roam-node-insert
+                   "b" #'org-roam-buffer-toggle))
+
+(map! :map org-mode-map
+      "C-M-i" #'completion-at-point
+
+      :map org-roam-dailies-map
+      "Y" #'org-roam-dailies-capture-yesterday
+      "T" #'org-roam-dailies-capture-tomorrow)
