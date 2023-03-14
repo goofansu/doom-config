@@ -146,15 +146,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(defun gh-pr-create ()
-  "Create pull request on GitHub"
-  (interactive)
-  (shell-command "gh pr create -w"))
-
-(defun gh-pr-view ()
-  "View pull request on GitHub"
-  (interactive)
-  (shell-command "gh pr view -w"))
 
 ;; :emacs
 (after! magit
@@ -183,7 +174,7 @@
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2))
 
-;; Configure packages installed in packages.el
+;; packages.el
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (("C-TAB" . 'copilot-accept-completion-by-word)
@@ -207,20 +198,12 @@
 
       (:prefix-map ("g" . "git")
                    (:prefix ("p" . "pull request")
-                    :desc "Create pull request" "p c" #'gh-pr-create
-                    :desc "View pull request" "p o" #'gh-pr-view))
+                    :desc "Create pull request" "c" #'gh-pr-create
+                    :desc "View pull request" "p" #'gh-pr-view)))
 
-      (:prefix-map ("n" . "notes")
-                   "d" #'org-roam-dailies-map)
+;; Functions
+(defun gh-pr-create ()
+  (shell-command "gh pr create -w"))
 
-      (:prefix-map ("r" . "roam")
-                   "r" #'org-roam-node-find
-                   "i" #'org-roam-node-insert
-                   "b" #'org-roam-buffer-toggle))
-
-(map! :map org-mode-map
-      "C-M-i" #'completion-at-point
-
-      :map org-roam-dailies-map
-      "Y" #'org-roam-dailies-capture-yesterday
-      "T" #'org-roam-dailies-capture-tomorrow)
+(defun gh-pr-view ()
+  (shell-command "gh pr view -w"))
