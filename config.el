@@ -204,7 +204,7 @@
        :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
 
       (:prefix-map ("g" . "git")
-                   (:prefix ("p" . "Pull request")
+                   (:prefix ("p" . "pull request")
                     :desc "Create pull request" "p c" #'gh-pr-create
                     :desc "View pull request" "p o" #'gh-pr-view))
 
