@@ -51,7 +51,7 @@
       org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-      org-catch-invisible-edits 'smart)           ; try not to accidently do weird stuff in invisible regions
+      org-fold-catch-invisible-edits 'smart)      ; try not to accidently do weird stuff in invisible regions
 
 ;; Visual Settings
 (setq display-line-numbers-type t)
