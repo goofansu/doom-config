@@ -194,16 +194,13 @@
 ;; Key bindings
 (map! :leader
       (:prefix-map ("c" . "code")
-       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
-
-      (:prefix-map ("g" . "git")
-                   (:prefix ("p" . "pull request")
-                    :desc "Create pull request" "c" #'gh-pr-create
-                    :desc "View pull request" "p" #'gh-pr-view)))
+       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private))
 
 ;; Functions
 (defun gh-pr-create ()
+  (interactive)
   (shell-command "gh pr create -w"))
 
 (defun gh-pr-view ()
+  (interactive)
   (shell-command "gh pr view -w"))
