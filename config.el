@@ -181,7 +181,7 @@
            (file+headline +org-capture-project-changelog-file "Unreleased")
            "* %U %?\n%i\n" :prepend t)
           ("o" "Centralized templates for projects")
-          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n" :heading "Tasks" :prepend nil)
+          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n" :heading "Tasks" :prepend t)
           ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n" :heading "Notes" :prepend t)
           ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n" :heading "Changelog" :prepend t))))
 
