@@ -47,7 +47,7 @@
 ;; Buffer defaults
 (setq-default major-mode 'org-mode)
 (setq-default doom-scratch-initial-major-mode 'org-mode)
-(setq org-directory "~/.org"                      ; let's put files here
+(setq org-directory "~/org"                       ; let's put files here
       org-use-property-inheritance t              ; it's convenient to have properties inherited
       org-log-done 'time                          ; having the time a item is done sounds convenient
       org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
@@ -162,6 +162,12 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
+(after! org
+  (setq org-capture-templates
+        '(("t" "TODO" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* TODO %?\n%i\n" :prepend t))))
+
 (use-package! ruby-mode
   :init
   (setq ruby-indent-level 2)
@@ -185,7 +191,7 @@
 
 (use-package! org-roam
   :init
-  (setq org-roam-directory "~/.org/roam")
+  (setq org-roam-directory "~/src/roam")
   (setq org-roam-completion-everywhere t)
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
