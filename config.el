@@ -191,6 +191,10 @@
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-db-autosync-mode))
 
+(use-package! wakatime-mode
+  :config
+  (global-wakatime-mode))
+
 ;; Key bindings
 (map! :leader
       (:prefix-map ("c" . "code")

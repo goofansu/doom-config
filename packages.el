@@ -57,3 +57,4 @@
 (package! format-all)
 (package! protobuf-mode)
 (package! ruby-electric)
+(package! wakatime-mode)
