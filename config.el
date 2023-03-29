@@ -221,7 +221,10 @@
 ;; Key bindings
 (map! :leader
       (:prefix-map ("c" . "code")
-       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private))
+       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
+      (:prefix-map ("s" . "search")
+       :desc "Look up in Dash" "k" #'dash-at-point
+       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
 
 ;; Functions
 (defun gh-pr-create ()
