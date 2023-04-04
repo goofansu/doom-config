@@ -47,11 +47,6 @@
 ;; Buffer defaults
 (setq-default major-mode 'org-mode)
 (setq-default doom-scratch-initial-major-mode 'org-mode)
-(setq org-directory "~/org"                       ; let's put files here
-      org-use-property-inheritance t              ; it's convenient to have properties inherited
-      org-log-done 'time                          ; having the time a item is done sounds convenient
-      org-list-allow-alphabetical t               ; have a. A. a) A) list bullets
-      org-fold-catch-invisible-edits 'smart)      ; try not to accidently do weird stuff in invisible regions
 
 ;; Visual Settings
 (setq display-line-numbers-type t)
@@ -162,29 +157,6 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
-(after! org
-  (setq org-capture-templates
-        '(("t" "Personal todo" entry
-           (file+headline +org-capture-todo-file "Personal")
-           "* TODO %?\n%i\n" :prepend t)
-          ("f" "Family todo" entry
-           (file+headline +org-capture-todo-file "Family")
-           "* TODO %?\n%i\n" :prepend t)
-          ("p" "Templates for projects")
-          ("pt" "Project-local todo" entry
-           (file+headline +org-capture-project-todo-file "Inbox")
-           "* TODO %?\n%i\n" :prepend t)
-          ("pn" "Project-local notes" entry
-           (file+headline +org-capture-project-notes-file "Inbox")
-           "* %U %?\n%i\n%a" :prepend t)
-          ("pc" "Project-local changelog" entry
-           (file+headline +org-capture-project-changelog-file "Unreleased")
-           "* %U %?\n%i\n" :prepend t)
-          ("o" "Centralized templates for projects")
-          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n" :heading "Tasks" :prepend t)
-          ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n" :heading "Changelog" :prepend t))))
-
 (use-package! ruby-mode
   :init
   (setq ruby-indent-level 2)
@@ -205,6 +177,17 @@
          :map copilot-completion-map
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
+
+(use-package! org
+  :init
+  (setq org-directory "~/org"
+        org-use-property-inheritance t
+        org-log-done 'time
+        org-list-allow-alphabetical t
+        org-fold-catch-invisible-edits 'smart)
+  (setq org-agenda-files "~/org/agenda.org"
+        org-todo-keywords
+          '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "DONE(d)"))))
 
 (use-package! org-roam
   :init
