@@ -47,6 +47,12 @@
 ;; Buffer defaults
 (setq-default major-mode 'org-mode)
 (setq-default doom-scratch-initial-major-mode 'org-mode)
+(setq org-directory "~/org"
+      org-agenda-files "~/org/agenda.org"
+      org-use-property-inheritance t
+      org-log-done 'time
+      org-list-allow-alphabetical t
+      org-fold-catch-invisible-edits 'smart)
 
 ;; Visual Settings
 (setq display-line-numbers-type t)
@@ -157,6 +163,16 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
+(after! org
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "DONE(d)"))))
+
+(after! org-roam
+  (setq org-roam-directory "~/src/roam")
+  (setq org-roam-completion-everywhere t)
+  (require 'org-roam-dailies)
+  (org-roam-db-autosync-mode))
+
 (use-package! ruby-mode
   :init
   (setq ruby-indent-level 2)
@@ -177,25 +193,6 @@
          :map copilot-completion-map
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
-
-(use-package! org
-  :init
-  (setq org-directory "~/org"
-        org-use-property-inheritance t
-        org-log-done 'time
-        org-list-allow-alphabetical t
-        org-fold-catch-invisible-edits 'smart)
-  (setq org-agenda-files "~/org/agenda.org"
-        org-todo-keywords
-          '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "DONE(d)"))))
-
-(use-package! org-roam
-  :init
-  (setq org-roam-directory "~/src/roam")
-  (setq org-roam-completion-everywhere t)
-  :config
-  (require 'org-roam-dailies) ;; Ensure the keymap is available
-  (org-roam-db-autosync-mode))
 
 (use-package! wakatime-mode
   :config
