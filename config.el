@@ -206,7 +206,15 @@
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "DOING(i)" "WAITING(w)" "HOLD(h)" "DONE(d)")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+          (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))
+        org-todo-keyword-faces
+        '(("TODO" . org-todo)
+          ("NEXT" . org-warning)
+          ("WAITING" . (:foreground "orange" :weight bold))
+          ("HOLD" . (:foreground "red" :weight bold))
+          ("CANCELLED" . org-archived)
+          ("DONE" . org-done)))
   (setq org-capture-templates
         '(("t" "Personal" entry
            (file+headline +org-capture-todo-file "Personal")
@@ -226,7 +234,23 @@
           ("n" "Notes" entry
            (file+headline +org-capture-project-notes-file "Inbox")
            "* %U %?\n%i\n%a" :prepend t)
-          )))
+          ("i" "Inbox" entry
+           (file "~/org/inbox.org")
+           "* %?\n%U\n" :prepend nil)
+          ))
+  (setq org-tag-persistent-alist
+        '((:startgroup)
+          ("work" . ?w)
+          ("life" . ?l)
+          ("study" . ?s)
+          ("fitness" . ?f)
+          (:endgroup)
+          (:startgroup)
+          ("book" . ?b)
+          ("article" . ?a)
+          ("podcast" . ?p)
+          ("video" . ?v)
+          (:endgroup))))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
