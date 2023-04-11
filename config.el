@@ -142,11 +142,31 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; :emacs
-(after! magit
-  (setq magit-repository-directories '(("~/src" . 2))))
+;; Key bindings
+(map! :leader
+      (:prefix-map ("c" . "code")
+       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
+      (:prefix-map ("s" . "search")
+       :desc "Look up in Dash" "k" #'dash-at-point
+       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
 
-;; :lang
+;; Functions
+(defun gh-pr-create ()
+  (interactive)
+  (shell-command "gh pr create -w"))
+
+(defun gh-pr-view ()
+  (interactive)
+  (shell-command "gh pr view -w"))
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)))
+
+;; Packages
 (use-package! elixir-mode
   :hook (before-save . elixir-format-before-save)
   :config
@@ -157,10 +177,17 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
+(after! magit
+  (setq magit-repository-directories '(("~/src" . 2))))
+
 (use-package! ruby-mode
   :init
   (setq ruby-indent-level 2)
   :hook (ruby-mode . ruby-electric-mode))
+
+(use-package! wakatime-mode
+  :config
+  (global-wakatime-mode))
 
 (use-package! web-mode
   :init
@@ -168,19 +195,6 @@
         web-mode-attr-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2))
-
-;; packages.el
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
-         ("C-<tab>" . 'copilot-accept-completion-by-word)
-         :map copilot-completion-map
-         ("<tab>" . 'copilot-accept-completion)
-         ("TAB" . 'copilot-accept-completion)))
-
-(use-package! wakatime-mode
-  :config
-  (global-wakatime-mode))
 
 ;; Org mode
 (setq org-directory "~/org"
@@ -215,20 +229,3 @@
 (after! org-roam
   (setq org-roam-completion-everywhere t)
   (org-roam-db-autosync-mode))
-
-;; Key bindings
-(map! :leader
-      (:prefix-map ("c" . "code")
-       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
-      (:prefix-map ("s" . "search")
-       :desc "Look up in Dash" "k" #'dash-at-point
-       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
-
-;; Functions
-(defun gh-pr-create ()
-  (interactive)
-  (shell-command "gh pr create -w"))
-
-(defun gh-pr-view ()
-  (interactive)
-  (shell-command "gh pr view -w"))
