@@ -48,7 +48,7 @@
 (setq-default major-mode 'org-mode)
 (setq-default doom-scratch-initial-major-mode 'org-mode)
 (setq org-directory "~/org"
-      org-agenda-files "~/org/agenda.org"
+      org-agenda-files "~/.agenda_files"
       org-use-property-inheritance t
       org-log-done 'time
       org-list-allow-alphabetical t
