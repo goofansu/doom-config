@@ -198,7 +198,6 @@
 
 ;; Org mode
 (setq org-directory "~/org"
-      org-agenda-files "~/org/agenda_files"
       org-roam-directory "~/org/roam")
 
 (after! org
@@ -207,24 +206,27 @@
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "DONE(d)")))
+        '((sequence "TODO(t)" "DOING(i)" "WAITING(w)" "HOLD(h)" "DONE(d)")))
   (setq org-capture-templates
-        '(("t" "Personal todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\n%i\n" :prepend t)
-          ("f" "Family todo" entry
+        '(("t" "Personal" entry
+           (file+headline +org-capture-todo-file "Personal")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("f" "Family" entry
            (file+headline +org-capture-todo-file "Family")
-           "* TODO %?\n%i\n" :prepend t)
-          ("p" "Templates for projects")
-          ("pt" "Project-local todo" entry
-           (file+headline +org-capture-project-todo-file "Inbox")
-           "* TODO %?\n%i\n" :prepend t)
-          ("pn" "Project-local notes" entry
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("w" "Work" entry
+           (file+headline +org-capture-todo-file "Work")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("p" "Projects" entry
+           #'+org-capture-central-project-todo-file
+           "* TODO %?\n%i\n%a" :heading "Tasks" :prepend nil)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
+          ("n" "Notes" entry
            (file+headline +org-capture-project-notes-file "Inbox")
-           "* %U %?\n%i\n" :prepend t)
-          ("pc" "Project-local changelog" entry
-           (file+headline +org-capture-project-changelog-file "Unreleased")
-           "* %U %?\n%i\n" :prepend t))))
+           "* %U %?\n%i\n %a" :prepend t)
+          )))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
