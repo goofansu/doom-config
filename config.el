@@ -47,12 +47,6 @@
 ;; Buffer defaults
 (setq-default major-mode 'org-mode)
 (setq-default doom-scratch-initial-major-mode 'org-mode)
-(setq org-directory "~/org"
-      org-agenda-files "~/.agenda_files"
-      org-use-property-inheritance t
-      org-log-done 'time
-      org-list-allow-alphabetical t
-      org-fold-catch-invisible-edits 'smart)
 
 ;; Visual Settings
 (setq display-line-numbers-type t)
@@ -163,16 +157,6 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
-(after! org
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "DONE(d)"))))
-
-(after! org-roam
-  (setq org-roam-directory "~/src/roam")
-  (setq org-roam-completion-everywhere t)
-  (require 'org-roam-dailies)
-  (org-roam-db-autosync-mode))
-
 (use-package! ruby-mode
   :init
   (setq ruby-indent-level 2)
@@ -197,6 +181,40 @@
 (use-package! wakatime-mode
   :config
   (global-wakatime-mode))
+
+;; Org mode
+(setq org-directory "~/org"
+      org-agenda-files "~/org/agenda_files"
+      org-roam-directory "~/org/roam")
+
+(after! org
+  (setq org-use-property-inheritance t
+        org-log-done 'time
+        org-list-allow-alphabetical t
+        org-fold-catch-invisible-edits 'smart)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "DONE(d)")))
+  (setq org-capture-templates
+        '(("t" "Personal todo" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* TODO %?\n%i\n" :prepend t)
+          ("f" "Family todo" entry
+           (file+headline +org-capture-todo-file "Family")
+           "* TODO %?\n%i\n" :prepend t)
+          ("p" "Templates for projects")
+          ("pt" "Project-local todo" entry
+           (file+headline +org-capture-project-todo-file "Inbox")
+           "* TODO %?\n%i\n" :prepend t)
+          ("pn" "Project-local notes" entry
+           (file+headline +org-capture-project-notes-file "Inbox")
+           "* %U %?\n%i\n" :prepend t)
+          ("pc" "Project-local changelog" entry
+           (file+headline +org-capture-project-changelog-file "Unreleased")
+           "* %U %?\n%i\n" :prepend t))))
+
+(after! org-roam
+  (setq org-roam-completion-everywhere t)
+  (org-roam-db-autosync-mode))
 
 ;; Key bindings
 (map! :leader
