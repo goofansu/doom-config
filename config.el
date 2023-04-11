@@ -225,7 +225,7 @@
            "* %U %?\n%i\n%a" :prepend t)
           ("n" "Notes" entry
            (file+headline +org-capture-project-notes-file "Inbox")
-           "* %U %?\n%i\n %a" :prepend t)
+           "* %U %?\n%i\n%a" :prepend t)
           )))
 
 (after! org-roam
