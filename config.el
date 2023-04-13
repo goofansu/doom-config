@@ -200,6 +200,9 @@
 (setq org-directory "~/org"
       org-roam-directory "~/org/roam")
 
+(use-package! org
+  :hook (org-mode . auto-revert-mode))
+
 (after! org
   (setq org-use-property-inheritance t
         org-log-done 'time
@@ -250,7 +253,24 @@
           ("article" . ?a)
           ("podcast" . ?p)
           ("video" . ?v)
-          (:endgroup))))
+          (:endgroup)))
+  (setq org-agenda-custom-commands
+        '(("y" agenda*)
+          ("n" todo "NEXT")
+          ("N" todo-tree "NEXT")
+          ("w" todo "WAITING")
+          (" " . "Tags searches")
+          (" s" tags "+study")
+          (" w" tags "+writing")))
+  ;; See https://www.nicklanasa.com/posts/productivity-setup
+  (defmacro func-ignore (fnc)
+    "Return function that ignores its arguments and invokes FNC."
+    `(lambda (&rest _rest)
+       (funcall ,fnc)))
+  (advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
+  (advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
+  (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
+  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers)))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
