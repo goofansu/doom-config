@@ -209,8 +209,9 @@
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-          (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "DONE(d)")
+          (sequence "READING(r)" "TOREVIEW(v!/!)" "|" "READ(R!/!)")
+          (sequence "DRAFT(f)" "|" "PUBLISHED(P!/!)"))
         org-todo-keyword-faces
         '(("TODO" . org-todo)
           ("NEXT" . org-warning)
@@ -219,7 +220,8 @@
           ("CANCELLED" . org-archived)
           ("DONE" . org-done)))
   (setq org-capture-templates
-        '(("t" "Personal" entry
+        '(;; Areas
+          ("t" "Personal" entry
            (file+headline +org-capture-todo-file "Personal")
            "* TODO %?\n%i\n%a" :prepend t)
           ("f" "Family" entry
@@ -228,40 +230,42 @@
           ("w" "Work" entry
            (file+headline +org-capture-todo-file "Work")
            "* TODO %?\n%i\n%a" :prepend t)
-          ("p" "Projects" entry
+          ;; Resources
+          ("r" "Inbox" entry
+           (file "~/org/inbox.org")
+           "* %?\n%U\n" :prepend nil)
+          ;; Projects
+          ("p" "Projects")
+          ("pt" "Project todo" entry
            #'+org-capture-central-project-todo-file
-           "* TODO %?\n%i\n%a" :heading "Tasks" :prepend nil)
+           "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+          ("pn" "Project notes" entry
+           #'+org-capture-central-project-notes-file
+           "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+          ;; Reflection
           ("j" "Journal" entry
            (file+olp+datetree +org-capture-journal-file)
            "* %U %?\n%i\n%a" :prepend t)
-          ("n" "Notes" entry
-           (file+headline +org-capture-project-notes-file "Inbox")
-           "* %U %?\n%i\n%a" :prepend t)
-          ("i" "Inbox" entry
-           (file "~/org/inbox.org")
-           "* %?\n%U\n" :prepend nil)
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
-          ("work" . ?w)
-          ("life" . ?l)
-          ("study" . ?s)
-          ("fitness" . ?f)
-          (:endgroup)
-          (:startgroup)
-          ("book" . ?b)
           ("article" . ?a)
-          ("podcast" . ?p)
+          ("book" . ?b)
+          ("course" . ?c)
+          ("podcast" . ?d)
           ("video" . ?v)
-          (:endgroup)))
+          (:endgroup)
+          ))
   (setq org-agenda-custom-commands
         '(("y" agenda*)
           ("n" todo "NEXT")
           ("N" todo-tree "NEXT")
           ("w" todo "WAITING")
-          (" " . "Tags searches")
-          (" s" tags "+study")
-          (" w" tags "+writing")))
+          (" " . "Saved searches")
+          (" s" "Study"
+           ((todo "READING|TOREVIEW|READ" ((org-agenda-overriding-header "Reading")))
+            (todo "DRAFT|PUBLISHED" ((org-agenda-overriding-header "Writing")))))
+          ))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
   (defmacro func-ignore (fnc)
     "Return function that ignores its arguments and invokes FNC."
