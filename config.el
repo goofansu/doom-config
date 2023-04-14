@@ -210,7 +210,7 @@
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "DONE(d)")
-          (sequence "READING(r)" "TOREVIEW(v!/!)" "|" "READ(R!/!)")
+          (sequence "READING(r)" "TOREVIEW(v!/!)" "|" "READ(R!/!)") ;; From https://github.com/dsdshcym/.emacs.d/blob/master/lisp/init-org.el
           (sequence "DRAFT(f)" "|" "PUBLISHED(P!/!)"))
         org-todo-keyword-faces
         '(("TODO" . org-todo)
