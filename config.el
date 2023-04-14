@@ -261,7 +261,10 @@
           ("n" todo "NEXT")
           ("N" todo-tree "NEXT")
           ("w" todo "WAITING")
+          ("W" todo-tree "WAITING")
           (" " . "Saved searches")
+          (" p" "Projects"
+           ((agenda "" ((org-agenda-files '("~/org/projects.org"))))))
           (" s" "Study"
            ((todo "READING|TOREVIEW|READ" ((org-agenda-overriding-header "Reading")))
             (todo "DRAFT|PUBLISHED" ((org-agenda-overriding-header "Writing")))))
