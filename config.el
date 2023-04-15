@@ -204,6 +204,9 @@
   :hook (org-mode . auto-revert-mode))
 
 (after! org
+  (add-to-list 'org-modules 'org-habit)
+  (setq org-habit-show-all-today t)
+
   (setq org-use-property-inheritance t
         org-log-done 'time
         org-list-allow-alphabetical t
