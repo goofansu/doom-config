@@ -204,24 +204,14 @@
   :hook (org-mode . auto-revert-mode))
 
 (after! org
-  (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-show-all-today t)
-
   (setq org-use-property-inheritance t
         org-log-done 'time
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "DONE(d)")
+        '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
           (sequence "READING(r)" "TOREVIEW(v!/!)" "|" "READ(R!/!)") ;; From https://github.com/dsdshcym/.emacs.d/blob/master/lisp/init-org.el
-          (sequence "DRAFT(f)" "|" "PUBLISHED(P!/!)"))
-        org-todo-keyword-faces
-        '(("TODO" . org-todo)
-          ("NEXT" . org-warning)
-          ("WAITING" . (:foreground "orange" :weight bold))
-          ("HOLD" . (:foreground "red" :weight bold))
-          ("CANCELLED" . org-archived)
-          ("DONE" . org-done)))
+          (sequence "DRAFT(f)" "|" "PUBLISHED(P!/!)")))
   (setq org-capture-templates
         '(;; Areas
           ("t" "Personal" entry
@@ -261,10 +251,8 @@
           ))
   (setq org-agenda-custom-commands
         '(("y" agenda*)
-          ("n" todo "NEXT")
-          ("N" todo-tree "NEXT")
-          ("w" todo "WAITING")
-          ("W" todo-tree "WAITING")
+          ("w" todo "WAIT")
+          ("W" todo-tree "WAIT")
           (" " . "Saved searches")
           (" p" "Projects"
            ((agenda "" ((org-agenda-files '("~/org/projects.org"))))))
@@ -280,7 +268,10 @@
   (advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
-  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers)))
+  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
+  ;; Tracking habits
+  (add-to-list 'org-modules 'org-habit)
+  (setq org-habit-show-all-today t))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
