@@ -198,7 +198,7 @@
 
 ;; Org mode
 (setq org-directory "~/org"
-      org-roam-directory "~/org/roam")
+      org-roam-directory "~/org")
 
 (use-package! org
   :hook (org-mode . auto-revert-mode))
@@ -206,6 +206,7 @@
 (after! org
   (setq org-use-property-inheritance t
         org-log-done 'time
+        org-log-repeat 'note
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
@@ -242,6 +243,9 @@
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
+          ("work" . ?w)
+          (:endgroup)
+          (:startgroup)
           ("article" . ?a)
           ("book" . ?b)
           ("course" . ?c)
@@ -271,7 +275,7 @@
   (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
   ;; Tracking habits
   (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-show-all-today t))
+  (setq org-habit-show-all-today nil))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
