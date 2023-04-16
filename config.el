@@ -249,7 +249,8 @@
           ("W" todo-tree "WAIT")
           (" " . "Saved searches")
           (" p" "Projects"
-           ((agenda "" ((org-agenda-files '("~/org/projects.org"))))))
+           ((agenda "" ((org-agenda-files '("~/org/projects.org"))
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "\\(TODO\\|NEXT\\|WAIT\\)"))))))
           (" s" "Study"
            ((tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
             (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))))
