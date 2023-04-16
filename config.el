@@ -210,9 +210,8 @@
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
-          (sequence "READING(r)" "TOREVIEW(v!/!)" "|" "READ(R!/!)") ;; From https://github.com/dsdshcym/.emacs.d/blob/master/lisp/init-org.el
-          (sequence "DRAFT(f)" "|" "PUBLISHED(P!/!)")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+          (sequence "|" "WAIT(w@/!)" "CANCELED(c@/!)")))
   (setq org-capture-templates
         '(;; Areas
           ("t" "Personal" entry
@@ -239,14 +238,9 @@
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
-          ("work" . ?w)
-          (:endgroup)
-          (:startgroup)
-          ("article" . ?a)
-          ("book" . ?b)
-          ("course" . ?c)
-          ("podcast" . ?d)
-          ("video" . ?v)
+          ("work" . ?o)
+          ("reading" . ?r)
+          ("writing" . ?w)
           (:endgroup)
           ))
   (setq org-agenda-custom-commands
@@ -257,8 +251,8 @@
           (" p" "Projects"
            ((agenda "" ((org-agenda-files '("~/org/projects.org"))))))
           (" s" "Study"
-           ((todo "READING|TOREVIEW|READ" ((org-agenda-overriding-header "Reading")))
-            (todo "DRAFT|PUBLISHED" ((org-agenda-overriding-header "Writing")))))
+           ((tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
+            (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))))
           ))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
   (defmacro func-ignore (fnc)
