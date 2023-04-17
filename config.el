@@ -211,7 +211,7 @@
         org-fold-catch-invisible-edits 'smart)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-          (sequence "|" "WAIT(w@/!)" "CANCELED(c@/!)")))
+          (sequence "WAIT(w@/!)" "|" "CANCELED(c@/!)")))
   (setq org-capture-templates
         '(;; Areas
           ("t" "Personal" entry
@@ -245,14 +245,14 @@
           ))
   (setq org-agenda-custom-commands
         '(("y" agenda*)
+          ("n" todo "NEXT")
+          ("n" todo-tree "NEXT")
           ("w" todo "WAIT")
           ("W" todo-tree "WAIT")
           (" " . "Saved searches")
-          (" p" "Projects"
-           ((agenda "" ((org-agenda-files '("~/org/projects.org"))
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'notregexp "\\(TODO\\|NEXT\\|WAIT\\)"))))))
-          (" s" "Study"
-           ((tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
+          ("  " "Dashboard"
+           ((agenda "")
+            (tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
             (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))))
           ))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
