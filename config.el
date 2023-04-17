@@ -251,10 +251,14 @@
           ("W" todo-tree "WAIT")
           (" " . "Saved searches")
           ("  " "Dashboard"
-           ((agenda "" ((org-agenda-files '("~/org/inbox.org" "~/org/todo.org" "~/org/projects.org"))
+           ((agenda "" ((org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
                         (org-agenda-show-all-dates nil)))
             (tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
-            (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))))
+            (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))
+            (todo "TODO"
+                  ((org-agenda-overriding-header "Unscheduled tasks")
+                   (org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))
           ))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
   (defmacro func-ignore (fnc)
