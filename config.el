@@ -251,7 +251,8 @@
           ("W" todo-tree "WAIT")
           (" " . "Saved searches")
           ("  " "Dashboard"
-           ((agenda "")
+           ((agenda "" ((org-agenda-files '("~/org/inbox.org" "~/org/todo.org" "~/org/projects.org"))
+                        (org-agenda-show-all-dates nil)))
             (tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
             (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))))
           ))
