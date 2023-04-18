@@ -224,42 +224,53 @@
            (file+headline +org-capture-todo-file "Work")
            "* TODO %?\n%i\n%a" :prepend t)
           ;; Resources
-          ("r" "Inbox" entry
+          ("i" "Inbox" entry
            (file "~/org/inbox.org")
            "* %?\n%U\n" :prepend nil)
           ;; Projects
           ("p" "Projects")
           ("pt" "Project todo" entry
            #'+org-capture-central-project-todo-file
-           "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+           "* TODO %?\n%i\n%a" :heading "Tasks" :prepend nil)
           ("pn" "Project notes" entry
            #'+org-capture-central-project-notes-file
-           "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+           "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
-          ("work" . ?o)
+          ("develop" . ?d)
           ("reading" . ?r)
           ("writing" . ?w)
+          ("workout" . ?o)
           (:endgroup)
           ))
   (setq org-agenda-custom-commands
-        '(("y" agenda*)
-          ("n" todo "NEXT")
-          ("n" todo-tree "NEXT")
+        '(("n" todo "NEXT")
+          ("N" todo-tree "NEXT")
           ("w" todo "WAIT")
           ("W" todo-tree "WAIT")
-          (" " . "Saved searches")
-          ("  " "Dashboard"
-           ((agenda "" ((org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
-                        (org-agenda-show-all-dates nil)))
-            (tags-todo "+reading" ((org-agenda-overriding-header "Reading")))
-            (tags-todo "+writing" ((org-agenda-overriding-header "Writing")))
+          ("p" "Projects"
+           ((agenda "" ((org-agenda-overriding-header "Today")
+                        (org-agenda-files '("~/org/projects.org"))))
+            (todo "NEXT"
+                  ((org-agenda-overriding-header "Next")
+                   (org-agenda-files '("~/org/projects.org"))))
             (todo "TODO"
-                  ((org-agenda-overriding-header "Unscheduled tasks")
-                   (org-agenda-files '("~/org/todo.org" "~/org/projects.org"))
-                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))
+                  ((org-agenda-overriding-header "Unscheduled")
+                   (org-agenda-files '("~/org/projects.org"))
+                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
+            ))
+          (" " . "Saved searches")
+          (" s" "Study"
+           ((agenda "" ((org-agenda-overriding-header "Inbox")
+                        (org-agenda-files '("~/org/inbox.org")) ))
+            (tags-todo "+reading|writing" ((org-agenda-overriding-header "Activities")
+                                           (org-agenda-files '("~/org/inbox.org"))))
+            ))
           ))
+  (add-hook 'org-agenda-mode-hook
+            (lambda ()
+              (define-key org-agenda-mode-map (kbd "C-<tab>") 'org-agenda-show-and-scroll-up)))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
   (defmacro func-ignore (fnc)
     "Return function that ignores its arguments and invokes FNC."
@@ -274,6 +285,7 @@
   (setq org-habit-show-all-today nil)
   ;; See https://github.com/daviwil/dotfiles/blob/master/Emacs.org
   ;; Increase the size of various headings
+  (require 'org-indent)
   (set-face-attribute 'org-document-title nil :font "Overpass" :weight 'bold :height 1.3)
   (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
