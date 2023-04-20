@@ -243,13 +243,17 @@
           ("writing" . ?w)
           ("workout" . ?o)
           (:endgroup)
+          (:startgroup)
+          ("TIL" . ?t)
+          (:endgroup)
           ))
   (setq org-agenda-custom-commands
         '(("n" todo "NEXT")
           ("N" todo-tree "NEXT")
           ("w" todo "WAIT")
           ("W" todo-tree "WAIT")
-          ("p" "Projects"
+          (" " . "Saved searches")
+          ("  " "Projects"
            ((agenda "" ((org-agenda-overriding-header "Today")
                         (org-agenda-files '("~/org/projects.org"))))
             (todo "NEXT"
@@ -260,7 +264,6 @@
                    (org-agenda-files '("~/org/projects.org"))
                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
             ))
-          (" " . "Saved searches")
           (" s" "Study"
            ((agenda "" ((org-agenda-overriding-header "Inbox")
                         (org-agenda-files '("~/org/inbox.org")) ))
