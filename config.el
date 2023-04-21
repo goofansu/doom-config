@@ -229,22 +229,27 @@
            "* %?\n%U\n" :prepend nil)
           ;; Projects
           ("p" "Projects")
-          ("pt" "Project todo" entry
+          ("pp" "Project todo" entry
            #'+org-capture-central-project-todo-file
            "* TODO %?\n%i\n%a" :heading "Tasks" :prepend nil)
           ("pn" "Project notes" entry
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
+          ;; Journal
+          ("j" "Journal")
+          ("jj" "TIL" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %? :TIL:\n%i\n%a" :prepend nil)
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
-          ("develop" . ?d)
+          ("building" . ?b)
+          ("training" . ?t)
           ("reading" . ?r)
           ("writing" . ?w)
-          ("workout" . ?o)
           (:endgroup)
           (:startgroup)
-          ("TIL" . ?t)
+          ("idea" . ?i)
           (:endgroup)
           ))
   (setq org-agenda-custom-commands
@@ -264,11 +269,11 @@
                    (org-agenda-files '("~/org/projects.org"))
                    (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
             ))
-          (" s" "Study"
-           ((agenda "" ((org-agenda-overriding-header "Inbox")
-                        (org-agenda-files '("~/org/inbox.org")) ))
-            (tags-todo "+reading|writing" ((org-agenda-overriding-header "Activities")
-                                           (org-agenda-files '("~/org/inbox.org"))))
+          (" p" "Personal"
+           ((agenda "" ((org-agenda-overriding-header "Today")
+                        (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
+            (tags-todo "+reading|writing" ((org-agenda-overriding-header "Study")
+                                           (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
             ))
           ))
   (add-hook 'org-agenda-mode-hook
