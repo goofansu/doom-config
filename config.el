@@ -200,9 +200,6 @@
 (setq org-directory "~/org"
       org-roam-directory "~/org")
 
-(use-package! org
-  :hook (org-mode . auto-revert-mode))
-
 (after! org
   (setq org-use-property-inheritance t
         org-log-done 'time
@@ -250,6 +247,7 @@
           (:endgroup)
           (:startgroup)
           ("idea" . ?i)
+          ("question" . ?q)
           (:endgroup)
           ))
   (setq org-agenda-custom-commands
@@ -276,9 +274,6 @@
                                            (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
             ))
           ))
-  (add-hook 'org-agenda-mode-hook
-            (lambda ()
-              (define-key org-agenda-mode-map (kbd "C-<tab>") 'org-agenda-show-and-scroll-up)))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
   (defmacro func-ignore (fnc)
     "Return function that ignores its arguments and invokes FNC."
@@ -316,7 +311,12 @@
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
   ;; Get rid of the background on column views
   (set-face-attribute 'org-column nil :background nil)
-  (set-face-attribute 'org-column-title nil :background nil))
+  (set-face-attribute 'org-column-title nil :background nil)
+  ;; hooks
+  (add-hook 'org-mode-hook #'auto-revert-mode)
+  (add-hook 'org-agenda-mode-hook
+            (lambda ()
+              (define-key org-agenda-mode-map (kbd "C-<tab>") 'org-agenda-show-and-scroll-up))))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
