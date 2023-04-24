@@ -272,6 +272,9 @@
                         (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
             (tags-todo "+reading|writing" ((org-agenda-overriding-header "Study")
                                            (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
+            (todo "TODO" ((org-agenda-overriding-header "Unscheduled")
+                           (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))
+                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
             ))
           ))
   ;; See https://www.nicklanasa.com/posts/productivity-setup
