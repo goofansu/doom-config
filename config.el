@@ -210,20 +210,14 @@
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
           (sequence "WAIT(w@/!)" "|" "CANCELED(c@/!)")))
   (setq org-capture-templates
-        '(;; Areas
-          ("t" "Personal" entry
-           (file+headline +org-capture-todo-file "Personal")
+        '(("t" "To-dos" entry
+           (file +org-capture-todo-file)
            "* TODO %?\n%i\n%a" :prepend t)
-          ("f" "Family" entry
-           (file+headline +org-capture-todo-file "Family")
-           "* TODO %?\n%i\n%a" :prepend t)
-          ("w" "Work" entry
-           (file+headline +org-capture-todo-file "Work")
-           "* TODO %?\n%i\n%a" :prepend t)
-          ;; Resources
-          ("i" "Inbox" entry
-           (file "~/org/inbox.org")
-           "* %?\n%U\n" :prepend nil)
+          ;; Journal
+          ("j" "Journal")
+          ("jj" "Today I Learned" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %? :TIL:\n%i\n%a" :prepend nil)
           ;; Projects
           ("p" "Projects")
           ("pp" "Project todo" entry
@@ -232,11 +226,10 @@
           ("pn" "Project notes" entry
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
-          ;; Journal
-          ("j" "Journal")
-          ("jj" "TIL" entry
-           (file+olp+datetree +org-capture-journal-file)
-           "* %U %? :TIL:\n%i\n%a" :prepend nil)
+          ;; Everything else
+          ("i" "Inbox" entry
+           (file "~/org/inbox.org")
+           "* %?\n%U\n" :prepend nil)
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
