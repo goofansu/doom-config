@@ -211,30 +211,17 @@
           (sequence "WAIT(w@/!)" "|" "CANCELED(c@/!)")))
   (setq org-capture-templates
         '(("t" "To-dos" entry
-           (file +org-capture-todo-file)
+           (file+headline +org-capture-todo-file "Inbox")
            "* TODO %?\n%i\n%a" :prepend t)
-          ;; Journal
-          ("j" "Journal")
-          ("jj" "Today I Learned" entry
-           (file+olp+datetree +org-capture-journal-file)
-           "* %U %? :TIL:\n%i\n%a" :prepend nil)
-          ;; Projects
-          ("p" "Projects")
-          ("pp" "Project todo" entry
-           #'+org-capture-central-project-todo-file
-           "* TODO %?\n%i\n%a" :heading "Tasks" :prepend nil)
-          ("pn" "Project notes" entry
+          ("n" "Notes" entry
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
-          ;; Everything else
           ("i" "Inbox" entry
            (file "~/org/inbox.org")
-           "* %?\n%U\n" :prepend nil)
+           "* %U %?\n%i\n%a" :prepend nil)
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
-          ("building" . ?b)
-          ("training" . ?t)
           ("reading" . ?r)
           ("writing" . ?w)
           (:endgroup)
