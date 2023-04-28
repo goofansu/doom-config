@@ -216,7 +216,7 @@
           ("n" "Notes" entry
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
-          ("i" "Inbox" entry
+          ("x" "Capture" entry
            (file "~/org/inbox.org")
            "* %U %?\n%i\n%a" :prepend nil)
           ))
