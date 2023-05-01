@@ -210,18 +210,28 @@
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
           (sequence "WAIT(w@/!)" "|" "CANCELED(c@/!)")))
   (setq org-capture-templates
-        '(("t" "To-dos" entry
-           (file+headline +org-capture-todo-file "Inbox")
+        '(("t" "Todos" entry
+           (file +org-capture-todo-file)
            "* TODO %?\n%i\n%a" :prepend t)
           ("n" "Notes" entry
+           (file +org-capture-notes-file)
+           "* %U %?\n%i\n%a" :prepend t)
+          ("T" "Project todos" entry
+           #'+org-capture-central-project-todo-file
+           "* TODO %?\n%i\n%a" :heading "Todos" :prepend t)
+          ("N" "Project notes" entry
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
           ("x" "Capture" entry
            (file "~/org/inbox.org")
-           "* %U %?\n%i\n%a" :prepend nil)
+           "* %?\n%U\n%a" :prepend nil)
           ))
   (setq org-tag-persistent-alist
         '((:startgroup)
+          ("family" . ?f)
+          ("work" . ?k)
+          (:endgroup)
+          (:startgroup)
           ("reading" . ?r)
           ("writing" . ?w)
           (:endgroup)
