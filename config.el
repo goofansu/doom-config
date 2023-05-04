@@ -198,121 +198,17 @@
 
 ;; Org mode
 (setq org-directory "~/org"
-      org-roam-directory "~/org")
+      org-roam-directory "~/org/roam")
 
 (after! org
-  (setq org-use-property-inheritance t
-        org-log-done 'time
-        org-log-repeat 'note
-        org-list-allow-alphabetical t
-        org-fold-catch-invisible-edits 'smart)
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-          (sequence "WAIT(w@/!)" "|" "CANCELED(c@/!)")))
   (setq org-capture-templates
-        '(("t" "Todos" entry
-           (file +org-capture-todo-file)
-           "* TODO %?\n%i\n%a" :prepend t)
-          ("n" "Notes" entry
-           (file +org-capture-notes-file)
-           "* %U %?\n%i\n%a" :prepend t)
-          ("T" "Project todos" entry
-           #'+org-capture-central-project-todo-file
-           "* TODO %?\n%i\n%a" :heading "Todos" :prepend t)
-          ("N" "Project notes" entry
+        '(("n" "Project notes" entry
            #'+org-capture-central-project-notes-file
-           "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
-          ("j" "Journal" entry
+           "* %U %?\n%i\n%a" :heading "Notes" :prepend nil)
+          ("x" "Capture" entry
            (file+olp+datetree +org-capture-journal-file)
            "* %U %?\n%i\n%a" :prepend nil)
-          ("x" "Capture" entry
-           (file "~/org/inbox.org")
-           "* %?\n%U\n%a" :prepend nil)
-          ))
-  (setq org-tag-persistent-alist
-        '((:startgroup)
-          ("family" . ?f)
-          ("work" . ?k)
-          (:endgroup)
-          (:startgroup)
-          ("reading" . ?r)
-          ("writing" . ?w)
-          (:endgroup)
-          (:startgroup)
-          ("idea" . ?i)
-          ("question" . ?q)
-          (:endgroup)
-          ))
-  (setq org-agenda-custom-commands
-        '(("n" todo "NEXT")
-          ("N" todo-tree "NEXT")
-          ("w" todo "WAIT")
-          ("W" todo-tree "WAIT")
-          (" " . "Saved searches")
-          ("  " "Projects"
-           ((agenda "" ((org-agenda-overriding-header "Today")
-                        (org-agenda-files '("~/org/projects.org"))))
-            (todo "NEXT"
-                  ((org-agenda-overriding-header "Next")
-                   (org-agenda-files '("~/org/projects.org"))))
-            (todo "TODO"
-                  ((org-agenda-overriding-header "Unscheduled")
-                   (org-agenda-files '("~/org/projects.org"))
-                   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
-            ))
-          (" p" "Personal"
-           ((agenda "" ((org-agenda-overriding-header "Today")
-                        (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
-            (tags-todo "+reading|writing" ((org-agenda-overriding-header "Study")
-                                           (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))))
-            (todo "TODO" ((org-agenda-overriding-header "Unscheduled")
-                           (org-agenda-files '("~/org/todo.org" "~/org/inbox.org"))
-                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
-            ))
-          ))
-  ;; See https://www.nicklanasa.com/posts/productivity-setup
-  (defmacro func-ignore (fnc)
-    "Return function that ignores its arguments and invokes FNC."
-    `(lambda (&rest _rest)
-       (funcall ,fnc)))
-  (advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
-  (advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
-  (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
-  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
-  ;; Tracking habits
-  (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-show-all-today nil)
-  ;; See https://github.com/daviwil/dotfiles/blob/master/Emacs.org
-  ;; Increase the size of various headings
-  (require 'org-indent)
-  (set-face-attribute 'org-document-title nil :font "Overpass" :weight 'bold :height 1.3)
-  (dolist (face '((org-level-1 . 1.2)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "JetBrains Mono" :weight 'medium :height (cdr face)))
-  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-  ;; Get rid of the background on column views
-  (set-face-attribute 'org-column nil :background nil)
-  (set-face-attribute 'org-column-title nil :background nil)
-  ;; hooks
-  (add-hook 'org-mode-hook #'auto-revert-mode)
-  (add-hook 'org-agenda-mode-hook
-            (lambda ()
-              (define-key org-agenda-mode-map (kbd "C-<tab>") 'org-agenda-show-and-scroll-up))))
+          )))
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
