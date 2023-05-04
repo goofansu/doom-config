@@ -212,12 +212,4 @@
 
 (after! org-roam
   (setq org-roam-completion-everywhere t)
-  (org-roam-db-autosync-mode)
-  (defun org-roam--insert-timestamp ()
-    (org-entry-put nil "CREATED" (format-time-string "[%Y-%m-%d %a %H:%M]")))
-  (add-hook 'org-roam-capture-new-node-hook #'org-roam--insert-timestamp)
-  (setq org-roam-dailies-capture-templates
-      '(("d" "default" entry
-         "* %?\n%U\n"
-         :target (file+head "%<%Y-%m-%d>.org"
-                            "#+title: %<%Y-%m-%d>\n")))))
+  (org-roam-db-autosync-mode))
