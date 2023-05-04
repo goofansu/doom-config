@@ -222,6 +222,9 @@
           ("N" "Project notes" entry
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend nil)
           ("x" "Capture" entry
            (file "~/org/inbox.org")
            "* %?\n%U\n%a" :prepend nil)
