@@ -148,7 +148,11 @@
        :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
-       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
+       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
+      (:prefix-map ("n" . "notes")
+                   "d" #'org-roam-dailies-goto-date
+                   "n" #'org-roam-dailies-capture-today
+                   "N" #'org-roam-dailies-goto-today))
 
 ;; Functions
 (defun gh-pr-create ()
@@ -158,6 +162,8 @@
 (defun gh-pr-view ()
   (interactive)
   (shell-command "gh pr view -w"))
+
+;; Packages
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (("C-TAB" . 'copilot-accept-completion-by-word)
@@ -166,7 +172,6 @@
          ("<tab>" . 'copilot-accept-completion)
          ("TAB" . 'copilot-accept-completion)))
 
-;; Packages
 (use-package! elixir-mode
   :hook (before-save . elixir-format-before-save)
   :config
