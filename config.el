@@ -202,19 +202,41 @@
         web-mode-code-indent-offset 2))
 
 ;; Org mode
+(require 'org-roam-dailies)
 (setq org-directory "~/org"
-      org-roam-directory "~/org/roam")
+      org-roam-directory "~/org/roam"
+      org-agenda-files (list org-directory
+                             org-roam-directory
+                             (expand-file-name org-roam-dailies-directory org-roam-directory)
+                             "~/src/openapply"
+                             "~/src/brightu"))
 
 (after! org
+  (setq org-use-property-inheritance t
+        org-log-done 'time
+        org-log-repeat 'note
+        org-list-allow-alphabetical t
+        org-fold-catch-invisible-edits 'smart)
   (setq org-capture-templates
-        '(("n" "Project notes" entry
-           #'+org-capture-central-project-notes-file
-           "* %U %?\n%i\n%a" :heading "Notes" :prepend nil)
-          ("x" "Capture" entry
-           (file+olp+datetree +org-capture-journal-file)
-           "* %U %?\n%i\n%a" :prepend nil)
-          )))
-
-(after! org-roam
-  (setq org-roam-completion-everywhere t)
-  (org-roam-db-autosync-mode))
+        '(("t" "Personal todo" entry
+           (file+headline +org-capture-todo-file "Inbox")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("n" "Personal notes" entry
+           (file+headline +org-capture-notes-file "Inbox")
+           "* %u %?\n%i\n%a" :prepend t)
+          ("p" "Templates for projects")
+          ("pt" "Project-local todo" entry
+           (file+headline +org-capture-project-todo-file "Inbox")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("pn" "Project-local notes" entry
+           (file+headline +org-capture-project-notes-file "Inbox")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("pc" "Project-local changelog" entry
+           (file+headline +org-capture-project-changelog-file "Unreleased")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("o" "Centralized templates for projects")
+          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+          ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t)))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "DOING(i)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)"))))
