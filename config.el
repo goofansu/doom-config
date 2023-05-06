@@ -232,7 +232,7 @@
 (after! org-roam
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
-           "* %?\n%U\n"
+           "* %U %?"
            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
   (defun org-roam--insert-timestamp ()
     (org-entry-put nil "CREATED" (format-time-string "[%Y-%m-%d %a %H:%M]")))
