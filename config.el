@@ -227,7 +227,7 @@
            #'+org-capture-central-project-notes-file
            "* %U %?\n %i\n %a" :heading "Notes" :prepend t)))
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "DOING(i)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)"))))
+        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)"))))
 
 (after! org-roam
   (setq org-roam-dailies-capture-templates
