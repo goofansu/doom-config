@@ -207,9 +207,7 @@
       org-roam-directory "~/org/roam"
       org-agenda-files (list org-directory
                              org-roam-directory
-                             (expand-file-name org-roam-dailies-directory org-roam-directory)
-                             "~/src/openapply"
-                             "~/src/brightu"))
+                             (expand-file-name org-roam-dailies-directory org-roam-directory)))
 
 (after! org
   (setq org-use-property-inheritance t
@@ -222,7 +220,20 @@
            (file+headline +org-capture-todo-file "Inbox")
            "* TODO %?\n%i\n%a" :prepend t)
           ("o" "Centralized templates for projects")
-          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
-          ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)))
+          ("ot" "Project todo" entry
+           #'+org-capture-central-project-todo-file
+           "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+          ("on" "Project notes" entry
+           #'+org-capture-central-project-notes-file
+           "* %U %?\n %i\n %a" :heading "Notes" :prepend t)))
   (setq org-todo-keywords
         '((sequence "TODO(t)" "DOING(i)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)"))))
+
+(after! org-roam
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?\n%U\n"
+           :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+  (defun org-roam--insert-timestamp ()
+    (org-entry-put nil "CREATED" (format-time-string "[%Y-%m-%d %a %H:%M]")))
+  (add-hook 'org-roam-capture-new-node-hook #'org-roam--insert-timestamp))
