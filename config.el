@@ -190,10 +190,6 @@
   (setq ruby-indent-level 2)
   :hook (ruby-mode . ruby-electric-mode))
 
-(use-package! wakatime-mode
-  :config
-  (global-wakatime-mode))
-
 (use-package! web-mode
   :init
   (setq web-mode-markup-indent-offset 2
