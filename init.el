@@ -105,7 +105,7 @@
        ;;prodigy           ; FIXME managing external services & code builders
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       tree-sitter       ; syntax and parsing, sitting in a tree...
+       ;;tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -125,8 +125,7 @@
        ;;(dart +flutter)   ; paint ui and not much else
        ;;dhall
        (elixir             ; erlang done right
-        +lsp
-        +tree-sitter)
+        +lsp)
        ;;elm               ; care for a cup of TEA?
        emacs-lisp          ; drown in parentheses
        erlang              ; an elegant language for a more civilized age
@@ -168,8 +167,7 @@
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        (ruby               ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-        +rails
-        +tree-sitter)
+        +rails)
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
