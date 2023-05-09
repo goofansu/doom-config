@@ -210,11 +210,13 @@
                              (expand-file-name org-roam-dailies-directory org-roam-directory)))
 
 (after! org
+  (add-to-list 'org-modules 'org-habit)
   (setq org-use-property-inheritance t
         org-log-done 'time
         org-log-repeat 'note
         org-list-allow-alphabetical t
-        org-fold-catch-invisible-edits 'smart)
+        org-fold-catch-invisible-edits 'smart
+        org-habit-show-all-today t)
   (setq org-capture-templates
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
@@ -227,7 +229,37 @@
            #'+org-capture-central-project-notes-file
            "* %U %?\n %i\n %a" :heading "Notes" :prepend t)))
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)"))))
+        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)")))
+  ;; See https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
+  (defun air-org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+PRIORITY may be one of the characters ?A, ?B, or ?C."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
+  (defun air-org-skip-subtree-if-habit ()
+    "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (string= (org-entry-get nil "STYLE") "habit")
+          subtree-end
+        nil)))
+  (setq org-agenda-custom-commands
+        '(("d" "Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" ((org-agenda-span 1)
+                        (org-agenda-start-day "+0d")))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks t)))))
+  )
 
 (after! org-roam
   (setq org-roam-dailies-capture-templates
