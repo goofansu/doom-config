@@ -229,7 +229,7 @@
            #'+org-capture-central-project-notes-file
            "* %U %?\n%i\n%a" :heading "Notes" :prepend t)))
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)")))
+        '((sequence "TODO(t)" "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c@)")))
   ;; See https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
   (defun air-org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
