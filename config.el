@@ -150,7 +150,7 @@
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
       (:prefix-map ("n" . "notes")
-                   "d" #'org-roam-dailies-goto-date
+                   "d" #'org-roam-capture
                    "n" #'org-roam-dailies-capture-today
                    "N" #'org-roam-dailies-goto-today))
 
@@ -273,7 +273,4 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
            "* %U %?"
-           :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
-  (defun org-roam--insert-timestamp ()
-    (org-entry-put nil "CREATED" (format-time-string "[%Y-%m-%d %a %H:%M]")))
-  (add-hook 'org-roam-capture-new-node-hook #'org-roam--insert-timestamp))
+           :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
