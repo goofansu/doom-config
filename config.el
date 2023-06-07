@@ -259,6 +259,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks t)))))
+  (defun my/daily-agenda ()
+    (interactive)
+    (org-agenda nil "d"))
+  (global-set-key (kbd "s-d") 'my/daily-agenda)
   ;; Org mode files are saved automatically.
   (defmacro func-ignore (fnc)
     "Return function that ignores its arguments and invokes FNC."
