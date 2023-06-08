@@ -142,18 +142,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Key bindings
-(map! :leader
-      (:prefix-map ("c" . "code")
-       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
-      (:prefix-map ("s" . "search")
-       :desc "Look up in Dash" "k" #'dash-at-point
-       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
-      (:prefix-map ("n" . "notes")
-                   "d" #'org-roam-capture
-                   "n" #'org-roam-dailies-capture-today
-                   "N" #'org-roam-dailies-goto-today))
-
 ;; Functions
 (defun gh-pr-create ()
   (interactive)
@@ -278,3 +266,20 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
         '(("d" "default" entry
            "* %U %?"
            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
+
+;; Key bindings
+(map! :leader
+      (:prefix-map ("c" . "code")
+       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
+      (:prefix-map ("s" . "search")
+       :desc "Look up in Dash" "k" #'dash-at-point
+       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
+      (:prefix-map ("n" . "notes")
+                   "n" #'org-roam-capture
+                   "N" #'org-roam-dailies-capture-date
+                   "d" #'org-roam-dailies-capture-today
+                   "D" #'org-roam-dailies-goto-today
+                   "y" #'org-roam-dailies-capture-yesterday
+                   "Y" #'org-roam-dailies-goto-yesterday
+                   "t" #'org-roam-dailies-capture-tomorrow
+                   "T" #'org-roam-dailies-goto-tomorrow))
