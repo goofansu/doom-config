@@ -199,6 +199,7 @@
 
 (after! org
   (add-to-list 'org-modules 'org-habit)
+  (use-package! org-pandoc-import)
   (setq org-use-property-inheritance t
         org-log-done 'time
         org-log-repeat 'note
@@ -259,7 +260,15 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
-  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers)))
+  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
+  ;; functions
+  (defun my/org-babel-or-mark-defun ()
+    "If in a org-babel src block, mark it. Otherwise, mark defun."
+    (interactive)
+    (if (org-in-src-block-p)
+        (org-babel-mark-block)
+      (mark-defun)))
+  (define-key org-mode-map (kbd "C-M-h") 'my/org-babel-or-mark-defun))
 
 (after! org-roam
   (setq org-roam-dailies-capture-templates

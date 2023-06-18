@@ -54,6 +54,10 @@
 (package! copilot :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
 (package! dash-at-point)
 (package! format-all)
+(package! org-pandoc-import
+  :recipe (:host github
+           :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))
 (package! protobuf-mode)
 (package! ruby-electric)
 (package! wakatime-mode)
