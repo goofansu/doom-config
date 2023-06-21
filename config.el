@@ -206,19 +206,6 @@
         org-list-allow-alphabetical t
         org-fold-catch-invisible-edits 'smart
         org-habit-show-all-today t)
-  (setq org-capture-templates
-        '(("t" "Personal todo" entry
-           (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\n%i\n%a" :prepend t)
-          ("o" "Centralized templates for projects")
-          ("ot" "Project todo" entry
-           #'+org-capture-central-project-todo-file
-           "* TODO %?\n%i\n%a" :heading "Tasks" :prepend nil)
-          ("on" "Project notes" entry
-           #'+org-capture-central-project-notes-file
-           "* %U %?\n%i\n%a" :heading "Notes" :prepend t)))
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w@)" "HOLD(h@)" "|" "DONE(d)" "CANCELED(c@)")))
   ;; See https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
   (defun air-org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
@@ -284,11 +271,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
       (:prefix-map ("n" . "notes")
-                   "n" #'org-roam-capture
-                   "N" #'org-roam-dailies-capture-date
-                   "d" #'org-roam-dailies-capture-today
-                   "D" #'org-roam-dailies-goto-today
-                   "y" #'org-roam-dailies-capture-yesterday
-                   "Y" #'org-roam-dailies-goto-yesterday
-                   "t" #'org-roam-dailies-capture-tomorrow
-                   "T" #'org-roam-dailies-goto-tomorrow))
+       :desc "Org roam capture today" "n" #'org-roam-dailies-capture-today
+       :desc "Org roam capture" "N" #'org-roam-capture
+       :desc "Find file in roam notes" "F" #'org-roam-node-find))
