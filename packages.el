@@ -63,4 +63,5 @@
            :files ("*.el" "filters" "preprocessors")))
 (package! protobuf-mode)
 (package! ruby-electric)
+(package! sicp)
 (package! wakatime-mode)
