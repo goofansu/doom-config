@@ -260,17 +260,17 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (after! org-roam
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
-           "* %U %?"
+           "* %U %?\n%i"
            :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
 
 ;; Key bindings
 (map! :leader
       (:prefix-map ("c" . "code")
        :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
+      (:prefix-map ("n" . "notes")
+       :desc "Org roam capture today" "d" #'org-roam-dailies-capture-today
+       :desc "Org roam capture today" "D" #'org-roam-dailies-goto-today
+       :desc "Org roam capture" "x" #'org-roam-capture)
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
-       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
-      (:prefix-map ("n" . "notes")
-       :desc "Org roam capture today" "n" #'org-roam-dailies-capture-today
-       :desc "Org roam capture" "N" #'org-roam-capture
-       :desc "Find file in roam notes" "F" #'org-roam-node-find))
+       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
