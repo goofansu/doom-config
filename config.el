@@ -264,15 +264,15 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
 ;; Key bindings
 (map! :leader
+      (:prefix-map ("c" . "code")
+       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
       (:prefix-map ("d" . "daily")
        :desc "Agenda" "a" #'my/daily-agenda
        :desc "Org roam capture today" "d" #'org-roam-dailies-capture-today
        :desc "Org roam go to today" "D" #'org-roam-dailies-goto-today)
-      (:prefix-map ("c" . "code")
-       :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
       (:prefix-map ("n" . "notes")
        :desc "Org roam capture" "n" #'org-roam-capture
-       :desc "Org roam find" "N" #'org-roam-node-find
+       :desc "Org roam go to" "N" #'org-roam-node-find
        :desc "Org roam capture date" "d" #'org-roam-dailies-capture-date
        :desc "Org roam go to date" "D" #'org-roam-dailies-goto-date)
       (:prefix-map ("s" . "search")
