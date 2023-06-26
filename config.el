@@ -273,7 +273,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       (:prefix-map ("n" . "notes")
        :desc "Org roam capture" "n" #'org-roam-capture
        :desc "Org roam find" "N" #'org-roam-node-find
-       :desc "Org roam go to date" "d" #'org-roam-dailies-goto-date)
+       :desc "Org roam capture date" "d" #'org-roam-dailies-capture-date
+       :desc "Org roam go to date" "D" #'org-roam-dailies-goto-date)
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
