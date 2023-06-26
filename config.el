@@ -238,7 +238,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (defun my/daily-agenda ()
     (interactive)
     (org-agenda nil "d"))
-  (global-set-key (kbd "s-d") 'my/daily-agenda)
   ;; Org mode files are saved automatically.
   (defmacro func-ignore (fnc)
     "Return function that ignores its arguments and invokes FNC."
@@ -265,12 +264,16 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
 ;; Key bindings
 (map! :leader
+      (:prefix-map ("d" . "daily")
+       :desc "Agenda" "a" #'my/daily-agenda
+       :desc "Org roam capture today" "d" #'org-roam-dailies-capture-today
+       :desc "Org roam go to today" "D" #'org-roam-dailies-goto-today)
       (:prefix-map ("c" . "code")
        :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
       (:prefix-map ("n" . "notes")
-       :desc "Org roam capture today" "d" #'org-roam-dailies-capture-today
-       :desc "Org roam capture today" "D" #'org-roam-dailies-goto-today
-       :desc "Org roam capture" "x" #'org-roam-capture)
+       :desc "Org roam capture" "n" #'org-roam-capture
+       :desc "Org roam find" "N" #'org-roam-node-find
+       :desc "Org roam go to date" "d" #'org-roam-dailies-goto-date)
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
