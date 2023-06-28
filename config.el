@@ -278,3 +278,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
+
+(global-set-key (kbd "s-k") 'kill-this-buffer)
+(global-set-key (kbd "s-u") 'revert-buffer)
