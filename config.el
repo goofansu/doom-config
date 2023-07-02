@@ -190,12 +190,9 @@
         web-mode-code-indent-offset 2))
 
 ;; Org mode
-(require 'org-roam-dailies)
 (setq org-directory "~/org"
       org-roam-directory "~/org/roam"
-      org-agenda-files (list org-directory
-                             org-roam-directory
-                             (expand-file-name org-roam-dailies-directory org-roam-directory)))
+      org-agenda-files (list org-directory org-roam-directory))
 
 (after! org
   (add-to-list 'org-modules 'org-habit)
@@ -235,9 +232,21 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks t)))))
-  (defun my/daily-agenda ()
+  (defun my/org-agenda-today ()
+    "Call org-agenda with custom agenda command d"
     (interactive)
     (org-agenda nil "d"))
+  (defun my/org-capture-journal ()
+    "Call org-capture with template key j"
+    (interactive)
+    (org-capture nil "j"))
+  (defun my/org-babel-or-mark-defun ()
+    "If in a org-babel src block, mark it. Otherwise, mark defun."
+    (interactive)
+    (if (org-in-src-block-p)
+        (org-babel-mark-block)
+      (mark-defun)))
+  (define-key org-mode-map (kbd "C-M-h") 'my/org-babel-or-mark-defun)
   ;; Org mode files are saved automatically.
   (defmacro func-ignore (fnc)
     "Return function that ignores its arguments and invokes FNC."
@@ -246,38 +255,18 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
-  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
-  ;; functions
-  (defun my/org-babel-or-mark-defun ()
-    "If in a org-babel src block, mark it. Otherwise, mark defun."
-    (interactive)
-    (if (org-in-src-block-p)
-        (org-babel-mark-block)
-      (mark-defun)))
-  (define-key org-mode-map (kbd "C-M-h") 'my/org-babel-or-mark-defun))
-
-(after! org-roam
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           "* %U %?\n%i"
-           :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))))
+  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers)))
 
 ;; Key bindings
 (map! :leader
       (:prefix-map ("c" . "code")
        :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
       (:prefix-map ("d" . "daily")
-       :desc "Agenda" "a" #'my/daily-agenda
-       :desc "Org roam capture today" "d" #'org-roam-dailies-capture-today
-       :desc "Org roam go to today" "D" #'org-roam-dailies-goto-today)
+       :desc "Agenda" "a" #'my/org-agenda-today
+       :desc "Journal" "d" #'my/org-capture-journal)
       (:prefix-map ("n" . "notes")
        :desc "Org roam capture" "n" #'org-roam-capture
-       :desc "Org roam go to" "N" #'org-roam-node-find
-       :desc "Org roam capture date" "d" #'org-roam-dailies-capture-date
-       :desc "Org roam go to date" "D" #'org-roam-dailies-goto-date)
+       :desc "Org roam go to" "N" #'org-roam-node-find)
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
-
-(global-set-key (kbd "s-k") 'kill-this-buffer)
-(global-set-key (kbd "s-u") 'revert-buffer)
