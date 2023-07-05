@@ -191,7 +191,7 @@
 
 ;; Org mode
 (setq org-directory "~/org"
-      org-roam-directory "~/org/roam"
+      org-roam-directory "~/notes"
       org-agenda-files (list org-directory org-roam-directory))
 
 (after! org
