@@ -249,15 +249,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (defun my/org-agenda-today ()
   (interactive)
   (org-agenda nil "d"))
-(defun my/org-capture-todo ()
-  (interactive)
-  (org-capture nil "t"))
-(defun my/org-capture-notes ()
-  (interactive)
-  (org-capture nil "n"))
-(defun my/org-capture-journal ()
-  (interactive)
-  (org-capture nil "j"))
 
 ;; Key bindings
 (map! :leader
@@ -267,14 +258,9 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
        :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
-      (:prefix-map ("n" . "notes")
-       :desc "Org capture notes" "n" #'my/org-capture-notes)
       ;; New prefix-map
       (:prefix-map ("d" . "daily")
-       :desc "Org capture journal" "d" #'my/org-capture-journal
-       :desc "Daily agenda" "a" #'my/org-agenda-today)
+       :desc "Daily agenda" "d" #'my/org-agenda-today)
       (:prefix-map ("r" . "roam")
        :desc "Org roam capture" "r" #'org-roam-capture
-       :desc "Org roam find" "f" #'org-roam-node-find)
-      (:prefix-map ("t" . "tasks")
-       :desc "Org capture todo" "t" #'my/org-capture-todo))
+       :desc "Org roam find" "f" #'org-roam-node-find))
