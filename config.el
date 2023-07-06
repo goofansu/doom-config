@@ -142,15 +142,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Functions
-(defun gh-pr-create ()
-  (interactive)
-  (shell-command "gh pr create -w"))
-
-(defun gh-pr-view ()
-  (interactive)
-  (shell-command "gh pr view -w"))
-
 ;; Packages
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -232,17 +223,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks t)))))
-  (defun my/org-agenda-today ()
-    "Call org-agenda with custom agenda command d"
-    (interactive)
-    (org-agenda nil "d"))
-  (defun my/org-capture-journal ()
-    "Call org-capture with template key j"
-    (interactive)
-    (org-capture nil "j"))
   (defun my/org-babel-or-mark-defun ()
     "If in a org-babel src block, mark it. Otherwise, mark defun."
-    (interactive)
     (if (org-in-src-block-p)
         (org-babel-mark-block)
       (mark-defun)))
@@ -257,16 +239,42 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
   (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers)))
 
+;; Functions
+(defun my/gh-pr-create ()
+  (interactive)
+  (shell-command "gh pr create -w"))
+(defun my/gh-pr-view ()
+  (interactive)
+  (shell-command "gh pr view -w"))
+(defun my/org-agenda-today ()
+  (interactive)
+  (org-agenda nil "d"))
+(defun my/org-capture-todo ()
+  (interactive)
+  (org-capture nil "t"))
+(defun my/org-capture-notes ()
+  (interactive)
+  (org-capture nil "n"))
+(defun my/org-capture-journal ()
+  (interactive)
+  (org-capture nil "j"))
+
 ;; Key bindings
 (map! :leader
+      ;; Doom's built-in prefix-map
       (:prefix-map ("c" . "code")
        :desc "Create private Gist for region or buffer" "g" #'gist-region-or-buffer-private)
-      (:prefix-map ("d" . "daily")
-       :desc "Agenda" "a" #'my/org-agenda-today
-       :desc "Journal" "d" #'my/org-capture-journal)
-      (:prefix-map ("n" . "notes")
-       :desc "Org roam capture" "n" #'org-roam-capture
-       :desc "Org roam go to" "N" #'org-roam-node-find)
       (:prefix-map ("s" . "search")
        :desc "Look up in Dash" "k" #'dash-at-point
-       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset))
+       :desc "Look up in Dash (w/ prompt)" "K" #'dash-at-point-with-docset)
+      (:prefix-map ("n" . "notes")
+       :desc "Org capture notes" "n" #'my/org-capture-notes)
+      ;; New prefix-map
+      (:prefix-map ("d" . "daily")
+       :desc "Org capture journal" "d" #'my/org-capture-journal
+       :desc "Daily agenda" "a" #'my/org-agenda-today)
+      (:prefix-map ("r" . "roam")
+       :desc "Org roam capture" "r" #'org-roam-capture
+       :desc "Org roam find" "f" #'org-roam-node-find)
+      (:prefix-map ("t" . "tasks")
+       :desc "Org capture todo" "t" #'my/org-capture-todo))
