@@ -189,6 +189,7 @@
   (add-to-list 'org-modules 'org-habit)
   (use-package! org-pandoc-import)
   (setq org-use-property-inheritance t
+        org-hide-emphasis-markers t
         org-log-done 'time
         org-log-repeat 'note
         org-list-allow-alphabetical t
