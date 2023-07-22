@@ -74,6 +74,9 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(map! :leader
+      :desc "Chat with GPT" "cs" #'chatgpt-shell
+      :desc "Chat with GPT for region" "cS" #'chatgpt-shell-send-and-review-region)
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -85,6 +88,7 @@
 
 (use-package! chatgpt-shell
   :defer t
+  :commands chatgpt-shell-send-and-review-region
   :custom
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
