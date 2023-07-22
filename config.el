@@ -74,10 +74,16 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;;; Keybindings
 (map! :leader
       :desc "Chat with GPT" "cs" #'chatgpt-shell
-      :desc "Chat with GPT for region" "cS" #'chatgpt-shell-send-and-review-region)
+      :desc "Chat with GPT for region" "cS" #'chatgpt-shell-send-and-review-region
+      :desc "Start Rune Emacs" "C-c e" #'yejun/launch-rune-emacs
+      "gcp" #'yejun/gh-pr-create
+      "gop" #'yejun/gh-pr-view)
 
+;;; Packages
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
@@ -103,3 +109,16 @@
 
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
+
+;;; Functions
+(defun yejun/launch-rune-emacs ()
+  (interactive)
+  (shell-command "emacs -q -l ~/src/rune/init.el"))
+
+(defun yejun/gh-pr-create ()
+  (interactive)
+  (shell-command "gh pr create -w"))
+
+(defun yejun/gh-pr-view ()
+  (interactive)
+  (shell-command "gh pr view -w"))
