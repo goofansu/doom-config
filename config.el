@@ -79,7 +79,6 @@
 (map! :leader
       :desc "Chat with GPT" "cs" #'chatgpt-shell
       :desc "Chat with GPT for region" "cS" #'chatgpt-shell-send-and-review-region
-      :desc "Start Rune Emacs" "C-c e" #'yejun/launch-rune-emacs
       "gcp" #'yejun/gh-pr-create
       "gop" #'yejun/gh-pr-view)
 
@@ -113,7 +112,11 @@
 ;;; Functions
 (defun yejun/launch-rune-emacs ()
   (interactive)
-  (shell-command "emacs -q -l ~/src/rune/init.el"))
+  (let* ((default-directory "~/src/rune")
+         (user-init-file (expand-file-name "init.el" default-directory)))
+    (start-process "Emacs" nil "emacs" "-q" "-l" user-init-file)))
+
+(global-set-key (kbd "C-c e") #'yejun/launch-rune-emacs)
 
 (defun yejun/gh-pr-create ()
   (interactive)
