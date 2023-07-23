@@ -82,6 +82,10 @@
       "gcp" #'yejun/gh-pr-create
       "gop" #'yejun/gh-pr-view)
 
+;;; Pop-up rules
+(set-popup-rules!
+  '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)))
+
 ;;; Packages
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
