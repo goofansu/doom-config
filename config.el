@@ -116,7 +116,7 @@
 ;;; Functions
 (defun yejun/launch-rune-emacs ()
   (interactive)
-  (let ((default-directory "~/src/rune"))
+  (let ((default-directory "~/src/rune/"))
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
 
 (global-set-key (kbd "C-c e") #'yejun/launch-rune-emacs)
