@@ -113,6 +113,9 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
+(use-package org-habit
+  :after org)
+
 ;;; Functions
 (defun yejun/launch-rune-emacs ()
   (interactive)
