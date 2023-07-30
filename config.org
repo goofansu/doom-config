@@ -1,18 +1,41 @@
+#+title: Emacs configuration
+
+* About me
+#+begin_src emacs-lisp
 (setq user-full-name "Yejun Su"
       user-mail-address "yejun@hey.com")
+#+end_src
 
+* Appearance
+** Font
+#+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 13))
+#+end_src
 
+** Theme
+#+begin_src emacs-lisp
 (setq doom-theme 'doom-dracula)
+#+end_src
 
+** Other
+#+begin_src emacs-lisp
 (setq display-line-numbers-type t)
+#+end_src
 
+* Org
+#+begin_src emacs-lisp
 (setq org-directory "~/org/")
+#+end_src
 
+** org-habit
+#+begin_src emacs-lisp
 (use-package org-habit
   :after org)
+#+end_src
 
+* Copliot
+#+begin_src emacs-lisp
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
@@ -20,7 +43,10 @@
               ("<tab>" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+#+end_src
 
+* ChatGPT
+#+begin_src emacs-lisp
 (use-package! chatgpt-shell
   :defer t
   :commands (chatgpt-shell-prompt
@@ -33,7 +59,10 @@
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
   (chatgpt-shell-openai-key (lambda () (auth-source-pass-get 'secret "openai/api-key/chatgpt-shell"))))
+#+end_src
 
+** Keybindings
+#+begin_src emacs-lisp
 (map! :leader
       :prefix ("z" . "chatgpt-shell")
       "z" #'chatgpt-shell
@@ -43,24 +72,43 @@
       "S" #'chatgpt-shell-send-and-review-region
       "e" #'chatgpt-shell-explain-code
       "r" #'chatgpt-shell-refactor-code)
+#+end_src
 
+* Languages
+** Elixir
+#+begin_src emacs-lisp
 (use-package! elixir-mode
   :hook (before-save . elixir-format-before-save)
   :config
   (defun elixir-format-before-save ()
     (when (derived-mode-p 'elixir-mode)
       (eglot-format-buffer))))
+#+end_src
 
+** Nix
+#+begin_src emacs-lisp
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
+#+end_src
 
+* Functions
+** Vanilla Emacs
+*** Functions
+#+begin_src emacs-lisp
 (defun yejun/launch-vanilla-emacs ()
   (interactive)
   (let ((default-directory "~/src/.emacs.d/"))
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
+#+end_src
 
+*** Keybindings
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
+#+end_src
 
+** GitHub CLI
+*** Functions
+#+begin_src emacs-lisp
 (defun yejun/gh-pr-create ()
   (interactive)
   (shell-command "gh pr create -w"))
@@ -68,11 +116,18 @@
 (defun yejun/gh-pr-view ()
   (interactive)
   (shell-command "gh pr view -w"))
+#+end_src
 
+*** Keybindings
+#+begin_src emacs-lisp
 (map! :leader
       "gcp" #'yejun/gh-pr-create
       "gop" #'yejun/gh-pr-view)
+#+end_src
 
+* Pop-up rules
+#+begin_src emacs-lisp
 (set-popup-rules!
   '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
     ("^ChatGPT>" :side bottom :size 0.5 :select t)))
+#+end_src
