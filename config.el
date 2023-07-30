@@ -79,14 +79,23 @@
 
 ;;; Keybindings
 (map! :leader
-      :desc "Chat with GPT" "cs" #'chatgpt-shell
-      :desc "Chat with GPT for region" "cS" #'chatgpt-shell-send-and-review-region
+      :prefix ("z" . "chatgpt-shell")
+      "z" #'chatgpt-shell
+      "b" #'chatgpt-shell-prompt
+      "c" #'chatgpt-shell-prompt-compose
+      "s" #'chatgpt-shell-send-region
+      "S" #'chatgpt-shell-send-and-review-region
+      "e" #'chatgpt-shell-explain-code
+      "r" #'chatgpt-shell-refactor-code)
+
+(map! :leader
       "gcp" #'yejun/gh-pr-create
       "gop" #'yejun/gh-pr-view)
 
 ;;; Pop-up rules
 (set-popup-rules!
-  '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)))
+  '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
+    ("^ChatGPT>" :side bottom :size 0.5 :select t)))
 
 ;;; Packages
 (use-package! copilot
@@ -99,11 +108,16 @@
 
 (use-package! chatgpt-shell
   :defer t
-  :commands chatgpt-shell-send-and-review-region
+  :commands (chatgpt-shell-prompt
+             chatgpt-shell-prompt-compose
+             chatgpt-shell-send-region
+             chatgpt-shell-send-and-review-region
+             chatgpt-shell-explain-code
+             chatgpt-shell-refactor-code)
   :custom
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
-  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
+  (chatgpt-shell-openai-key (lambda () (auth-source-pass-get 'secret "openai/api-key/chatgpt-shell"))))
 
 (use-package! elixir-mode
   :hook (before-save . elixir-format-before-save)
