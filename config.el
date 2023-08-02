@@ -1,6 +1,9 @@
 (setq user-full-name "Yejun Su"
       user-mail-address "yejun@hey.com")
 
+(setq auth-sources '("~/.authinfo.gpg")
+      auth-source-cache-expiry nil)
+
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 13))
 
@@ -16,16 +19,16 @@
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
   :bind (:map copilot-completion-map
-              ("TAB" . 'copilot-accept-completion)
-              ("<tab>" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+              ("TAB"     . #'copilot-accept-completion)
+              ("<tab>"   . #'copilot-accept-completion)
+              ("C-TAB"   . #'copilot-accept-completion-by-word)
+              ("C-<tab>" . #'copilot-accept-completion-by-word)))
 
 (use-package! chatgpt-shell
   :custom
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
-  (chatgpt-shell-openai-key (lambda () (auth-source-pass-get 'secret "openai/api-key/chatgpt-shell"))))
+  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
 
 (map! :leader
       :prefix ("z" . "chatgpt-shell")
