@@ -10,7 +10,8 @@
 ** Font
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 13))
+      doom-serif-font (font-spec :family "Courier New" :size 16)
+      doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
 #+end_src
 
 ** Theme
@@ -18,12 +19,7 @@
 (setq doom-theme 'doom-dracula)
 #+end_src
 
-** Other
-#+begin_src emacs-lisp
-(setq display-line-numbers-type t)
-#+end_src
-
-* Org
+* Organize everything
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
 #+end_src
@@ -35,46 +31,10 @@
 #+end_src
 
 * Coding
-** Copliot
+** Don't check syntax when editing
 #+begin_src emacs-lisp
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("TAB"     . #'copilot-accept-completion)
-              ("<tab>"   . #'copilot-accept-completion)
-              ("C-TAB"   . #'copilot-accept-completion-by-word)
-              ("C-<tab>" . #'copilot-accept-completion-by-word)))
-#+end_src
-
-** Lookup document in Dash.app
-#+begin_src emacs-lisp
-(use-package! dash-at-point)
-
-(map! :leader
-      "sk" #'dash-at-point
-      "sK" #'dash-at-point-with-docset)
-#+end_src
-
-* ChatGPT
-#+begin_src emacs-lisp
-(use-package! chatgpt-shell
-  :custom
-  (chatgpt-shell-model-version 2)
-  (chatgpt-shell-welcome-function nil)
-  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
-#+end_src
-
-** Keybindings
-#+begin_src emacs-lisp
-(map! :leader
-      :prefix ("z" . "chatgpt-shell")
-      "z" #'chatgpt-shell
-      "b" #'chatgpt-shell-prompt
-      "c" #'chatgpt-shell-prompt-compose
-      "s" #'chatgpt-shell-send-region
-      "S" #'chatgpt-shell-send-and-review-region
-      "e" #'chatgpt-shell-explain-code
-      "r" #'chatgpt-shell-refactor-code)
+(after! flycheck
+  (delq 'idle-change flycheck-check-syntax-automatically))
 #+end_src
 
 * Languages
@@ -94,19 +54,19 @@
   :hook (before-save . nix-format-before-save))
 #+end_src
 
-* Learn Emacs
-I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
-
+* Tools
+** GitHub Copliot
 #+begin_src emacs-lisp
-(defun yejun/launch-vanilla-emacs ()
-  (interactive)
-  (let ((default-directory "~/src/.emacs.d/"))
-    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
-
-(global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("TAB"     . #'copilot-accept-completion)
+              ("<tab>"   . #'copilot-accept-completion)
+              ("C-TAB"   . #'copilot-accept-completion-by-word)
+              ("C-<tab>" . #'copilot-accept-completion-by-word)))
 #+end_src
 
-* GitHub CLI
+** GitHub CLI
 #+begin_src emacs-lisp
 (defun yejun/gh-pr-create ()
   (interactive)
@@ -121,9 +81,46 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
       "gop" #'yejun/gh-pr-view)
 #+end_src
 
-* Pop-up rules
+** ChatGPT
 #+begin_src emacs-lisp
+(use-package! chatgpt-shell
+  :custom
+  (chatgpt-shell-model-version 2)
+  (chatgpt-shell-welcome-function nil)
+  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
+
+(map! :leader
+      :prefix ("z" . "chatgpt-shell")
+      "z" #'chatgpt-shell
+      "b" #'chatgpt-shell-prompt
+      "c" #'chatgpt-shell-prompt-compose
+      "s" #'chatgpt-shell-send-region
+      "S" #'chatgpt-shell-send-and-review-region
+      "e" #'chatgpt-shell-explain-code
+      "r" #'chatgpt-shell-refactor-code)
+
 (set-popup-rules!
   '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
     ("^ChatGPT>" :side bottom :size 0.5 :select t)))
+#+end_src
+
+** Dash.app
+#+begin_src emacs-lisp
+(use-package! dash-at-point)
+
+(map! :leader
+      "sk" #'dash-at-point
+      "sK" #'dash-at-point-with-docset)
+#+end_src
+
+** Vanilla Emacs
+I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
+
+#+begin_src emacs-lisp
+(defun yejun/launch-vanilla-emacs ()
+  (interactive)
+  (let ((default-directory "~/src/.emacs.d/"))
+    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
+
+(global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
 #+end_src

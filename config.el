@@ -2,16 +2,28 @@
       user-mail-address "yejun@hey.com")
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 13))
+      doom-serif-font (font-spec :family "Courier New" :size 16)
+      doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
 
 (setq doom-theme 'doom-dracula)
-
-(setq display-line-numbers-type t)
 
 (setq org-directory "~/org/")
 
 (use-package! org-habit
   :after org)
+
+(after! flycheck
+  (delq 'idle-change flycheck-check-syntax-automatically))
+
+(use-package! elixir-mode
+  :hook (before-save . elixir-format-before-save)
+  :config
+  (defun elixir-format-before-save ()
+    (when (derived-mode-p 'elixir-mode)
+      (eglot-format-buffer))))
+
+(use-package! nix-mode
+  :hook (before-save . nix-format-before-save))
 
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -21,11 +33,17 @@
               ("C-TAB"   . #'copilot-accept-completion-by-word)
               ("C-<tab>" . #'copilot-accept-completion-by-word)))
 
-(use-package! dash-at-point)
+(defun yejun/gh-pr-create ()
+  (interactive)
+  (shell-command "gh pr create -w"))
+
+(defun yejun/gh-pr-view ()
+  (interactive)
+  (shell-command "gh pr view -w"))
 
 (map! :leader
-      "sk" #'dash-at-point
-      "sK" #'dash-at-point-with-docset)
+      "gcp" #'yejun/gh-pr-create
+      "gop" #'yejun/gh-pr-view)
 
 (use-package! chatgpt-shell
   :custom
@@ -43,15 +61,15 @@
       "e" #'chatgpt-shell-explain-code
       "r" #'chatgpt-shell-refactor-code)
 
-(use-package! elixir-mode
-  :hook (before-save . elixir-format-before-save)
-  :config
-  (defun elixir-format-before-save ()
-    (when (derived-mode-p 'elixir-mode)
-      (eglot-format-buffer))))
+(set-popup-rules!
+  '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
+    ("^ChatGPT>" :side bottom :size 0.5 :select t)))
 
-(use-package! nix-mode
-  :hook (before-save . nix-format-before-save))
+(use-package! dash-at-point)
+
+(map! :leader
+      "sk" #'dash-at-point
+      "sK" #'dash-at-point-with-docset)
 
 (defun yejun/launch-vanilla-emacs ()
   (interactive)
@@ -59,19 +77,3 @@
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
 
 (global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
-
-(defun yejun/gh-pr-create ()
-  (interactive)
-  (shell-command "gh pr create -w"))
-
-(defun yejun/gh-pr-view ()
-  (interactive)
-  (shell-command "gh pr view -w"))
-
-(map! :leader
-      "gcp" #'yejun/gh-pr-create
-      "gop" #'yejun/gh-pr-view)
-
-(set-popup-rules!
-  '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
-    ("^ChatGPT>" :side bottom :size 0.5 :select t)))
