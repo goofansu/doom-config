@@ -24,6 +24,12 @@
               ("C-TAB"   . #'copilot-accept-completion-by-word)
               ("C-<tab>" . #'copilot-accept-completion-by-word)))
 
+(use-package! dash-at-point)
+
+(map! :leader
+      "sk" #'dash-at-point
+      "sK" #'dash-at-point-with-docset)
+
 (use-package! chatgpt-shell
   :custom
   (chatgpt-shell-model-version 2)

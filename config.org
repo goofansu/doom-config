@@ -39,7 +39,8 @@
   :after org)
 #+end_src
 
-* Copliot
+* Coding
+** Copliot
 #+begin_src emacs-lisp
 (use-package! copilot
   :hook (prog-mode . copilot-mode)
@@ -48,6 +49,15 @@
               ("<tab>"   . #'copilot-accept-completion)
               ("C-TAB"   . #'copilot-accept-completion-by-word)
               ("C-<tab>" . #'copilot-accept-completion-by-word)))
+#+end_src
+
+** Lookup document in Dash.app
+#+begin_src emacs-lisp
+(use-package! dash-at-point)
+
+(map! :leader
+      "sk" #'dash-at-point
+      "sK" #'dash-at-point-with-docset)
 #+end_src
 
 * ChatGPT
