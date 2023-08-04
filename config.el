@@ -1,9 +1,6 @@
 (setq user-full-name "Yejun Su"
       user-mail-address "yejun@hey.com")
 
-(setq auth-sources '("~/.authinfo.gpg")
-      auth-source-cache-expiry nil)
-
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Overpass" :size 13))
 
