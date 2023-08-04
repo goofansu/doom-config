@@ -13,7 +13,7 @@
 
 (setq org-directory "~/org/")
 
-(use-package org-habit
+(use-package! org-habit
   :after org)
 
 (use-package! copilot

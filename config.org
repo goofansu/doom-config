@@ -35,7 +35,7 @@
 
 ** org-habit
 #+begin_src emacs-lisp
-(use-package org-habit
+(use-package! org-habit
   :after org)
 #+end_src
 
