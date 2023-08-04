@@ -55,3 +55,4 @@
 (package! sicp)
 (package! org :pin "5890ac")            ; release_9.6.7
 (package! dash-at-point)
+(package! gist)

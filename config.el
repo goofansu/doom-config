@@ -45,31 +45,35 @@
       "gcp" #'yejun/gh-pr-create
       "gop" #'yejun/gh-pr-view)
 
+(use-package! gist
+  :config
+  (map! :leader
+        :desc "Gist buffer/region" "cg" #'gist-region-or-buffer-private))
+
 (use-package! chatgpt-shell
   :custom
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
-  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
+  (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com")))
+  :config
+  (map! :leader
+        :prefix ("z" . "chatgpt-shell")
+        "z" #'chatgpt-shell
+        "b" #'chatgpt-shell-prompt
+        "c" #'chatgpt-shell-prompt-compose
+        "s" #'chatgpt-shell-send-region
+        "S" #'chatgpt-shell-send-and-review-region
+        "e" #'chatgpt-shell-explain-code
+        "r" #'chatgpt-shell-refactor-code)
+  (set-popup-rules!
+    '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
+      ("^ChatGPT>" :side bottom :size 0.5 :select t))))
 
-(map! :leader
-      :prefix ("z" . "chatgpt-shell")
-      "z" #'chatgpt-shell
-      "b" #'chatgpt-shell-prompt
-      "c" #'chatgpt-shell-prompt-compose
-      "s" #'chatgpt-shell-send-region
-      "S" #'chatgpt-shell-send-and-review-region
-      "e" #'chatgpt-shell-explain-code
-      "r" #'chatgpt-shell-refactor-code)
-
-(set-popup-rules!
-  '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
-    ("^ChatGPT>" :side bottom :size 0.5 :select t)))
-
-(use-package! dash-at-point)
-
-(map! :leader
-      "sk" #'dash-at-point
-      "sK" #'dash-at-point-with-docset)
+(use-package! dash-at-point
+  :config
+  (map! :leader
+        "sk" #'dash-at-point
+        "sK" #'dash-at-point-with-docset))
 
 (defun yejun/launch-vanilla-emacs ()
   (interactive)
