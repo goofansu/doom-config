@@ -7,16 +7,16 @@
 #+end_src
 
 * Appearance
+** Theme
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-dracula)
+#+end_src
+
 ** Font
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-serif-font (font-spec :family "Courier New" :size 16)
       doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
-#+end_src
-
-** Theme
-#+begin_src emacs-lisp
-(setq doom-theme 'doom-dracula)
 #+end_src
 
 * Organize everything
@@ -55,17 +55,6 @@
 #+end_src
 
 * Tools
-** GitHub Copliot
-#+begin_src emacs-lisp
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("TAB"     . #'copilot-accept-completion)
-              ("<tab>"   . #'copilot-accept-completion)
-              ("C-TAB"   . #'copilot-accept-completion-by-word)
-              ("C-<tab>" . #'copilot-accept-completion-by-word)))
-#+end_src
-
 ** GitHub CLI
 #+begin_src emacs-lisp
 (defun yejun/gh-pr-create ()

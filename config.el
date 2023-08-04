@@ -1,11 +1,11 @@
 (setq user-full-name "Yejun Su"
       user-mail-address "yejun@hey.com")
 
+(setq doom-theme 'doom-dracula)
+
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-serif-font (font-spec :family "Courier New" :size 16)
       doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
-
-(setq doom-theme 'doom-dracula)
 
 (setq org-directory "~/org/")
 
@@ -24,14 +24,6 @@
 
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
-
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("TAB"     . #'copilot-accept-completion)
-              ("<tab>"   . #'copilot-accept-completion)
-              ("C-TAB"   . #'copilot-accept-completion-by-word)
-              ("C-<tab>" . #'copilot-accept-completion-by-word)))
 
 (defun yejun/gh-pr-create ()
   (interactive)
@@ -65,6 +57,7 @@
         "S" #'chatgpt-shell-send-and-review-region
         "e" #'chatgpt-shell-explain-code
         "r" #'chatgpt-shell-refactor-code)
+
   (set-popup-rules!
     '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
       ("^ChatGPT>" :side bottom :size 0.5 :select t))))
