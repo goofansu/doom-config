@@ -122,3 +122,14 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 
 (global-set-key (kbd "s-o") #'yejun/launch-vanilla-emacs)
 #+end_src
+
+** IRC client
+#+begin_src emacs-lisp
+(set-irc-server! "Libera Chat"
+  '(:host "irc.libera.chat"
+    :port 6697
+    :use-tls t
+    :nick "goofansu"
+    :channels ("#emacs" "#elixir")
+    :nickserv-password (lambda (server) (auth-source-pick-first-password :host server))))
+#+end_src

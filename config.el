@@ -74,3 +74,11 @@
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
 (global-set-key (kbd "s-o") #'yejun/launch-vanilla-emacs)
+
+(set-irc-server! "Libera Chat"
+  '(:host "irc.libera.chat"
+    :port 6697
+    :use-tls t
+    :nick "goofansu"
+    :channels ("#emacs" "#elixir")
+    :nickserv-password (lambda (server) (auth-source-pick-first-password :host server))))
