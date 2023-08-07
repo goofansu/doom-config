@@ -9,9 +9,6 @@
 
 (setq org-directory "~/org/")
 
-(use-package! org-habit
-  :after org)
-
 (after! flycheck
   (delq 'idle-change flycheck-check-syntax-automatically))
 
@@ -71,6 +68,6 @@
 (defun yejun/launch-vanilla-emacs ()
   (interactive)
   (let ((default-directory "~/src/.emacs.d/"))
-    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
+    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
 (global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)

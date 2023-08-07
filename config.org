@@ -24,12 +24,6 @@
 (setq org-directory "~/org/")
 #+end_src
 
-** org-habit
-#+begin_src emacs-lisp
-(use-package! org-habit
-  :after org)
-#+end_src
-
 * Coding
 ** Don't check syntax when editing
 #+begin_src emacs-lisp
@@ -70,7 +64,7 @@
       "gop" #'yejun/gh-pr-view)
 #+end_src
 
-** Gist
+** GitHub Gist
 #+begin_src emacs-lisp
 (use-package! gist
   :config
@@ -117,7 +111,7 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 (defun yejun/launch-vanilla-emacs ()
   (interactive)
   (let ((default-directory "~/src/.emacs.d/"))
-    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el")))
+    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
 (global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
 #+end_src

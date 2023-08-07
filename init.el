@@ -98,8 +98,9 @@
        (lookup           ; navigate your code and its documentation
         +dictionary)
        (lsp +eglot)      ; M-x vscode
-       magit             ; a git porcelain for Emacs
-       ;;make              ; run make tasks from Emacs
+       (magit            ; a git porcelain for Emacs
+        +forge)
+       make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
