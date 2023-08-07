@@ -54,7 +54,7 @@
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
-       file-templates    ; auto-snippets for empty files
+       ;;file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        format            ; automated prettiness
        ;;lispy             ; vim for lisp, for people who don't like vim
@@ -88,7 +88,7 @@
        ;;biblio            ; Writes a PhD for you (citation needed)
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        direnv
-       ;;docker
+       docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
