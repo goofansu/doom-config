@@ -78,7 +78,8 @@
 (set-irc-server! "Libera Chat"
   '(:host "irc.libera.chat"
     :port 6697
-    :use-tls t
     :nick "goofansu"
     :channels ("#emacs" "#elixir")
     :nickserv-password (lambda (server) (auth-source-pick-first-password :host server))))
+
+(global-set-key (kbd "s-k") #'+irc/jump-to-channel)
