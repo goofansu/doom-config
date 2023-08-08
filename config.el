@@ -10,7 +10,7 @@
 (setq org-directory "~/org/")
 
 (use-package! elfeed
-  :bind ("s-e" . elfeed))
+  :bind ("s-r" . elfeed))
 
 (after! flycheck
   (delq 'idle-change flycheck-check-syntax-automatically))
@@ -73,7 +73,7 @@
   (let ((default-directory "~/src/.emacs.d/"))
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
-(global-set-key (kbd "s-o") #'yejun/launch-vanilla-emacs)
+(global-set-key (kbd "s-e") #'yejun/launch-vanilla-emacs)
 
 (set-irc-server! "Libera Chat"
   '(:host "irc.libera.chat"

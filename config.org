@@ -28,7 +28,7 @@
 ** RSS
 #+begin_src emacs-lisp
 (use-package! elfeed
-  :bind ("s-e" . elfeed))
+  :bind ("s-r" . elfeed))
 #+end_src
 
 * Coding
@@ -120,7 +120,7 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
   (let ((default-directory "~/src/.emacs.d/"))
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
-(global-set-key (kbd "s-o") #'yejun/launch-vanilla-emacs)
+(global-set-key (kbd "s-e") #'yejun/launch-vanilla-emacs)
 #+end_src
 
 ** IRC client
