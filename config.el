@@ -25,18 +25,6 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
-(defun yejun/gh-pr-create ()
-  (interactive)
-  (shell-command "gh pr create -w"))
-
-(defun yejun/gh-pr-view ()
-  (interactive)
-  (shell-command "gh pr view -w"))
-
-(map! :leader
-      "gcp" #'yejun/gh-pr-create
-      "gop" #'yejun/gh-pr-view)
-
 (use-package! gist
   :config
   (map! :leader
