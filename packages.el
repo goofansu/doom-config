@@ -55,3 +55,7 @@
 (package! org :pin "ca873f")            ; release_9.6.7
 (package! dash-at-point)
 (package! gist)
+(package! org-pandoc-import
+  :recipe (:host github
+           :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))

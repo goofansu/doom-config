@@ -9,6 +9,8 @@
 
 (setq org-directory "~/org/")
 
+(use-package! org-pandoc-import :after org)
+
 (use-package! elfeed
   :bind ("s-r" . elfeed))
 

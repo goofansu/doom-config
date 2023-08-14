@@ -24,6 +24,10 @@
 (setq org-directory "~/org/")
 #+end_src
 
+** Import anything to Org Mode
+#+begin_src emacs-lisp
+(use-package! org-pandoc-import :after org)
+#+end_src
 * Reading
 ** RSS
 #+begin_src emacs-lisp
