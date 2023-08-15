@@ -60,6 +60,13 @@
 #+end_src
 
 * Tools
+** Forge
+#+begin_src emacs-lisp
+(use-package! forge
+  :config
+  (setq forge-topic-list-limit '(20 . 5)))
+#+end_src
+
 ** GitHub Gist
 #+begin_src emacs-lisp
 (use-package! gist

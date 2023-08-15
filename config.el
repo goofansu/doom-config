@@ -27,6 +27,10 @@
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
 
+(use-package! forge
+  :config
+  (setq forge-topic-list-limit '(20 . 5)))
+
 (use-package! gist
   :config
   (map! :leader
