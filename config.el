@@ -7,7 +7,58 @@
       doom-serif-font (font-spec :family "Courier New" :size 16)
       doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
 
-(setq org-directory "~/org/")
+(setq org-directory "~/Documents/org/")
+
+(after! org
+  (setq org-log-into-drawer t)
+  (setq org-log-done 'time)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "KILL(k@)")))
+  (setq org-todo-keyword-faces
+        '(("WAIT" . +org-todo-onhold)
+          ("KILL" . +org-todo-cancel)))
+
+  (setq org-capture-templates
+        (cons '("t" "Personal todo" entry
+                (file+headline +org-capture-todo-file "Inbox")
+                "* TODO %?\n%i\n%a" :prepend t)
+              (cdr org-capture-templates)))
+
+  (setq org-agenda-block-separator (string-to-char "="))
+  (setq org-agenda-custom-commands
+        '(("d" "My daily agenda"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" ((org-agenda-span 1)
+                        (org-agenda-start-day "+0d")))
+            (alltodo ""
+                     ((org-agenda-overriding-header "ALL normal priority tasks:")
+                      (org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline)))))))))))
+
+;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
+(defun air-org-skip-subtree-if-priority (priority)
+  "Skip an agenda subtree if it has a priority of PRIORITY.
+
+PRIORITY may be one of the characters ?A, ?B, or ?C."
+  (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+        (pri-value (* 1000 (- org-lowest-priority priority)))
+        (pri-current (org-get-priority (thing-at-point 'line t))))
+    (if (= pri-value pri-current)
+        subtree-end
+      nil)))
+
+(defun air-org-skip-subtree-if-habit ()
+  "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+    (if (string= (org-entry-get nil "STYLE") "habit")
+        subtree-end
+      nil)))
+
+(use-package! org-habit
+  :after org)
 
 (use-package! org-pandoc-import :after org)
 
