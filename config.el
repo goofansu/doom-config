@@ -19,10 +19,16 @@
           ("KILL" . +org-todo-cancel)))
 
   (setq org-capture-templates
-        (cons '("t" "Personal todo" entry
-                (file+headline +org-capture-todo-file "Inbox")
-                "* TODO %?\n%i\n%a" :prepend t)
-              (cdr org-capture-templates)))
+        '(("t" "Personal todo" entry
+           (file +org-capture-todo-file)
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
+          ("p" "Templates for Plain Org")
+          ("pp" "plain" entry
+           (file "plainorg/plain.org")
+           "* %?\n" :prepend t)))
 
   (setq org-agenda-block-separator (string-to-char "="))
   (setq org-agenda-custom-commands
@@ -56,6 +62,15 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
     (if (string= (org-entry-get nil "STYLE") "habit")
         subtree-end
       nil)))
+
+(use-package! org-roam
+  :after org
+  :config
+  (map! :leader
+        "nn" #'org-roam-dailies-capture-today
+        "nN" #'org-roam-dailies-goto-today
+        "nd" #'org-roam-capture
+        "nF" #'org-roam-node-find))
 
 (use-package! org-habit
   :after org)
