@@ -52,7 +52,6 @@
 (package! chatgpt-shell)
 (package! coffee-mode)
 (package! sicp)
-(package! org :pin "ca873f")            ; release_9.6.7
 (package! dash-at-point)
 (package! gist)
 (package! org-pandoc-import

@@ -38,13 +38,13 @@
   (setq org-capture-templates
         '(("t" "Personal todo" entry
            (file +org-capture-todo-file)
-           "* TODO %?\n%i\n%a" :prepend t)
+           "* TODO %?\n%i\n%a")
           ("j" "Journal" entry
            (file+olp+datetree +org-capture-journal-file)
-           "* %U %?\n%i\n%a" :prepend t)
+           "* %U %?\n%i\n%a")
           ("p" "Templates for Plain Org")
-          ("pp" "plain" entry
-           (file "plainorg/plain.org")
+          ("pp" "draft" entry
+           (file "plainorg/draft.org")
            "* %?\n" :prepend t)))
 
   (setq org-agenda-block-separator (string-to-char "="))
