@@ -102,13 +102,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (use-package! org-pandoc-import :after org)
 #+end_src
 
-* Reading
-** RSS
-#+begin_src emacs-lisp
-(use-package! elfeed
-  :bind ("s-r" . elfeed))
-#+end_src
-
 * Coding
 ** Don't check syntax when editing
 #+begin_src emacs-lisp

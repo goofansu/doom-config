@@ -77,9 +77,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
 (use-package! org-pandoc-import :after org)
 
-(use-package! elfeed
-  :bind ("s-r" . elfeed))
-
 (after! flycheck
   (delq 'idle-change flycheck-check-syntax-automatically))
 
