@@ -94,6 +94,14 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   :config
   (setq forge-topic-list-limit '(20 . 5)))
 
+(defun yejun/gh-pr-create ()
+  (interactive)
+  (shell-command "gh pr create -w"))
+
+(defun yejun/gh-pr-view ()
+  (interactive)
+  (shell-command "gh pr view -w"))
+
 (defun yejun/gist-region-or-buffer (&optional p)
   (interactive "P")
   (let ((filename (buffer-name))
