@@ -94,10 +94,24 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   :config
   (setq forge-topic-list-limit '(20 . 5)))
 
-(use-package! gist
-  :config
-  (map! :leader
-        :desc "Gist buffer/region" "cg" #'gist-region-or-buffer-private))
+(defun yejun/gist-region-or-buffer (&optional p)
+  (interactive "P")
+  (let ((filename (buffer-name))
+        (output-buffer " *gist-output*")
+        (public (if p " --public" "")))
+    (shell-command-on-region
+     (if (use-region-p) (region-beginning) (point-min))
+     (if (use-region-p) (region-end) (point-max))
+     (concat "gh gist create --filename " filename public " -")
+     output-buffer)
+    (with-current-buffer output-buffer
+      (goto-char (point-max))
+      (previous-line)
+      (kill-new (thing-at-point 'line)))
+    (kill-buffer output-buffer)))
+
+(map! :leader
+      :desc "Gist buffer/region" "cg" #'yejun/gist-region-or-buffer)
 
 (use-package! chatgpt-shell
   :custom
