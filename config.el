@@ -158,7 +158,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   '(:host "irc.libera.chat"
     :port 6697
     :nick "goofansu"
-    :channels ("#emacs" "#elixir" "#nixos")
+    :channels ("#emacs" "#elixir")
     :nickserv-password (lambda (server) (auth-source-pick-first-password :host server))))
 
 (global-set-key (kbd "s-k") #'+irc/jump-to-channel)
