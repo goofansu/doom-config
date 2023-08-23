@@ -133,7 +133,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (let ((default-directory "~/src/.emacs.d/"))
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
-(global-set-key (kbd "s-e") #'yejun/launch-vanilla-emacs)
+(global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
 
 (set-irc-server! "Libera Chat"
   '(:host "irc.libera.chat"
