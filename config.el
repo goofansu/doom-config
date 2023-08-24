@@ -8,27 +8,22 @@
       doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
 
 (setq org-directory "~/Documents/org/")
+(setq org-agenda-files (list org-directory org-roam-directory))
 
 (after! org
   (setq org-log-into-drawer t)
   (setq org-log-done 'time)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "KILL(k@)")))
+        '((sequence "TODO(t)" "HOLD(h@/!)" "|" "DONE(d!)" "KILL(k@)")))
   (setq org-todo-keyword-faces
-        '(("WAIT" . +org-todo-onhold)
+        '(("HOLD" . +org-todo-onhold)
           ("KILL" . +org-todo-cancel)))
 
   (setq org-capture-templates
-        '(("t" "Personal todo" entry
-           (file +org-capture-todo-file)
-           "* TODO %?\n%i\n%a")
-          ("j" "Journal" entry
-           (file+olp+datetree +org-capture-journal-file)
-           "* %U %?\n%i\n%a")
-          ("p" "Templates for Plain Org")
-          ("pp" "draft" entry
-           (file "plainorg/draft.org")
-           "* %?\n" :prepend t)))
+        '(("t" "Tasks" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+          ("n" "Notes" entry (file +org-capture-notes-file) "* %?\n" :prepend t)
+          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")
+          ("b" "BrightU" entry (file "brightu.org") "* TODO %?\n%i\n%a")))
 
   (setq org-agenda-block-separator (string-to-char "="))
   (setq org-agenda-custom-commands
@@ -64,13 +59,13 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       nil)))
 
 (use-package! org-roam
-  :after org
-  :config
-  (map! :leader
-        "nn" #'org-roam-dailies-capture-today
-        "nN" #'org-roam-dailies-goto-today
-        "nd" #'org-roam-capture
-        "nF" #'org-roam-node-find))
+  :after org)
+
+(map! :leader
+      :desc "Capture to roam today" "nn" #'org-roam-dailies-capture-today
+      :desc "Go to roam today" "nN" #'org-roam-dailies-goto-today
+      :desc "Capture to roam node" "nd" #'org-roam-capture
+      :desc "Go to roam node" "nF" #'org-roam-node-find)
 
 (use-package! org-habit
   :after org)
@@ -126,26 +121,25 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
   (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com")))
-  :config
-  (map! :leader
-        :prefix ("z" . "chatgpt-shell")
-        "z" #'chatgpt-shell
-        "b" #'chatgpt-shell-prompt
-        "c" #'chatgpt-shell-prompt-compose
-        "s" #'chatgpt-shell-send-region
-        "S" #'chatgpt-shell-send-and-review-region
-        "e" #'chatgpt-shell-explain-code
-        "r" #'chatgpt-shell-refactor-code)
 
+  :config
   (set-popup-rules!
     '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
       ("^ChatGPT>" :side bottom :size 0.5 :select t))))
 
-(use-package! dash-at-point
-  :config
-  (map! :leader
-        "sk" #'dash-at-point
-        "sK" #'dash-at-point-with-docset))
+(map! :leader
+      :prefix ("z" . "chatgpt-shell")
+      "z" #'chatgpt-shell
+      "b" #'chatgpt-shell-prompt
+      "c" #'chatgpt-shell-prompt-compose
+      "s" #'chatgpt-shell-send-region
+      "S" #'chatgpt-shell-send-and-review-region
+      "e" #'chatgpt-shell-explain-code
+      "r" #'chatgpt-shell-refactor-code)
+
+(map! :leader
+      "sk" #'dash-at-point
+      "sK" #'dash-at-point-with-docset)
 
 (defun yejun/launch-vanilla-emacs ()
   (interactive)
