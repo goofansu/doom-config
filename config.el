@@ -8,7 +8,6 @@
       doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
 
 (setq org-directory "~/Documents/org/")
-(setq org-agenda-files (list org-directory org-roam-directory))
 
 (after! org
   (setq org-log-into-drawer t)

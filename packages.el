@@ -53,7 +53,6 @@
 (package! coffee-mode)
 (package! sicp)
 (package! dash-at-point)
-(package! org :pin "ca873f")            ; release_9.6.7
 (package! org-pandoc-import
   :recipe (:host github
            :repo "tecosaur/org-pandoc-import"

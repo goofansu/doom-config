@@ -23,7 +23,6 @@
 ** Org Mode
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/org/")
-(setq org-agenda-files (list org-directory org-roam-directory))
 #+end_src
 
 #+begin_src emacs-lisp
