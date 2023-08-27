@@ -1,7 +1,15 @@
 (setq user-full-name "Yejun Su"
       user-mail-address "yejun@hey.com")
 
-(setq doom-theme 'doom-dracula)
+(if (display-graphic-p)
+    (setq doom-theme 'modus-operandi)
+  (setq doom-theme 'modus-vivendi))
+
+(use-package modus-themes
+  :config
+  (setq modus-themes-completions
+        '((matches . (extrabold underline))
+          (selection . (semibold italic)))))
 
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-serif-font (font-spec :family "Courier New" :size 16)

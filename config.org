@@ -9,7 +9,17 @@
 * Appearance
 ** Theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-dracula)
+(if (display-graphic-p)
+    (setq doom-theme 'modus-operandi)
+  (setq doom-theme 'modus-vivendi))
+#+end_src
+
+#+begin_src emacs-lisp
+(use-package modus-themes
+  :config
+  (setq modus-themes-completions
+        '((matches . (extrabold underline))
+          (selection . (semibold italic)))))
 #+end_src
 
 ** Font
