@@ -163,3 +163,16 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
     :nickserv-password (lambda (server) (auth-source-pick-first-password :host server))))
 
 (global-set-key (kbd "s-k") #'+irc/jump-to-channel)
+
+(map! :leader
+      (:prefix-map ("o p" . "pass")
+       :desc "Copy password"         "p" #'password-store-copy
+       :desc "Copy selected field"   "f" #'password-store-copy-field
+       :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
+       :desc "Insert password"       "i" #'password-store-insert
+       :desc "Insert OTP"            "I" #'password-store-otp-insert
+       :desc "Edit password"         "e" #'password-store-edit
+       :desc "Rename password entry" "r" #'password-store-rename
+       :desc "Remove password entry" "R" #'password-store-remove
+       :desc "Append OTP"            "a" #'password-store-otp-append
+       :desc "Append OTP from image" "A" #'password-store-otp-append-from-image))
