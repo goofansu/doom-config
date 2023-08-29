@@ -27,10 +27,11 @@
           ("KILL" . +org-todo-cancel)))
 
   (setq org-capture-templates
-        '(("t" "Tasks" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
-          ("n" "Notes" entry (file +org-capture-notes-file) "* %?\n" :prepend t)
+        '(("n" "Notes" entry (file +org-capture-notes-file) "* %?\n" :prepend t)
           ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")
-          ("b" "BrightU" entry (file "brightu.org") "* TODO %?\n%i\n%a")))
+          ("t" "Inbox" entry (file+headline +org-capture-todo-file "Inbox") "* TODO %?\n%i\n%a" :prepend t)
+          ("b" "BrightU" entry (file+headline +org-capture-todo-file "BrightU") "* TODO %?\n%i\n%a" :prepend t)
+          ("w" "Work" entry (file+headline +org-capture-todo-file "Work") "* TODO %?\n%i\n%a" :prepend t)))
 
   (setq org-agenda-block-separator (string-to-char "="))
   (setq org-agenda-custom-commands
