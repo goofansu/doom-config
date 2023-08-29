@@ -5,7 +5,7 @@
     (setq doom-theme 'modus-operandi)
   (setq doom-theme 'modus-vivendi))
 
-(use-package modus-themes
+(use-package! modus-themes
   :config
   (setq modus-themes-completions
         '((matches . (extrabold underline))

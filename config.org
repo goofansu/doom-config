@@ -15,7 +15,7 @@
 #+end_src
 
 #+begin_src emacs-lisp
-(use-package modus-themes
+(use-package! modus-themes
   :config
   (setq modus-themes-completions
         '((matches . (extrabold underline))

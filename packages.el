@@ -49,12 +49,13 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+;; Packages installed from repositories
+(package! org-pandoc-import
+  :recipe (:host github :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))
+
+;; Packages installed from package-archives
 (package! chatgpt-shell)
 (package! coffee-mode)
-(package! sicp)
 (package! dash-at-point)
-(package! org-pandoc-import
-  :recipe (:host github
-           :repo "tecosaur/org-pandoc-import"
-           :files ("*.el" "filters" "preprocessors")))
 (package! modus-themes)
