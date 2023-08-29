@@ -89,16 +89,16 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 ** Taking smart notes
 #+begin_src emacs-lisp
 (use-package! org-roam
-  :after org)
-
-(map! :leader
+  :after org
+  :config
+  (map! :leader
       :desc "Capture to roam today" "nn" #'org-roam-dailies-capture-today
       :desc "Go to roam today" "nN" #'org-roam-dailies-goto-today
       :desc "Capture to roam node" "nd" #'org-roam-capture
-      :desc "Go to roam node" "nF" #'org-roam-node-find)
+      :desc "Go to roam node" "nF" #'org-roam-node-find))
 #+end_src
 
-** Import to Org Mode
+** Import documents to Org Mode
 #+begin_src emacs-lisp
 (use-package! org-pandoc-import
   :after org)
@@ -176,28 +176,28 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (chatgpt-shell-model-version 2)
   (chatgpt-shell-welcome-function nil)
   (chatgpt-shell-openai-key (lambda () (auth-source-pick-first-password :host "api.openai.com")))
-
   :config
   (set-popup-rules!
     '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
-      ("^ChatGPT>" :side bottom :size 0.5 :select t))))
-
-(map! :leader
-      :prefix ("z" . "chatgpt-shell")
-      "z" #'chatgpt-shell
-      "b" #'chatgpt-shell-prompt
-      "c" #'chatgpt-shell-prompt-compose
-      "s" #'chatgpt-shell-send-region
-      "S" #'chatgpt-shell-send-and-review-region
-      "e" #'chatgpt-shell-explain-code
-      "r" #'chatgpt-shell-refactor-code)
+      ("^ChatGPT>" :side bottom :size 0.5 :select t)))
+  (map! :leader
+        :prefix ("z" . "chatgpt-shell")
+        "z" #'chatgpt-shell
+        "b" #'chatgpt-shell-prompt
+        "c" #'chatgpt-shell-prompt-compose
+        "s" #'chatgpt-shell-send-region
+        "S" #'chatgpt-shell-send-and-review-region
+        "e" #'chatgpt-shell-explain-code
+        "r" #'chatgpt-shell-refactor-code))
 #+end_src
 
 ** Dash.app
 #+begin_src emacs-lisp
-(map! :leader
+(use-package! dash-at-point
+  :config
+  (map! :leader
       "sk" #'dash-at-point
-      "sK" #'dash-at-point-with-docset)
+      "sK" #'dash-at-point-with-docset))
 #+end_src
 
 ** Vanilla Emacs
@@ -228,16 +228,18 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 https://www.passwordstore.org/
 
 #+begin_src emacs-lisp
-(map! :leader
-      (:prefix-map ("o p" . "pass")
-       :desc "Copy password"         "p" #'password-store-copy
-       :desc "Copy selected field"   "f" #'password-store-copy-field
-       :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
-       :desc "Insert password"       "i" #'password-store-insert
-       :desc "Insert OTP"            "I" #'password-store-otp-insert
-       :desc "Edit password"         "e" #'password-store-edit
-       :desc "Rename password entry" "r" #'password-store-rename
-       :desc "Remove password entry" "R" #'password-store-remove
-       :desc "Append OTP"            "a" #'password-store-otp-append
-       :desc "Append OTP from image" "A" #'password-store-otp-append-from-image))
+(use-package! password-store
+  :config
+  (map! :leader
+        (:prefix-map ("o p" . "pass")
+         :desc "Copy password"         "p" #'password-store-copy
+         :desc "Copy selected field"   "f" #'password-store-copy-field
+         :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
+         :desc "Insert password"       "i" #'password-store-insert
+         :desc "Insert OTP"            "I" #'password-store-otp-insert
+         :desc "Edit password"         "e" #'password-store-edit
+         :desc "Rename password entry" "r" #'password-store-rename
+         :desc "Remove password entry" "R" #'password-store-remove
+         :desc "Append OTP"            "a" #'password-store-otp-append
+         :desc "Append OTP from image" "A" #'password-store-otp-append-from-image)))
 #+end_src
