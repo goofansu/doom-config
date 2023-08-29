@@ -29,7 +29,7 @@
       doom-variable-pitch-font (font-spec :family "Times New Roman" :size 16))
 #+end_src
 
-* Organize everything
+* Organize my life
 ** Org Mode
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/org/")
@@ -86,6 +86,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       nil)))
 #+end_src
 
+** Taking smart notes
 #+begin_src emacs-lisp
 (use-package! org-roam
   :after org)
@@ -97,14 +98,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       :desc "Go to roam node" "nF" #'org-roam-node-find)
 #+end_src
 
+** Import to Org Mode
 #+begin_src emacs-lisp
-(use-package! org-habit
+(use-package! org-pandoc-import
   :after org)
-#+end_src
-
-** Import anything to Org Mode
-#+begin_src emacs-lisp
-(use-package! org-pandoc-import :after org)
 #+end_src
 
 * Coding
