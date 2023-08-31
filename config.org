@@ -50,8 +50,7 @@
   (setq org-todo-keywords
         '((sequence "TODO(t)" "HOLD(h@/!)" "|" "DONE(d!)" "KILL(k@)")))
   (setq org-todo-keyword-faces
-        '(("HOLD" . +org-todo-onhold)
-          ("KILL" . +org-todo-cancel)))
+        '(("KILL" . (:inherit (italic +org-todo-cancel)))))
 
   (setq org-capture-templates
         '(("n" "Notes" entry (file +org-capture-notes-file) "* %?\n" :prepend t)
