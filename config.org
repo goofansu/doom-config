@@ -284,3 +284,15 @@ https://www.passwordstore.org/
 (map! :leader
       :desc "Decrypt PGP file" "fm" #'yejun/decrypt-pgp-file)
 #+end_src
+
+** Open Source Map
+#+begin_src emacs-lisp
+(use-package! osm
+  :config
+  (require 'osm-ol)
+  :custom
+  (osm-server 'default)
+  (osm-copyright t)
+  :bind ("C-c m" . osm-prefix-map)
+  :hook (osm-mode . evil-emacs-state))
+#+end_src

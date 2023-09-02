@@ -59,3 +59,4 @@
 (package! coffee-mode)
 (package! dash-at-point)
 (package! modus-themes)
+(package! osm)
