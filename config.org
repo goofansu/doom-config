@@ -271,3 +271,16 @@ https://www.passwordstore.org/
          :desc "Append OTP"            "a" #'password-store-otp-append
          :desc "Append OTP from image" "A" #'password-store-otp-append-from-image)))
 #+end_src
+
+** GPG
+#+begin_src emacs-lisp
+(defun yejun/decrypt-pgp-file ()
+  (interactive)
+  (let* ((current-file (buffer-file-name))
+         (plain-file (concat current-file ".txt")))
+    (epa-decrypt-file current-file plain-file)
+    (find-file plain-file)))
+
+(map! :leader
+      :desc "Decrypt PGP file" "fm" #'yejun/decrypt-pgp-file)
+#+end_src
