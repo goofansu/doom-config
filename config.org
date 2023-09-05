@@ -298,3 +298,10 @@ https://www.passwordstore.org/
   :bind ("C-c m" . osm-prefix-map)
   :hook (osm-mode . evil-emacs-state))
 #+end_src
+
+** Magit
+#+begin_src emacs-lisp
+(after! magit
+  (transient-append-suffix 'magit-push "-n"
+    '("-s" "Skip CI" "--push-option=skip-ci")))
+#+end_src
