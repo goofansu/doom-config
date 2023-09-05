@@ -305,3 +305,8 @@ https://www.passwordstore.org/
   (transient-append-suffix 'magit-push "-n"
     '("-s" "Skip CI" "--push-option=skip-ci")))
 #+end_src
+
+** Send mail
+#+begin_src emacs-lisp
+(setq send-mail-function 'sendmail-send-it)
+#+end_src
