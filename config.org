@@ -310,3 +310,13 @@ https://www.passwordstore.org/
 #+begin_src emacs-lisp
 (setq send-mail-function 'sendmail-send-it)
 #+end_src
+
+** Open my blog
+#+begin_src emacs-lisp
+(map! :leader
+      "fo" #'yejun/find-file-in-blog)
+
+(defun yejun/find-file-in-blog ()
+  (interactive)
+  (doom-project-find-file "~/src/yejun.dev"))
+#+end_src
