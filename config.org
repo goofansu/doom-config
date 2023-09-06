@@ -179,13 +179,13 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 #+begin_src emacs-lisp
 (defun yejun/paste-region-or-buffer (&optional p)
   (interactive "P")
-  (let ((filename (buffer-name))
+  (let ((filename (read-string "Enter filename: " (buffer-name)))
         (output-buffer " *paste-output*")
         (public (if p " --visibility public" "")))
     (shell-command-on-region
      (if (use-region-p) (region-beginning) (point-min))
      (if (use-region-p) (region-end) (point-max))
-     (concat "hut paste create --name " filename public)
+     (concat "hut paste create --name \"" filename "\"" public)
      output-buffer)
     (with-current-buffer output-buffer
       (goto-char (point-max))
