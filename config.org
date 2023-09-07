@@ -142,7 +142,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (setq forge-topic-list-limit '(20 . 5)))
 #+end_src
 
-** GitHub CLI
+** Github
+*** CLI
+https://cli.github.com/manual/
+
 #+begin_src emacs-lisp
 (defun yejun/gh-pr-create ()
   (interactive)
@@ -153,7 +156,9 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (shell-command "gh pr view -w"))
 #+end_src
 
-** GitHub Gist
+*** Gist
+https://gist.github.com/
+
 #+begin_src emacs-lisp
 (defun yejun/gist-region-or-buffer (&optional p)
   (interactive "P")
@@ -175,7 +180,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       :desc "Gist buffer/region"  "cg" #'yejun/gist-region-or-buffer)
 #+end_src
 
-** SourceHut Paste
+** SourceHut
+*** Paste
+https://paste.sr.ht
+
 #+begin_src emacs-lisp
 (defun yejun/paste-region-or-buffer (&optional p)
   (interactive "P")
@@ -226,18 +234,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (map! :leader
         "sk" #'dash-at-point
         "sK" #'dash-at-point-with-docset))
-#+end_src
-
-** Vanilla Emacs
-I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
-
-#+begin_src emacs-lisp
-(defun yejun/launch-vanilla-emacs ()
-  (interactive)
-  (let ((default-directory "~/src/.emacs.d/"))
-    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
-
-(global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
 #+end_src
 
 ** DEPRECATED IRC client
@@ -291,7 +287,7 @@ https://www.passwordstore.org/
       :desc "Decrypt PGP file" "fm" #'yejun/decrypt-pgp-file)
 #+end_src
 
-** Open Source Map
+** Trial Open Source Map
 #+begin_src emacs-lisp
 (use-package! osm
   :config
@@ -304,18 +300,33 @@ https://www.passwordstore.org/
 #+end_src
 
 ** Magit
+*** Add an option to send skip-ci in magit-push
 #+begin_src emacs-lisp
 (after! magit
   (transient-append-suffix 'magit-push "-n"
     '("-s" "Skip CI" "--push-option=skip-ci")))
 #+end_src
 
-** Send mail
+** Mail
+*** Set backend of message-send
 #+begin_src emacs-lisp
 (setq send-mail-function 'sendmail-send-it)
 #+end_src
 
-** Open my blog
+* Projects
+** Vanilla Emacs
+I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
+
+#+begin_src emacs-lisp
+(defun yejun/launch-vanilla-emacs ()
+  (interactive)
+  (let ((default-directory "~/src/.emacs.d/"))
+    (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
+
+(global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
+#+end_src
+
+** Blog
 #+begin_src emacs-lisp
 (map! :leader
       "fo" #'yejun/find-file-in-blog)
