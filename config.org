@@ -287,7 +287,7 @@ https://www.passwordstore.org/
       :desc "Decrypt PGP file" "fm" #'yejun/decrypt-pgp-file)
 #+end_src
 
-** Trial Open Source Map
+** TRIAL Open Source Map
 #+begin_src emacs-lisp
 (use-package! osm
   :config
