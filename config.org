@@ -90,7 +90,12 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 (defun org-capture-notes ()
   (interactive)
   (org-capture nil "n"))
-(map! :leader "nn" #'org-capture-notes)
+(defun org-goto-notes ()
+  (interactive)
+  (find-file "~/Documents/org/roam/inbox.org"))
+(map! :leader
+      "nn" #'org-capture-notes
+      "nN" #'org-goto-notes)
 #+end_src
 
 ** Taking smart notes
@@ -129,7 +134,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   (defun tag-new-org-roam-node-as-draft ()
     (org-roam-tag-add '("draft")))
-  (add-hook 'org-roam-capture-new-node-hook #'tag-new-org-roam-node-as-draft))
+  (add-hook 'org-roam-capture-new-node-hook #'tag-new-org-roam-node-as-draft)
+
+  (map! :leader
+        "nF" #'org-roam-node-find))
 #+end_src
 
 *** Citation management
@@ -138,7 +146,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   :after oc
   :custom
   (citar-bibliography '("~/Documents/org/roam/biblio.bib"))
-  (citar-notes-paths '("~/Documents/org/roam/reference/")))
+  (citar-notes-paths '("~/Documents/org/roam/reference/"))
+  :config
+  (map! :leader
+        :desc "Bibliographic files" "nB" #'citar-open))
 #+end_src
 
 ** Import documents to Org Mode
