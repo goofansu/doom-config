@@ -99,7 +99,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 #+end_src
 
 ** Taking smart notes
-
 *** Org-roam
 #+begin_src emacs-lisp
 (after! org-roam
