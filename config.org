@@ -55,10 +55,25 @@
 
   (setq org-capture-templates
         '(("t" "Tasks" entry (file +org-capture-todo-file) "* TODO %?\n%i\n%a" :prepend t)
-          ("n" "Notes" entry (file +org-capture-notes-file) "* %?\n" :prepend t)
-          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")))
+          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")
+          ("n" "Notes" entry  (file "roam/inbox.org") "* %?\n%i\n")))
 
-  (setq org-agenda-block-separator (string-to-char "="))
+  ;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
+  (defun air-org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+PRIORITY may be one of the characters ?A, ?B, or ?C."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
+  (defun air-org-skip-subtree-if-habit ()
+    "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (string= (org-entry-get nil "STYLE") "habit")
+          subtree-end
+        nil)))
   (setq org-agenda-custom-commands
         '(("d" "My daily agenda"
            ((tags "PRIORITY=\"A\""
@@ -72,36 +87,58 @@
                                                      (air-org-skip-subtree-if-priority ?A)
                                                      (org-agenda-skip-if nil '(scheduled deadline)))))))))))
 
-;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
-(defun air-org-skip-subtree-if-priority (priority)
-  "Skip an agenda subtree if it has a priority of PRIORITY.
-
-PRIORITY may be one of the characters ?A, ?B, or ?C."
-  (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-        (pri-value (* 1000 (- org-lowest-priority priority)))
-        (pri-current (org-get-priority (thing-at-point 'line t))))
-    (if (= pri-value pri-current)
-        subtree-end
-      nil)))
-
-(defun air-org-skip-subtree-if-habit ()
-  "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-    (if (string= (org-entry-get nil "STYLE") "habit")
-        subtree-end
-      nil)))
+(defun org-capture-notes ()
+  (interactive)
+  (org-capture nil "n"))
+(map! :leader "nn" #'org-capture-notes)
 #+end_src
 
 ** Taking smart notes
+
+*** Org-roam
 #+begin_src emacs-lisp
-(use-package! org-roam
-  :after org
+(after! org-roam
+  (setq org-roam-capture-templates
+        '(("m" "main" plain "%?"
+           :if-new (file+head "main/${title}.org" "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("r" "reference" plain "%?"
+           :if-new (file+head "reference/${title}.org" "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("p" "project" plain "%?"
+           :if-new (file+head "project/${title}.org" "#+title: ${title}\n")
+           :immediate-finish t
+           :unnarrowed t)
+          ("a" "articles" plain "%?"
+           :if-new (file+head "articles/${title}.org" "#+title: ${title}\n#+filetags: :article:\n")
+           :immediate-finish t
+           :unnarrowed t)))
+
+  (cl-defmethod org-roam-node-type ((node org-roam-node))
+    "Return the TYPE of NODE."
+    (condition-case nil
+        (file-name-nondirectory
+         (directory-file-name
+          (file-name-directory
+           (file-relative-name (org-roam-node-file node) org-roam-directory))))
+      (error "")))
+  (setq org-roam-node-display-template
+        (concat "${type:15} ${title:*} " (propertize "${tags:60}" 'face 'org-tag)))
+
+  (defun tag-new-org-roam-node-as-draft ()
+    (org-roam-tag-add '("draft")))
+  (add-hook 'org-roam-capture-new-node-hook #'tag-new-org-roam-node-as-draft))
+#+end_src
+
+*** Citation management
+#+begin_src emacs-lisp
+(use-package citar
+  :after org-roam
   :config
-  (map! :leader
-        :desc "Capture to roam today" "nn" #'org-roam-dailies-capture-today
-        :desc "Go to roam today" "nN" #'org-roam-dailies-goto-today
-        :desc "Capture to roam node" "nd" #'org-roam-capture
-        :desc "Go to roam node" "nF" #'org-roam-node-find))
+  (setq citar-bibliography (expand-file-name "biblio.bib" org-roam-directory))
+  (map! :map org-mode-map "C-c i" #'citar-insert-citation))
 #+end_src
 
 ** Import documents to Org Mode
