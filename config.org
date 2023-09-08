@@ -141,6 +141,11 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
 *** Citation management
 #+begin_src emacs-lisp
+(after! oc
+  (setq org-cite-global-bibliography '("~/Documents/org/roam/biblio.bib")))
+#+end_src
+
+#+begin_src emacs-lisp
 (use-package! citar
   :after oc
   :custom
