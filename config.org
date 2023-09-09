@@ -162,14 +162,14 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   :after org)
 #+end_src
 
-* Coding
+* Editing
 ** Don't check syntax when editing
 #+begin_src emacs-lisp
 (after! flycheck
   (delq 'idle-change flycheck-check-syntax-automatically))
 #+end_src
 
-* Languages
+* Coding
 ** Elixir
 #+begin_src emacs-lisp
 (use-package! elixir-mode
@@ -184,6 +184,15 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 #+begin_src emacs-lisp
 (use-package! nix-mode
   :hook (before-save . nix-format-before-save))
+#+end_src
+
+** Web
+#+begin_src emacs-lisp
+(use-package! web-mode
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2))
 #+end_src
 
 * Tools
