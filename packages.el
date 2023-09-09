@@ -61,3 +61,4 @@
 (package! modus-themes)
 (package! osm)
 (package! elfeed :pin "55fb16")
+(package! mastodon)

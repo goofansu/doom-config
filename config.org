@@ -387,3 +387,11 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
   (interactive)
   (doom-project-find-file "~/src/yejun.dev"))
 #+end_src
+
+** Mastodon
+#+begin_src emacs-lisp
+(use-package! mastodon
+  :custom
+  (mastodon-instance-url "https://hachyderm.io")
+  (mastodon-active-user "goofansu"))
+#+end_src
