@@ -383,18 +383,35 @@ https://www.passwordstore.org/
 #+begin_src emacs-lisp
 (use-package! password-store
   :config
+  (defun yejun/password-store-otp-append (entry issuer secret)
+    "Append to ENTRY the OTP-URI consisting of issuer and secret."
+    (interactive (list (password-store-otp-completing-read)
+                       (read-string "Issuer: ")
+                       (read-passwd "Secret: " t)))
+    (let* ((secret (replace-regexp-in-string "\\s-" "" secret))
+           (otp-uri (format "otpauth://totp/totp-secret?secret=%s&issuer=%s" secret issuer)))
+      (password-store-otp-add-uri 'append entry otp-uri)))
+
+  (defun yejun/password-store-otp-insert (entry issuer secret)
+    "Insert a new ENTRY containing OTP-URI consisting of issuer and secret."
+    (interactive (list (password-store-otp-completing-read)
+                       (read-string "Issuer: ")
+                       (read-passwd "Secret: " t)))
+    (let* ((secret (replace-regexp-in-string "\\s-" "" secret))
+           (otp-uri (format "otpauth://totp/totp-secret?secret=%s&issuer=%s" secret issuer)))
+      (password-store-otp-add-uri 'insert entry otp-uri)))
+
   (map! :leader
         (:prefix-map ("o p" . "pass")
          :desc "Copy password"         "p" #'password-store-copy
          :desc "Copy selected field"   "f" #'password-store-copy-field
          :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
          :desc "Insert password"       "i" #'password-store-insert
-         :desc "Insert OTP"            "I" #'password-store-otp-insert
+         :desc "Insert OTP"            "I" #'yejun/password-store-otp-insert
          :desc "Edit password"         "e" #'password-store-edit
          :desc "Rename password entry" "r" #'password-store-rename
          :desc "Remove password entry" "R" #'password-store-remove
-         :desc "Append OTP"            "a" #'password-store-otp-append
-         :desc "Append OTP from image" "A" #'password-store-otp-append-from-image)))
+         :desc "Append OTP"            "a" #'yejun/password-store-otp-append)))
 #+end_src
 
 ** GPG
