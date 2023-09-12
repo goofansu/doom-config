@@ -195,10 +195,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   (defun tag-new-org-roam-node-as-draft ()
     (org-roam-tag-add '("draft")))
-  (add-hook 'org-roam-capture-new-node-hook #'tag-new-org-roam-node-as-draft)
+  (add-hook 'org-roam-capture-new-node-hook #'tag-new-org-roam-node-as-draft))
 
-  (map! :leader
-        "nF" #'org-roam-node-find))
+(map! :leader
+      "nF" #'org-roam-node-find)
 #+end_src
 
 *** Citation management
@@ -212,10 +212,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   :after oc
   :custom
   (citar-bibliography '("~/Documents/org/roam/biblio.bib"))
-  (citar-notes-paths '("~/Documents/org/roam/reference/"))
-  :config
-  (map! :leader
-        :desc "Bibliographic files" "nB" #'citar-open))
+  (citar-notes-paths '("~/Documents/org/roam/reference/")))
+
+(map! :leader
+      :desc "Bibliographic files" "nB" #'citar-open)
 #+end_src
 
 ** Import documents to Org Mode
@@ -338,25 +338,24 @@ https://paste.sr.ht
   :config
   (set-popup-rules!
     '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
-      ("^ChatGPT>" :side bottom :size 0.5 :select t)))
-  (map! :leader
-        :prefix ("z" . "chatgpt-shell")
-        "z" #'chatgpt-shell
-        "b" #'chatgpt-shell-prompt
-        "c" #'chatgpt-shell-prompt-compose
-        "s" #'chatgpt-shell-send-region
-        "S" #'chatgpt-shell-send-and-review-region
-        "e" #'chatgpt-shell-explain-code
-        "r" #'chatgpt-shell-refactor-code))
+      ("^ChatGPT>" :side bottom :size 0.5 :select t))))
+
+(map! :leader
+      :prefix ("z" . "chatgpt-shell")
+      "z" #'chatgpt-shell
+      "b" #'chatgpt-shell-prompt
+      "c" #'chatgpt-shell-prompt-compose
+      "s" #'chatgpt-shell-send-region
+      "S" #'chatgpt-shell-send-and-review-region
+      "e" #'chatgpt-shell-explain-code
+      "r" #'chatgpt-shell-refactor-code)
 #+end_src
 
 ** Dash.app
 #+begin_src emacs-lisp
-(use-package! dash-at-point
-  :config
-  (map! :leader
-        "sk" #'dash-at-point
-        "sK" #'dash-at-point-with-docset))
+(map! :leader
+      "sk" #'dash-at-point
+      "sK" #'dash-at-point-with-docset)
 #+end_src
 
 ** DEPRECATED IRC client
@@ -377,11 +376,26 @@ CLOSED: [2023-09-07 Thu 11:29]
 (global-set-key (kbd "s-k") #'+irc/jump-to-channel)
 #+end_src
 
-** Pass
+** Password management
+*** pass
 https://www.passwordstore.org/
 
 #+begin_src emacs-lisp
-(use-package! password-store
+(map! :leader
+      (:prefix-map ("o p" . "pass")
+       :desc "Copy password"         "p" #'password-store-copy
+       :desc "Copy selected field"   "f" #'password-store-copy-field
+       :desc "Insert password"       "i" #'password-store-insert
+       :desc "Edit password"         "e" #'password-store-edit
+       :desc "Rename password entry" "r" #'password-store-rename
+       :desc "Remove password entry" "R" #'password-store-remove))
+#+end_src
+
+*** pass-otp
+https://github.com/tadfisher/pass-otp
+
+#+begin_src emacs-lisp
+(use-package! password-store-otp
   :config
   (defun yejun/password-store-otp-append (entry issuer secret)
     "Append to ENTRY the OTP-URI consisting of issuer and secret."
@@ -399,19 +413,13 @@ https://www.passwordstore.org/
                        (read-passwd "Secret: " t)))
     (let* ((secret (replace-regexp-in-string "\\s-" "" secret))
            (otp-uri (format "otpauth://totp/totp-secret?secret=%s&issuer=%s" secret issuer)))
-      (password-store-otp-add-uri 'insert entry otp-uri)))
+      (password-store-otp-add-uri 'insert entry otp-uri))))
 
-  (map! :leader
-        (:prefix-map ("o p" . "pass")
-         :desc "Copy password"         "p" #'password-store-copy
-         :desc "Copy selected field"   "f" #'password-store-copy-field
-         :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
-         :desc "Insert password"       "i" #'password-store-insert
-         :desc "Insert OTP"            "I" #'yejun/password-store-otp-insert
-         :desc "Edit password"         "e" #'password-store-edit
-         :desc "Rename password entry" "r" #'password-store-rename
-         :desc "Remove password entry" "R" #'password-store-remove
-         :desc "Append OTP"            "a" #'yejun/password-store-otp-append)))
+(map! :leader
+      (:prefix-map ("o p" . "pass")
+       :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
+       :desc "Insert OTP"            "I" #'yejun/password-store-otp-insert
+       :desc "Append OTP"            "a" #'yejun/password-store-otp-append))
 #+end_src
 
 ** GPG
