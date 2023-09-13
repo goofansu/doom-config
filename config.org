@@ -419,7 +419,8 @@ https://github.com/tadfisher/pass-otp
       (:prefix-map ("o p" . "pass")
        :desc "Copy OTP token"        "y" #'password-store-otp-token-copy
        :desc "Insert OTP"            "I" #'yejun/password-store-otp-insert
-       :desc "Append OTP"            "a" #'yejun/password-store-otp-append))
+       :desc "Append OTP"            "a" #'yejun/password-store-otp-append
+       :desc "Append OTP from image" "A" #'password-store-otp-append-from-image))
 #+end_src
 
 ** GPG
