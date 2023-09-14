@@ -457,7 +457,16 @@ https://github.com/tadfisher/pass-otp
 #+end_src
 
 ** Mail
-*** Set backend of message-send
+*** SMTP
+Ref: https://www.gnu.org/software/emacs/manual/html_mono/smtpmail.html
+
+#+begin_src emacs-lisp
+(setq send-mail-function 'smtpmail-send-it
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      smtpmail-smtp-user "goofan.su@gmail.com"
+      smtpmail-debug-info t)
+#+end_src
 
 ** Mastodon
 #+begin_src emacs-lisp
