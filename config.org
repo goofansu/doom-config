@@ -458,12 +458,17 @@ https://github.com/tadfisher/pass-otp
 
 ** Mail
 *** Set backend of message-send
+
+** Mastodon
 #+begin_src emacs-lisp
-(setq send-mail-function 'sendmail-send-it)
+(use-package! mastodon
+  :custom
+  (mastodon-instance-url "https://hachyderm.io")
+  (mastodon-active-user "goofansu"))
 #+end_src
 
 * Projects
-** Vanilla Emacs
+** .emacs.d
 I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
 
 #+begin_src emacs-lisp
@@ -475,20 +480,12 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 (global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
 #+end_src
 
-** Blog
+** nix-config
 #+begin_src emacs-lisp
-(map! :leader
-      "fo" #'yejun/find-file-in-blog)
-
-(defun yejun/find-file-in-blog ()
+(defun yejun/find-file-in-nix-config ()
   (interactive)
-  (doom-project-find-file "~/src/yejun.dev"))
-#+end_src
+  (doom-project-find-file "~/.config/nix-config"))
 
-** Mastodon
-#+begin_src emacs-lisp
-(use-package! mastodon
-  :custom
-  (mastodon-instance-url "https://hachyderm.io")
-  (mastodon-active-user "goofansu"))
+(map! :leader
+      "fn" #'yejun/find-file-in-nix-config)
 #+end_src
