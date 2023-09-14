@@ -4,7 +4,7 @@
 * About me
 #+begin_src emacs-lisp
 (setq user-full-name "Yejun Su"
-      user-mail-address "yejun@hey.com")
+      user-mail-address "goofan.su@gmail.com")
 #+end_src
 
 * Appearance
