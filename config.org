@@ -457,15 +457,48 @@ https://github.com/tadfisher/pass-otp
 #+end_src
 
 ** Mail
-*** SMTP
+*** DEPRECATED SMTP
+CLOSED: [2023-09-15 Fri 12:55]
+:LOGBOOK:
+- State "DEPRECATED" from              [2023-09-15 Fri 12:55] \\
+  Replaced with msmtp configured in the m4ue section.
+:END:
 Ref: https://www.gnu.org/software/emacs/manual/html_mono/smtpmail.html
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (setq send-mail-function 'smtpmail-send-it
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587
-      smtpmail-smtp-user "goofan.su@gmail.com"
       smtpmail-debug-info t)
+#+end_src
+
+*** mu4e
+Ref: https://systemcrafters.net/emacs-mail/streamline-your-email-with-mu4e/
+
+#+begin_src emacs-lisp
+(after! mu4e
+  (set-email-account! "Gmail"
+                      '((mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+                        (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+                        (mu4e-trash-folder      . "/[Gmail]/Trash")
+                        (mu4e-refile-folder     . "/[Gmail]/All Mail"))
+                      t)
+
+  (setq sendmail-program (executable-find "msmtp")
+        send-mail-function #'smtpmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail)
+
+  (setq mu4e-maildir-shortcuts
+        '((:maildir "/Inbox"             :key ?i)
+          (:maildir "/[Gmail]/Sent Mail" :key ?s)
+          (:maildir "/[Gmail]/Drafts"    :key ?d)
+          (:maildir "/[Gmail]/Trash"     :key ?t)
+          (:maildir "/[Gmail]/All Mail"  :key ?a)))
+
+  (setq mu4e-bookmarks
+        '((:name "sourcehut lists" :query "lists.sr.ht" :key ?s))))
 #+end_src
 
 ** Mastodon
