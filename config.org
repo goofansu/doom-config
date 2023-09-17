@@ -514,5 +514,15 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
   (doom-project-find-file "~/.config/nix-config"))
 
 (map! :leader
-      "fn" #'yejun/find-file-in-nix-config)
+      :desc "Find file in Nix config" "fn" #'yejun/find-file-in-nix-config)
+#+end_src
+
+** blog
+#+begin_src emacs-lisp
+(defun yejun/open-blog-index-org ()
+  (interactive)
+  (find-file "~/src/yejun.dev/content-org/index.org"))
+
+(map! :leader
+      :desc "Open blog file" "nd" #'yejun/open-blog-index-org)
 #+end_src
