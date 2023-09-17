@@ -457,6 +457,8 @@ Ref: https://systemcrafters.net/emacs-mail/streamline-your-email-with-mu4e/
 
 #+begin_src emacs-lisp
 (after! mu4e
+  (setq mu4e-update-interval (* 15 60))
+
   (set-email-account! "Gmail"
                       '((mu4e-sent-folder       . "/[Gmail]/Sent Mail")
                         (mu4e-drafts-folder     . "/[Gmail]/Drafts")
