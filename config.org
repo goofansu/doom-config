@@ -494,6 +494,8 @@ Ref: https://systemcrafters.net/emacs-mail/streamline-your-email-with-mu4e/
 #+end_src
 
 ** Mastodon
+https://codeberg.org/martianh/mastodon.el
+
 #+begin_src emacs-lisp
 (use-package! mastodon
   :custom
