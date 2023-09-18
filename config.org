@@ -37,6 +37,11 @@
       doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
 #+end_src
 
+** Icon
+#+begin_src emacs-lisp
+(setq nerd-icons-font-names '("SymbolsNerdFontMono-Regular.ttf"))
+#+end_src
+
 * Better defaults
 Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
 
