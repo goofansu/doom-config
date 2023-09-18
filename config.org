@@ -263,6 +263,12 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 #+end_src
 
 * Tools
+** Emacs server
+#+begin_src emacs-lisp
+(when (display-graphic-p)
+  (setenv "EMACS_SERVER_NAME" "gui"))
+#+end_src
+
 ** Forge
 #+begin_src emacs-lisp
 (use-package! forge
