@@ -527,23 +527,3 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 
 (global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
 #+end_src
-
-** nix-config
-#+begin_src emacs-lisp
-(defun yejun/find-file-in-nix-config ()
-  (interactive)
-  (doom-project-find-file "~/.config/nix-config"))
-
-(map! :leader
-      :desc "Find file in Nix config" "fn" #'yejun/find-file-in-nix-config)
-#+end_src
-
-** blog
-#+begin_src emacs-lisp
-(defun yejun/open-blog-index-org ()
-  (interactive)
-  (find-file "~/src/yejun.dev/content-org/index.org"))
-
-(map! :leader
-      :desc "Open blog file" "nd" #'yejun/open-blog-index-org)
-#+end_src
