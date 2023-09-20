@@ -1,4 +1,4 @@
-#+TODO: ASSESS(a) TRIAL(t) | ADOPT(d) DEPRECATED(k@)
+#+TODO: ASSESS(a) TRIAL(t!) | ADOPT(d!) DEPRECATED(k@)
 #+title: Emacs configuration
 
 * About me
