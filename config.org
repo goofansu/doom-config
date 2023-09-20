@@ -375,20 +375,26 @@ https://paste.sr.ht
       "sK" #'dash-at-point-with-docset)
 #+end_src
 
-** DEPRECATED IRC client
-CLOSED: [2023-09-07 Thu 11:29]
+** TRIAL IRC client
 :LOGBOOK:
+- State "TRIAL"      from "DEPRECATED" [2023-09-21 Thu 01:12]
 - State "DEPRECATED" from              [2023-09-07 Thu 11:27] \\
   Use https://chat.sr.ht/ instead.
 :END:
 
-#+begin_src emacs-lisp :tangle no
-(set-irc-server! "Libera Chat"
-  '(:host "irc.libera.chat"
+Use IRC bouncer provided by chat.sr.ht.
+Manual: https://man.sr.ht/chat.sr.ht/quickstart.md#connecting-without-a-client-plugin
+
+#+begin_src emacs-lisp
+(set-irc-server! "sourcehut/liberachat"
+  '(:host "chat.sr.ht"
     :port 6697
-    :nick "goofansu"
-    :channels ("#emacs" "#elixir")
-    :nickserv-password (lambda (server) (auth-source-pick-first-password :host server))))
+    :use-tls t
+    :nick "goofans"
+    :realname "Yejun Su"
+    :nickserv-password (lambda (&rest _) (+pass-get-secret "irc.libera.chat"))
+    :sasl-username "goofansu/irc.libera.chat"
+    :sasl-password (lambda (&rest _) (+pass-get-secret "chat.sr.ht"))))
 
 (global-set-key (kbd "s-k") #'+irc/jump-to-channel)
 #+end_src
