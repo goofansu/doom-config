@@ -123,7 +123,7 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
   (setq org-capture-templates
         '(("t" "Tasks" entry (file +org-capture-todo-file) "* TODO %?\n%i\n%a" :prepend t)
           ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")
-          ("n" "Notes" entry  (file "roam/inbox.org") "* %?\n%i\n" :prepend t)))
+          ("n" "Notes" entry  (file +org-capture-notes-file) "* %?\n%i\n" :prepend t)))
 
   ;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
   (defun air-org-skip-subtree-if-priority (priority)
@@ -153,20 +153,14 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                      (air-org-skip-subtree-if-priority ?A)
                                                      (org-agenda-skip-if nil '(scheduled deadline)))))))))))
-
-(defun org-capture-notes ()
-  (interactive)
-  (org-capture nil "n"))
-(defun org-goto-notes ()
-  (interactive)
-  (find-file "~/org/roam/inbox.org"))
-(map! :leader
-      "nn" #'org-capture-notes
-      "nN" #'org-goto-notes)
 #+end_src
 
 ** Taking smart notes
 *** Org-roam
+#+begin_src emacs-lisp
+(setq org-roam-directory "~/org-roam/")
+#+end_src
+
 #+begin_src emacs-lisp
 (after! org-roam
   (setq org-roam-capture-templates
@@ -208,16 +202,21 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
 *** Citation management
 #+begin_src emacs-lisp
+(setq org-roam-reference-file (expand-file-name "reference.bib" org-roam-directory))
+(setq org-roam-reference-directory (expand-file-name "reference" org-roam-directory))
+#+end_src
+
+#+begin_src emacs-lisp
 (after! oc
-  (setq org-cite-global-bibliography '("~/org/roam/biblio.bib")))
+  (setq org-cite-global-bibliography (list org-roam-reference-file)))
 #+end_src
 
 #+begin_src emacs-lisp
 (use-package! citar
   :after oc
   :custom
-  (citar-bibliography '("~/org/roam/biblio.bib"))
-  (citar-notes-paths '("~/org/roam/reference/")))
+  (citar-bibliography (list org-roam-reference-file))
+  (citar-notes-paths (list org-roam-reference-directory)))
 
 (map! :leader
       :desc "Bibliographic files" "nB" #'citar-open)
