@@ -222,6 +222,13 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       :desc "Bibliographic files" "nB" #'citar-open)
 #+end_src
 
+** Make presentations
+https://gitlab.com/oer/org-re-reveal
+
+#+begin_src emacs-lisp
+(setq org-re-reveal-root "./reveal.js")
+#+end_src
+
 ** Import documents to Org Mode
 #+begin_src emacs-lisp
 (use-package! org-pandoc-import
