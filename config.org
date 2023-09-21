@@ -392,9 +392,9 @@ Manual: https://man.sr.ht/chat.sr.ht/quickstart.md#connecting-without-a-client-p
     :use-tls t
     :nick "goofans"
     :realname "Yejun Su"
-    :nickserv-password (lambda (&rest _) (+pass-get-secret "irc.libera.chat"))
     :sasl-username "goofansu/irc.libera.chat"
-    :sasl-password (lambda (&rest _) (+pass-get-secret "chat.sr.ht"))))
+    :sasl-password (lambda (&rest _) (+pass-get-secret "chat.sr.ht"))
+    :nickserv-password (lambda (&rest _) (+pass-get-secret "irc.libera.chat"))))
 
 (global-set-key (kbd "s-k") #'+irc/jump-to-channel)
 #+end_src
