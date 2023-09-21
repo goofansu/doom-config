@@ -400,14 +400,22 @@ Manual: https://man.sr.ht/chat.sr.ht/quickstart.md#connecting-without-a-client-p
 #+end_src
 
 *** circe
-Hide names list when joining channels. The handlers to ignore are found in
-=circe--irc-handler-table=.
+- Hide names list when joining channels:
+  #+begin_src emacs-lisp
+  (after! circe
+    (circe-set-display-handler "353" 'circe-display-ignore)
+    (circe-set-display-handler "366" 'circe-display-ignore))
+  #+end_src
+- Pull latest chat history:
+  #+begin_src emacs-lisp
+  (defun yejun/pull-chat-history ()
+    (interactive)
+    (circe-command-QUOTE
+     (format "CHATHISTORY LATEST %s * 100" circe-chat-target)))
 
-#+begin_src emacs-lisp
-(after! circe
-  (circe-set-display-handler "353" 'circe-display-ignore)
-  (circe-set-display-handler "366" 'circe-display-ignore))
-#+end_src
+  (map! :map circe-channel-mode-map
+        :localleader "P" #'yejun/pull-chat-history)
+  #+end_src
 
 ** Password management
 I use [[https://www.passwordstore.org/][pass]] and its extension [[https://github.com/tadfisher/pass-otp][pass-otp]] to store TOTP and 2FA recovery codes.
