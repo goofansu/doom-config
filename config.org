@@ -549,30 +549,30 @@ https://codeberg.org/martianh/mastodon.el
 I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
 
 #+begin_src emacs-lisp
-(defun yejun/launch-vanilla-emacs ()
+(defun yejun/vanilla-emacs--launch ()
   (interactive)
   (let ((default-directory "~/src/.emacs.d/"))
     (start-process "Emacs" nil "emacs" "-q" "-l" "init.el" "config.org")))
 
-(global-set-key (kbd "C-c e") #'yejun/launch-vanilla-emacs)
+(global-set-key (kbd "C-c e") #'yejun/vanilla-emacs--launch)
 #+end_src
 
 ** nix-config
 #+begin_src emacs-lisp
-(defun yejun/find-file-in-nix-config ()
+(defun yejun/nix-config--find-file ()
   (interactive)
   (doom-project-find-file "~/.config/nix-config"))
 
 (map! :leader
-      :desc "Find file in Nix config" "fn" #'yejun/find-file-in-nix-config)
+      :desc "Find file in Nix config" "fn" #'yejun/nix-config--find-file)
 #+end_src
 
 ** blog
 #+begin_src emacs-lisp
-(defun yejun/open-blog-index-org ()
+(defun yejun/blog--goto-index-org ()
   (interactive)
   (find-file "~/src/yejun.dev/content-org/index.org"))
 
 (map! :leader
-      :desc "Open blog file" "nd" #'yejun/open-blog-index-org)
+      :desc "Go to blog index.org" "nd" #'yejun/blog--goto-index-org)
 #+end_src
