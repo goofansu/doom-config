@@ -457,8 +457,13 @@ I use [[https://www.passwordstore.org/][pass]] and its extension [[https://githu
       :desc "Decrypt PGP file" "fm" #'yejun/decrypt-pgp-file)
 #+end_src
 
-** TRIAL Open Source Map
-#+begin_src emacs-lisp
+** DEPRECATED Open Source Map
+CLOSED: [2023-09-21 Thu 22:14]
+:LOGBOOK:
+- State "DEPRECATED" from "TRIAL"      [2023-09-21 Thu 22:14] \\
+  Not use often at the moment.
+:END:
+#+begin_src emacs-lisp :tangle no
 (use-package! osm
   :config
   (require 'osm-ol)
