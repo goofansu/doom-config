@@ -125,6 +125,8 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
           ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")
           ("n" "Notes" entry  (file +org-capture-notes-file) "* %?\n%i\n" :prepend t)))
 
+  (setq org-export-with-sub-superscripts nil)
+
   ;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
   (defun air-org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
