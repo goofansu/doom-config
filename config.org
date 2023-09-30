@@ -224,16 +224,12 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       :desc "Bibliographic files" "nB" #'citar-open)
 #+end_src
 
-** DEPRECATED Make presentations
-CLOSED: [2023-09-28 Thu 03:12]
-:LOGBOOK:
-- State "DEPRECATED" from              [2023-09-28 Thu 03:12] \\
-  Use the version in package, so that each org file can be exported as a presentation.
-:END:
+** Make presentations
 https://gitlab.com/oer/org-re-reveal
 
-#+begin_src emacs-lisp :tangle no
-(setq org-re-reveal-root "./reveal.js")
+#+begin_src emacs-lisp
+(after! org-re-reveal
+  (setq org-re-reveal-transition "none"))
 #+end_src
 
 ** Import documents to Org Mode
