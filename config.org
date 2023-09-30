@@ -565,11 +565,14 @@ https://codeberg.org/martianh/mastodon.el
    (if (use-region-p) (region-end) (point-max))
    "kitty @ send-text --match-tab title:nix-repl --stdin"))
 
+(defun org-babel-src-block-language ()
+  (let ((block-info (org-element-at-point)))
+    (and (eq (car block-info) 'src-block)
+         (org-element-property :language block-info))))
+
 (defadvice +eval/send-region-to-repl (around my-send-region-to-repl activate)
   (if (and (eq major-mode 'org-mode)
-           (let ((block-info (org-element-at-point)))
-             (and (eq (car block-info) 'src-block)
-                  (string= (org-element-property :language block-info) "nix"))))
+           (string= (org-babel-src-block-language) "nix"))
       (yejun/send-region-to-nix-repl)
     ad-do-it))
 #+end_src
