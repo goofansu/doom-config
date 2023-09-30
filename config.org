@@ -385,7 +385,7 @@ https://paste.sr.ht
   Use https://chat.sr.ht/ instead.
 :END:
 
-Use IRC bouncer provided by chat.sr.ht.
+*** Use IRC bouncer provided by chat.sr.ht
 Manual: https://man.sr.ht/chat.sr.ht/quickstart.md#connecting-without-a-client-plugin
 
 #+begin_src emacs-lisp
@@ -402,23 +402,23 @@ Manual: https://man.sr.ht/chat.sr.ht/quickstart.md#connecting-without-a-client-p
 (global-set-key (kbd "s-k") #'+irc/jump-to-channel)
 #+end_src
 
-*** circe
-- Hide names list when joining channels:
-  #+begin_src emacs-lisp
-  (after! circe
-    (circe-set-display-handler "353" 'circe-display-ignore)
-    (circe-set-display-handler "366" 'circe-display-ignore))
-  #+end_src
-- Pull latest chat history:
-  #+begin_src emacs-lisp
-  (defun yejun/pull-chat-history ()
-    (interactive)
-    (circe-command-QUOTE
-     (format "CHATHISTORY LATEST %s * 100" circe-chat-target)))
+*** Hide names list when joining channels:
+#+begin_src emacs-lisp
+(after! circe
+  (circe-set-display-handler "353" 'circe-display-ignore)
+  (circe-set-display-handler "366" 'circe-display-ignore))
+#+end_src
 
-  (map! :map circe-channel-mode-map
-        :localleader "P" #'yejun/pull-chat-history)
-  #+end_src
+*** Pull latest chat history:
+#+begin_src emacs-lisp
+(defun yejun/pull-chat-history ()
+  (interactive)
+  (circe-command-QUOTE
+   (format "CHATHISTORY LATEST %s * 100" circe-chat-target)))
+
+(map! :map circe-channel-mode-map
+      :localleader "P" #'yejun/pull-chat-history)
+#+end_src
 
 ** Password management
 I use [[https://www.passwordstore.org/][pass]] and its extension [[https://github.com/tadfisher/pass-otp][pass-otp]] to store TOTP and 2FA recovery codes.
