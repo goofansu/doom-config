@@ -551,6 +551,33 @@ https://codeberg.org/martianh/mastodon.el
   (mastodon-active-user "goofansu"))
 #+end_src
 
+** Kitty
+*** Select org-babel code block if possible
+#+begin_src emacs-lisp
+(defadvice mark-defun (around my-mark-defun activate)
+  (if (and (eq major-mode 'org-mode) (org-in-src-block-p))
+      (org-babel-mark-block)
+    ad-do-it))
+#+end_src
+
+*** Send text to the nix-repl tab
+#+begin_src emacs-lisp
+(defun yejun/send-region-to-nix-repl ()
+  (interactive)
+  (shell-command-on-region
+   (if (use-region-p) (region-beginning) (point-min))
+   (if (use-region-p) (region-end) (point-max))
+   "kitty @ send-text --match-tab title:nix-repl --stdin"))
+
+(defadvice +eval/send-region-to-repl (around my-send-region-to-repl activate)
+  (if (and (eq major-mode 'org-mode)
+           (let ((block-info (org-element-at-point)))
+             (and (eq (car block-info) 'src-block)
+                  (string= (org-element-property :language block-info) "nix"))))
+      (yejun/send-region-to-nix-repl)
+    ad-do-it))
+#+end_src
+
 * Projects
 ** .emacs.d
 I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
