@@ -577,6 +577,14 @@ https://codeberg.org/martianh/mastodon.el
     ad-do-it))
 #+end_src
 
+** Launcher
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix-map ("o '" . "tools")
+      :desc "Elfeed" "e" #'elfeed
+      :desc "Circe" "c" #'circe))
+#+end_src
+
 * Projects
 ** .emacs.d
 I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
