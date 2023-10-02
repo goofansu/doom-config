@@ -45,7 +45,7 @@
 * Better defaults
 Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
 
-*** Simple Settings
+** Simple Settings
 #+begin_src emacs-lisp
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
@@ -63,13 +63,13 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 #+end_src
 
-*** Frame sizing
+** Frame sizing
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(height . 24))
 (add-to-list 'default-frame-alist '(width . 80))
 #+end_src
 
-*** Windows
+** Windows
 #+begin_src emacs-lisp
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
@@ -79,7 +79,7 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
   (consult-buffer))
 #+end_src
 
-*** Evil
+** Evil
 #+begin_src emacs-lisp
 (after! evil
   (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
@@ -87,7 +87,7 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
         evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
 #+end_src
 
-*** Projectile
+** Projectile
 #+begin_src emacs-lisp
 (setq projectile-ignored-projects
       (list "~/" "/tmp" (expand-file-name "straight/repos" doom-local-dir)))
@@ -96,7 +96,7 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
 #+end_src
 
-*** Smart parentheses
+** Smart parentheses
 #+begin_src emacs-lisp
 (sp-local-pair
  '(org-mode)
