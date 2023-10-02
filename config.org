@@ -620,5 +620,6 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 (map! :leader
       (:prefix-map ("o '" . "tools")
        :desc "Elfeed" "e" #'elfeed
-       :desc "Circe" "c" #'circe))
+       :desc "Circe" "c" #'circe
+       :desc "Toot" "t" #'mastodon-toot))
 #+end_src
