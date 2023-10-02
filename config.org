@@ -548,24 +548,29 @@ https://codeberg.org/martianh/mastodon.el
 #+end_src
 
 ** Kitty
-*** Send text to the nix-repl tab
+*** Send text to Kitty's nix-repl tab
 #+begin_src emacs-lisp
-(defun yejun/send-region-to-nix-repl ()
-  (interactive)
+(defun yejun/ensure-kitty-nix-repl-tab ()
+  (unless (zerop (shell-command "kitty @ ls | grep -q '\"title\": \"nix-repl\"'"))
+    (shell-command "kitty @ launch --type tab --tab-title nix-repl nix repl")))
+
+(defun yejun/send-region-to-kitty-nix-repl-tab ()
   (shell-command-on-region
    (if (use-region-p) (region-beginning) (point-min))
    (if (use-region-p) (region-end) (point-max))
    "kitty @ send-text --match-tab title:nix-repl --stdin"))
 
-(defun org-babel-src-block-language ()
+(defun org-babel-src-block-language-p (language)
   (let ((block-info (org-element-at-point)))
     (and (eq (car block-info) 'src-block)
-         (org-element-property :language block-info))))
+         (string= language (org-element-property :language block-info)))))
 
 (defadvice +eval/send-region-to-repl (around my-send-region-to-repl activate)
   (if (and (eq major-mode 'org-mode)
-           (string= (org-babel-src-block-language) "nix"))
-      (yejun/send-region-to-nix-repl)
+           (org-babel-src-block-language-p "nix"))
+      (progn
+        (yejun/ensure-kitty-nix-repl-tab)
+        (yejun/send-region-to-kitty-nix-repl-tab))
     ad-do-it))
 #+end_src
 
