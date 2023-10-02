@@ -447,7 +447,7 @@ I use [[https://www.passwordstore.org/][pass]] and its extension [[https://githu
        :desc "Create OTP key URI"    "o" #'yejun/otp-key-uri))
 #+end_src
 
-** GPG
+** GnuPG
 #+begin_src emacs-lisp
 (defun yejun/decrypt-pgp-file ()
   (interactive)
