@@ -548,14 +548,6 @@ https://codeberg.org/martianh/mastodon.el
 #+end_src
 
 ** Kitty
-*** Select org-babel code block if possible
-#+begin_src emacs-lisp
-(defadvice mark-defun (around my-mark-defun activate)
-  (if (and (eq major-mode 'org-mode) (org-in-src-block-p))
-      (org-babel-mark-block)
-    ad-do-it))
-#+end_src
-
 *** Send text to the nix-repl tab
 #+begin_src emacs-lisp
 (defun yejun/send-region-to-nix-repl ()
@@ -575,14 +567,6 @@ https://codeberg.org/martianh/mastodon.el
            (string= (org-babel-src-block-language) "nix"))
       (yejun/send-region-to-nix-repl)
     ad-do-it))
-#+end_src
-
-** Launcher
-#+begin_src emacs-lisp
-(map! :leader
-      (:prefix-map ("o '" . "tools")
-      :desc "Elfeed" "e" #'elfeed
-      :desc "Circe" "c" #'circe))
 #+end_src
 
 * Projects
@@ -616,4 +600,21 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 
 (map! :leader
       :desc "Go to blog index.org" "nd" #'yejun/blog--goto-index-org)
+#+end_src
+
+* Advices
+** Select org-babel code block with mark-defun
+#+begin_src emacs-lisp
+(defadvice mark-defun (around my-mark-defun activate)
+  (if (and (eq major-mode 'org-mode) (org-in-src-block-p))
+      (org-babel-mark-block)
+    ad-do-it))
+#+end_src
+
+* App launcher
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix-map ("o '" . "tools")
+       :desc "Elfeed" "e" #'elfeed
+       :desc "Circe" "c" #'circe))
 #+end_src
