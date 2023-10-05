@@ -127,6 +127,9 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
 
   (setq org-export-with-sub-superscripts nil)
 
+  ;; Mark the content of org-babel source block
+  (define-key org-mode-map (kbd "C-M-S-h") #'org-babel-mark-block)
+
   ;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
   (defun air-org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
@@ -581,14 +584,6 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 #+end_src
 
 * Advices
-** Select org-babel source block with mark-defun
-#+begin_src emacs-lisp
-(defadvice mark-defun (around my-mark-defun activate)
-  (if (and (eq major-mode 'org-mode) (org-in-src-block-p))
-      (org-babel-mark-block)
-    ad-do-it))
-#+end_src
-
 ** Run Nix org-babel source block in Kitty's nix-repl tab
 #+begin_src emacs-lisp
 (defun kitty--ensure-nix-repl-tab ()
