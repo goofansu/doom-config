@@ -551,7 +551,12 @@ https://codeberg.org/martianh/mastodon.el
 #+end_src
 
 * Projects
-** .emacs.d
+** DEPRECATED .emacs.d
+CLOSED: [2023-10-07 Sat 17:11]
+:LOGBOOK:
+- State "DEPRECATED" from              [2023-10-07 Sat 17:11] \\
+  Start this Emacs in terminal.
+:END:
 I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
 
 #+begin_src emacs-lisp
@@ -612,9 +617,7 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 
 * App launcher
 #+begin_src emacs-lisp
-(map! :leader
-      (:prefix-map ("o '" . "tools")
-       :desc "Elfeed" "e" #'elfeed
-       :desc "Circe" "c" #'circe
-       :desc "Toot" "t" #'mastodon-toot))
+(global-set-key (kbd "C-c c") #'circe)
+(global-set-key (kbd "C-c e") #'elfeed)
+(global-set-key (kbd "C-c t") #'mastodon-toot)
 #+end_src
