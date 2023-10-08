@@ -247,7 +247,10 @@ CLOSED: [2023-10-08 Sun 21:16]
       "nF" #'yejun/browse-notes
       "ns" #'yejun/search-notes
       :desc "New note" "nn" #'denote
-      :desc "New note in subdirectory" "nN" #'denote-subdirectory)
+      :desc "New note in subdirectory" "nN" #'denote-subdirectory
+      (:prefix-map ("n d" . "denote")
+                   "l" #'denote-link
+                   "L" #'denote-backlinks))
 #+end_src
 
 *** Citation management
@@ -629,7 +632,7 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
   (find-file "~/src/yejun.dev/content-org/index.org"))
 
 (map! :leader
-      :desc "Go to blog index.org" "nd" #'yejun/blog--goto-index-org)
+      :desc "Go to blog index.org" "fb" #'yejun/blog--goto-index-org)
 #+end_src
 
 * Advices
