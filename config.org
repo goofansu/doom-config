@@ -161,12 +161,15 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 #+end_src
 
 ** Taking smart notes
-*** Org-roam
-#+begin_src emacs-lisp
+*** DEPRECATED Org-roam
+CLOSED: [2023-10-08 Sun 21:16]
+:LOGBOOK:
+- State "DEPRECATED" from              [2023-10-08 Sun 21:16] \\
+  Replaced with denote.
+:END:
+#+begin_src emacs-lisp :tangle no
 (setq org-roam-directory "~/org-roam/")
-#+end_src
 
-#+begin_src emacs-lisp
 (after! org-roam
   (setq org-roam-capture-templates
         '(("m" "main" plain "%?"
@@ -205,26 +208,67 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
       "nF" #'org-roam-node-find)
 #+end_src
 
-*** Citation management
+*** TRIAL Denote
+:LOGBOOK:
+- State "TRIAL"      from              [2023-10-08 Sun 19:04]
+:END:
 #+begin_src emacs-lisp
-(setq org-roam-reference-file (expand-file-name "reference.bib" org-roam-directory))
-(setq org-roam-reference-directory (expand-file-name "reference" org-roam-directory))
+(use-package! denote
+  :custom
+  (denote-directory "~/src/notes")
+  (denote-known-keywords '("emacs" "nix" "ruby" "elixir" "hugo" "sourcehut")))
+
+(with-eval-after-load 'org-capture
+  (add-to-list 'org-capture-templates
+               '("d" "Denote" plain
+                 (file denote-last-path)
+                 #'denote-org-capture
+                 :no-save t
+                 :immediate-finish nil
+                 :kill-buffer t
+                 :jump-to-captured t)))
+
+(defun yejun/browse-notes ()
+  (interactive)
+  (doom-project-find-file denote-directory))
+
+(defun yejun/search-notes (query)
+  "Perform a text search on `org-directory'."
+  (interactive
+   (list (if (doom-region-active-p)
+             (buffer-substring-no-properties
+              (doom-region-beginning)
+              (doom-region-end))
+           "")))
+  (+default/search-project-for-symbol-at-point
+   query denote-directory))
+
+(map! :leader
+      "nF" #'yejun/browse-notes
+      "ns" #'yejun/search-notes
+      :desc "New note" "nn" #'denote
+      :desc "New note in subdirectory" "nN" #'denote-subdirectory)
 #+end_src
 
+*** Citation management
 #+begin_src emacs-lisp
-(after! oc
-  (setq org-cite-global-bibliography (list org-roam-reference-file)))
+(setq yejun/reference-file (expand-file-name "reference.bib" denote-directory))
+(setq yejun/reference-directory (expand-file-name "reference" denote-directory))
 #+end_src
 
 #+begin_src emacs-lisp
 (use-package! citar
-  :after oc
   :custom
-  (citar-bibliography (list org-roam-reference-file))
-  (citar-notes-paths (list org-roam-reference-directory)))
+  (citar-bibliography (list yejun/reference-file))
+  (citar-notes-paths (list yejun/reference-directory)))
 
 (map! :leader
       :desc "Bibliographic files" "nB" #'citar-open)
+#+end_src
+
+#+begin_src emacs-lisp
+(after! oc
+  (setq org-cite-global-bibliography (list yejun/reference-file)))
 #+end_src
 
 ** Make presentations

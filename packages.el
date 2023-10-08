@@ -63,3 +63,4 @@
 (package! elfeed :pin "55fb16")
 (package! org :pin "806abc")
 (package! mastodon)
+(package! denote)
