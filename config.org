@@ -121,9 +121,9 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
           ("DEPRECATED" . (:inherit (italic +org-todo-cancel)))))
 
   (setq org-capture-templates
-        '(("t" "Tasks" entry (file +org-capture-todo-file) "* TODO %?\n%i\n%a" :prepend t)
-          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i\n%a")
-          ("n" "Notes" entry  (file +org-capture-notes-file) "* %?\n%i\n" :prepend t)))
+        '(("t" "Tasks" entry (file +org-capture-todo-file) "* TODO %?\n%i" :prepend t)
+          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i")
+          ("n" "Notes" entry  (file +org-capture-notes-file) "* %?\n%i" :prepend t)))
 
   (setq org-export-with-sub-superscripts nil)
 
