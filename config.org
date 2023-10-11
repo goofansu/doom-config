@@ -308,6 +308,7 @@ https://gitlab.com/oer/org-re-reveal
 ** Nix
 #+begin_src emacs-lisp
 (use-package! nix-mode
+  :custom (nix-nixfmt-bin "nixpkgs-fmt")
   :hook (before-save . nix-format-before-save))
 #+end_src
 
