@@ -301,6 +301,10 @@ https://gitlab.com/oer/org-re-reveal
       (eglot-format-buffer))))
 #+end_src
 
+#+begin_src emacs-lisp
+(set-eglot-client! 'elixir-mode '("nextls" "--stdio"))
+#+end_src
+
 ** Nix
 #+begin_src emacs-lisp
 (use-package! nix-mode
