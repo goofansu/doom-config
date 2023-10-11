@@ -234,6 +234,11 @@ CLOSED: [2023-10-08 Sun 21:16]
    query denote-directory))
 
 (map! :leader
+      "nn" #'denote
+      "nN" #'denote-subdirectory
+      "ni" #'denote-link
+      "nF" #'yejun/browse-notes
+      "ns" #'yejun/search-notes
       (:prefix-map ("n d" . "denote")
        :desc "Create note"                 "d" #'denote
        :desc "Create note in subdirectory" "D" #'denote-subdirectory
