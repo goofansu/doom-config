@@ -43,7 +43,7 @@
 #+end_src
 
 * Better defaults
-Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
+Most better defaults are taken from https://tecosaur.github.io/emacs-config/config.html#better-defaults
 
 ** Simple Settings
 #+begin_src emacs-lisp
