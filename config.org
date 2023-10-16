@@ -331,6 +331,12 @@ https://gitlab.com/oer/org-re-reveal
   (web-mode-code-indent-offset 2))
 #+end_src
 
+#+begin_src emacs-lisp
+(use-package! css-mode
+  :custom
+  (css-indent-offset 2))
+#+end_src
+
 * Tools
 ** Emacs server
 #+begin_src emacs-lisp
