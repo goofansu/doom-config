@@ -677,10 +677,3 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
         (kitty--send-region-to-nix-repl-tab))
     ad-do-it))
 #+end_src
-
-* App launcher
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-c c") #'circe)
-(global-set-key (kbd "C-c e") #'elfeed)
-(global-set-key (kbd "C-c t") #'mastodon-toot)
-#+end_src
