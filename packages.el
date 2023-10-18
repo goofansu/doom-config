@@ -64,3 +64,4 @@
 (package! org :pin "806abc")
 (package! mastodon)
 (package! denote)
+(package! sicp)
