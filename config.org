@@ -159,7 +159,18 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                      ((org-agenda-overriding-header "ALL normal priority tasks:")
                       (org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                      (air-org-skip-subtree-if-priority ?A)
-                                                     (org-agenda-skip-if nil '(scheduled deadline)))))))))))
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))))))))
+
+  ;; Save all org buffers after certain actions are performed: setting todo item
+  ;; state, scheduling an item, assigning a deadline, and logging a note.
+  (defmacro func-ignore (fnc)
+    "Return function that ignores its arguments and invokes FNC."
+    `(lambda (&rest _rest)
+       (funcall ,fnc)))
+  (advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
+  (advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
+  (advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
+  (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers)))
 #+end_src
 
 ** Taking smart notes
