@@ -43,7 +43,7 @@
 #+end_src
 
 * Better defaults
-Most better defaults are taken from https://tecosaur.github.io/emacs-config/config.html#better-defaults
+Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
 
 ** Simple Settings
 #+begin_src emacs-lisp
@@ -106,6 +106,8 @@ Most better defaults are taken from https://tecosaur.github.io/emacs-config/conf
 
 * Organize my life
 ** Org Mode
+Ref: https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
+
 #+begin_src emacs-lisp
 (setq org-directory "~/org/")
 #+end_src
@@ -130,7 +132,7 @@ Most better defaults are taken from https://tecosaur.github.io/emacs-config/conf
   ;; Mark the content of org-babel source block
   (define-key org-mode-map (kbd "C-M-S-h") #'org-babel-mark-block)
 
-  ;; https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
+  ;; Custom agenda
   (defun air-org-skip-subtree-if-priority (priority)
     "Skip an agenda subtree if it has a priority of PRIORITY.
 PRIORITY may be one of the characters ?A, ?B, or ?C."
