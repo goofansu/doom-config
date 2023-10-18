@@ -96,8 +96,13 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
 #+end_src
 
-** Smart parentheses
-#+begin_src emacs-lisp
+** DEPRECATED Smart parentheses
+CLOSED: [2023-10-18 Wed 14:06]
+:LOGBOOK:
+- State "DEPRECATED" from              [2023-10-18 Wed 14:06] \\
+  not used
+:END:
+#+begin_src emacs-lisp :tangle no
 (sp-local-pair
  '(org-mode)
  "<<" ">>"
