@@ -307,6 +307,13 @@ https://gitlab.com/oer/org-re-reveal
   :after org)
 #+end_src
 
+** Publish websites
+#+begin_src emacs-lisp
+(use-package! ox-hugo
+  :custom
+  (org-hugo-delete-trailing-ws nil))
+#+end_src
+
 * Editing
 ** Don't check syntax when editing
 #+begin_src emacs-lisp
