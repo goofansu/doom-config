@@ -338,18 +338,19 @@ https://gitlab.com/oer/org-re-reveal
 
 *** Execute nix code block with org-babel
 #+begin_src emacs-lisp
-(defun org-babel-execute:nix (body params)
-  (with-temp-buffer
-    (insert body)
-    (shell-command-on-region
-     (point-min) (point-max)
-     "nix-instantiate --eval - <<EOF\n$(cat)\nEOF"
-     (current-buffer)
-     t)
-    (buffer-string)))
+(after! org
+  (defun org-babel-execute:nix (body params)
+    (with-temp-buffer
+      (insert body)
+      (shell-command-on-region
+       (point-min) (point-max)
+       "nix-instantiate --eval - <<EOF\n$(cat)\nEOF"
+       (current-buffer)
+       t)
+      (buffer-string)))
 
-(add-to-list 'org-babel-load-languages '(nix . t))
-(org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages)
+  (add-to-list 'org-babel-load-languages '(nix . t))
+  (org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages))
 #+end_src
 
 ** Web
