@@ -262,18 +262,14 @@ CLOSED: [2023-10-08 Sun 21:16]
    query denote-directory))
 
 (map! :leader
-      "nn" #'denote
-      "nN" #'denote-subdirectory
-      "ni" #'denote-link
-      "nF" #'yejun/browse-notes
-      "ns" #'yejun/search-notes
-      (:prefix-map ("n d" . "denote")
-       :desc "Create note"                 "d" #'denote
-       :desc "Create note in subdirectory" "D" #'denote-subdirectory
-       :desc "Browse notes"                "f" #'yejun/browse-notes
-       :desc "Link note"                   "l" #'denote-link
-       :desc "Show backlinks"              "L" #'denote-backlinks
-       :desc "Search notes"                "s" #'yejun/search-notes))
+      :desc "Create note"                 "nn" #'denote
+      :desc "Create note in type"         "nN" #'denote-type
+      :desc "Create note in date"         "nd" #'denote-date
+      :desc "Create note in subdirectory" "nD" #'denote-subdirectory
+      :desc "Create note in template"     "nT" #'denote-template
+      :desc "Link note"                   "ni" #'denote-link
+      :desc "Browse notes"                "nF" #'yejun/browse-notes
+      :desc "Search notes"                "ns" #'yejun/search-notes)
 #+end_src
 
 *** Citation management
