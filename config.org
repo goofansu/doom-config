@@ -129,9 +129,9 @@ Ref: https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.ht
 
   (setq org-capture-templates
         '(("t" "Tasks" entry (file +org-capture-todo-file) "* TODO %?\n%i" :prepend t)
-          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i")
-          ("n" "Notes" entry  (file +org-capture-notes-file) "* %?\n%i" :prepend t)))
+          ("j" "Journal" entry (file+olp+datetree +org-capture-journal-file) "* %U %?\n%i")))
 
+  ;; Export
   (setq org-export-with-sub-superscripts nil)
 
   ;; Mark the content of org-babel source block
@@ -238,7 +238,7 @@ CLOSED: [2023-10-08 Sun 21:16]
 
 (with-eval-after-load 'org-capture
   (add-to-list 'org-capture-templates
-               '("d" "Denote" plain
+               '("n" "Notes" plain
                  (file denote-last-path)
                  #'denote-org-capture
                  :no-save t
