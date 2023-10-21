@@ -585,8 +585,17 @@ CLOSED: [2023-09-21 Thu 22:14]
 *** Add an option to send skip-ci in magit-push
 #+begin_src emacs-lisp
 (after! magit
+  ;; git push with skip-ci option
   (transient-append-suffix 'magit-push "-n"
-    '("-s" "Skip CI" "--push-option=skip-ci")))
+    '("-s" "Skip CI" "--push-option=skip-ci"))
+
+  ;; git push to all remotes
+  (transient-append-suffix 'magit-push "e"
+    '("E" "everywhere" magit-push-all))
+  (defun magit-push-all (&optional args)
+    (interactive (list (magit-push-arguments)))
+    (dolist (remote (magit-list-remotes))
+      (magit-push-to-remote remote args))))
 #+end_src
 
 ** Mail
