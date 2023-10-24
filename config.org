@@ -340,7 +340,22 @@ https://gitlab.com/oer/org-re-reveal
 #+begin_src emacs-lisp
 (use-package! nix-mode
   :custom (nix-nixfmt-bin "nixfmt")
-  :hook (before-save . nix-format-before-save))
+  :hook
+  (before-save . nix-format-before-save)
+  (nix-mode . yejun/display-nix-nixfmt-bin))
+
+(defun yejun/display-nix-nixfmt-bin ()
+  (add-to-list 'mode-line-process '(:eval nix-nixfmt-bin)))
+
+(defun yejun/toggle-nixfmt-bin ()
+  (interactive)
+  (if (string-match "nixfmt" nix-nixfmt-bin)
+      (setq nix-nixfmt-bin "nixpkgs-fmt")
+    (setq nix-nixfmt-bin "nixfmt"))
+  (message (concat "nix-nixfmt-bin is " nix-nixfmt-bin)))
+
+(map! :leader
+      :desc "nix-nixfmt-bin" "tn" #'yejun/toggle-nixfmt-bin)
 #+end_src
 
 *** Execute nix code block with org-babel
