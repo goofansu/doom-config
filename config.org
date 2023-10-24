@@ -1,4 +1,4 @@
-#+TODO: ASSESS(a) TRIAL(t!) | ADOPT(d!) DEPRECATED(k@)
+#+TODO: ASSESS(a) TRIAL(t!) HOLD(h@) | ADOPT(d!)
 #+title: Emacs configuration
 
 * About me
@@ -96,10 +96,10 @@ Ref: https://tecosaur.github.io/emacs-config/config.html#better-defaults
   (or (mapcar (lambda (p) (s-starts-with-p p filepath)) projectile-ignored-projects)))
 #+end_src
 
-** DEPRECATED Smart parentheses
+** HOLD Smart parentheses
 CLOSED: [2023-10-18 Wed 14:06]
 :LOGBOOK:
-- State "DEPRECATED" from              [2023-10-18 Wed 14:06] \\
+- State "HOLD" from              [2023-10-18 Wed 14:06] \\
   not used
 :END:
 #+begin_src emacs-lisp :tangle no
@@ -125,7 +125,7 @@ Ref: https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.ht
         '((sequence "TODO(t)" "HOLD(h@/!)" "|" "DONE(d!)" "KILL(k@)")))
   (setq org-todo-keyword-faces
         '(("KILL" . (:inherit (italic +org-todo-cancel)))
-          ("DEPRECATED" . (:inherit (italic +org-todo-cancel)))))
+          ("HOLD" . (:inherit (italic +org-todo-cancel)))))
 
   (setq org-capture-templates
         '(("t" "Tasks" entry (file +org-capture-todo-file) "* TODO %?\n%i" :prepend t)
@@ -179,10 +179,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 #+end_src
 
 ** Taking smart notes
-*** DEPRECATED Org-roam
+*** HOLD Org-roam
 CLOSED: [2023-10-08 Sun 21:16]
 :LOGBOOK:
-- State "DEPRECATED" from              [2023-10-08 Sun 21:16] \\
+- State "HOLD" from              [2023-10-08 Sun 21:16] \\
   Replaced with denote.
 :END:
 #+begin_src emacs-lisp :tangle no
@@ -226,8 +226,10 @@ CLOSED: [2023-10-08 Sun 21:16]
       "nF" #'org-roam-node-find)
 #+end_src
 
-*** TRIAL Denote
+*** ADOPT Denote
+CLOSED: [2023-10-24 Tue 10:58]
 :LOGBOOK:
+- State "ADOPT"      from "TRIAL"      [2023-10-24 Tue 10:58]
 - State "TRIAL"      from              [2023-10-08 Sun 19:04]
 :END:
 #+begin_src emacs-lisp
@@ -497,10 +499,12 @@ https://paste.sr.ht
       "sK" #'dash-at-point-with-docset)
 #+end_src
 
-** TRIAL IRC client
+** ADOPT IRC client
+CLOSED: [2023-10-24 Tue 10:59]
 :LOGBOOK:
-- State "TRIAL"      from "DEPRECATED" [2023-09-21 Thu 01:12]
-- State "DEPRECATED" from              [2023-09-07 Thu 11:27] \\
+- State "ADOPT"      from "TRIAL"      [2023-10-24 Tue 10:59]
+- State "TRIAL"      from "HOLD" [2023-09-21 Thu 01:12]
+- State "HOLD" from              [2023-09-07 Thu 11:27] \\
   Use https://chat.sr.ht/ instead.
 :END:
 
@@ -579,10 +583,10 @@ I use [[https://www.passwordstore.org/][pass]] and its extension [[https://githu
       :desc "Decrypt PGP file" "fm" #'yejun/decrypt-pgp-file)
 #+end_src
 
-** DEPRECATED Open Source Map
+** HOLD Open Source Map
 CLOSED: [2023-09-21 Thu 22:14]
 :LOGBOOK:
-- State "DEPRECATED" from "TRIAL"      [2023-09-21 Thu 22:14] \\
+- State "HOLD" from "TRIAL"      [2023-09-21 Thu 22:14] \\
   Not use often at the moment.
 :END:
 #+begin_src emacs-lisp :tangle no
@@ -614,10 +618,10 @@ CLOSED: [2023-09-21 Thu 22:14]
 #+end_src
 
 ** Mail
-*** DEPRECATED SMTP
+*** HOLD SMTP
 CLOSED: [2023-09-15 Fri 12:55]
 :LOGBOOK:
-- State "DEPRECATED" from              [2023-09-15 Fri 12:55] \\
+- State "HOLD" from              [2023-09-15 Fri 12:55] \\
   Replaced with msmtp configured in the m4ue section.
 :END:
 Ref: https://www.gnu.org/software/emacs/manual/html_mono/smtpmail.html
@@ -676,10 +680,10 @@ https://codeberg.org/martianh/mastodon.el
 #+end_src
 
 * Projects
-** DEPRECATED .emacs.d
+** HOLD .emacs.d
 CLOSED: [2023-10-07 Sat 17:11]
 :LOGBOOK:
-- State "DEPRECATED" from              [2023-10-07 Sat 17:11] \\
+- State "HOLD" from              [2023-10-07 Sat 17:11] \\
   Start this Emacs in terminal.
 :END:
 I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][here]].
