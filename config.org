@@ -743,5 +743,5 @@ I'm building my own Emacs configuration [[https://github.com/goofansu/.emacs.d][
 * Customize
 ** Use Kagi for +lookup/online
 #+begin_src emacs-lisp
-(setq +lookup-provider-url-alist (list '("Kagi" "https://kagi.com/search?q=%s")))
+(add-to-list '+lookup-provider-url-alist '("Kagi" "https://kagi.com/search?q=%s"))
 #+end_src
