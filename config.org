@@ -482,8 +482,8 @@ https://paste.sr.ht
   (chatgpt-shell-openai-key (lambda () (+pass-get-secret "api.openai.com")))
   :config
   (set-popup-rules!
-    '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t)
-      ("^ChatGPT>" :side bottom :size 0.5 :select t))))
+    '(("^\\*chatgpt\\*" :side bottom :size 0.5 :select t :ttl nil)
+      ("^ChatGPT>" :side bottom :size 0.5 :select t :ttl nil))))
 
 (map! :leader
       :prefix ("z" . "chatgpt-shell")
