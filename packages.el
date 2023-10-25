@@ -61,7 +61,7 @@
 (package! modus-themes)
 ;; (package! osm)
 (package! elfeed :pin "55fb16")
-(package! org :pin "806abc")
+(package! org :pin "55db64")
 (package! mastodon)
 (package! denote)
 (package! sicp)

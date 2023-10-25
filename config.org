@@ -316,8 +316,7 @@ https://gitlab.com/oer/org-re-reveal
 #+begin_src emacs-lisp
 (use-package! ox-hugo
   :custom
-  (org-hugo-delete-trailing-ws nil)
-  (org-element--cache-self-verify t))
+  (org-hugo-delete-trailing-ws nil))
 #+end_src
 
 * Editing
