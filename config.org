@@ -36,8 +36,8 @@
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
 
-(when (member "Noto Sans Mono CJK SC" (font-family-list))
-  (set-fontset-font t 'han (font-spec :family "Noto Sans Mono CJK SC" :size 16)))
+(add-hook! 'after-setting-font-hook :append
+  (set-fontset-font t 'han (font-spec :family "Noto Sans Mono CJK SC")))
 #+end_src
 
 ** Icon
