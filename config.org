@@ -357,7 +357,7 @@ https://gitlab.com/oer/org-re-reveal
   (if (string-match "nixfmt" nix-nixfmt-bin)
       (setq nix-nixfmt-bin "nixpkgs-fmt")
     (setq nix-nixfmt-bin "nixfmt"))
-  (message (concat "nix-nixfmt-bin is " nix-nixfmt-bin)))
+  (message (concat "Nix formatter is set to " nix-nixfmt-bin)))
 
 (map! :leader
       :desc "nix-nixfmt-bin" "tn" #'yejun/toggle-nixfmt-bin)
