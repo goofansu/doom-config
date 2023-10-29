@@ -31,6 +31,12 @@
           (t . (1.1)))))
 #+end_src
 
+*** Toggle light and dark themes
+#+begin_src emacs-lisp
+(map! :leader
+      :desc "Light and dark themes" "tt" #'modus-themes-toggle)
+#+end_src
+
 ** Font
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
