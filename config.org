@@ -43,7 +43,7 @@
       doom-variable-pitch-font (font-spec :family "Iosevka" :size 16))
 
 (add-hook! 'after-setting-font-hook :append
-  (set-fontset-font t 'han (font-spec :family "Noto Sans Mono CJK SC")))
+  (set-fontset-font t 'han (font-spec :family "Source Han Sans")))
 #+end_src
 
 ** Icon
