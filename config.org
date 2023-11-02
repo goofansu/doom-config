@@ -373,11 +373,12 @@ https://gitlab.com/oer/org-re-reveal
 #+begin_src emacs-lisp
 (after! org
   (defun org-babel-execute:nix (body params)
+    (setq strict-option (if (assoc :strict params) "--strict" ""))
     (with-temp-buffer
       (insert body)
       (shell-command-on-region
        (point-min) (point-max)
-       "nix-instantiate --eval - <<EOF\n$(cat)\nEOF"
+       (concat "nix-instantiate --eval " strict-option " - <<EOF\n$(cat)\nEOF")
        (current-buffer)
        t)
       (buffer-string)))
