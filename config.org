@@ -123,7 +123,7 @@ CLOSED: [2023-10-18 Wed 14:06]
 Ref: https://blog.aaronbieber.com/2016/09/24/an-agenda-for-life-with-org-mode.html
 
 #+begin_src emacs-lisp
-(setq org-directory "~/org/")
+(setq org-directory "~/src/org/")
 #+end_src
 
 #+begin_src emacs-lisp
