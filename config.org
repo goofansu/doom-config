@@ -245,7 +245,7 @@ CLOSED: [2023-10-24 Tue 10:58]
 (use-package! denote
   :custom
   (denote-directory "~/src/notes")
-  (denote-known-keywords '("emacs" "nix" "ruby" "elixir" "sourcehut" "web" "security")))
+  (denote-known-keywords '("emacs" "nix" "ruby" "elixir" "webdev")))
 
 (with-eval-after-load 'org-capture
   (add-to-list 'org-capture-templates
