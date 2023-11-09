@@ -553,7 +553,7 @@ Manual: https://man.sr.ht/chat.sr.ht/quickstart.md#connecting-without-a-client-p
   '(:host "chat.sr.ht"
     :port 6697
     :use-tls t
-    :nick "goofans"
+    :nick "goofansu"
     :realname "Yejun Su"
     :sasl-username "goofansu/irc.libera.chat"
     :sasl-password (lambda (&rest _) (+pass-get-secret "chat.sr.ht"))
